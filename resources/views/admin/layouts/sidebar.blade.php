@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
         <img src="{{ asset('img/logo_kota.png') }}" alt="{{ Setting::getName('app_name') }}"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">DO Batu Bara</span>
+        <span class="brand-text font-weight-light">{{ config('global.app_name') }}</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -86,7 +86,7 @@
                     </li>
                 @endcan --}}
 
-                <li class="nav-header ml-2">Manajemen DO</li>
+                <li class="nav-header ml-2">Master Data</li>
                 @can('pengajuan verifikasi index')
                     <li class="nav-item menu-is-opening {{ request()->is('admin/kendaraan*') ? 'menu-open' : '' }} ">
                         <a href="" class="nav-link {{ request()->is('admin/kendaraan*') ? 'active' : '' }}">
@@ -106,7 +106,7 @@
                                 <a href="{{ route('pemilik.index') }}"
                                     class="nav-link {{ request()->routeIs('pemilik*') ? 'active' : '' }}">
                                     <i class="fas fa-user-cog nav-icon"></i>
-                                    <p>Pemilik</p>
+                                    <p>Kursi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -120,54 +120,30 @@
                     </li>
                 @endcan
                 <li class="nav-item">
-                    <a href="{{ route('transportir.index') }}" class="nav-link  {{ request()->routeIs('transportir*') ? 'active' : '' }}" >
-                        <i class="fas fa-warehouse nav-icon"></i>
-                        <p>Master Transportir</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('tujuan.index') }}" class="nav-link  {{ request()->routeIs('tujuan*') ? 'active' : '' }}" >
+                  <a href="{{ route('lokasi.index') }}" class="nav-link  {{ request()->routeIs('lokasi*') ? 'active' : '' }}" >
                         <i class="fas fa-road nav-icon"></i>
-                        <p>Master Tujuan</p>
+                        <p>Kelola Lokasi</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('harga.index') }}" class="nav-link  {{ request()->routeIs('harga*') ? 'active' : '' }}" >
-                        <i class="fas fa-list-ul nav-icon"></i>
-                        <p>Master Harga</p>
+                    <a href="{{ route('jadwal.index') }}" class="nav-link  {{ request()->routeIs('jadwal*') ? 'active' : '' }}" >
+                        <i class="fas fa-warehouse nav-icon"></i>
+                        <p>Kelola Jadwal</p>
                     </a>
                 </li>
-                <li class="nav-header ml-2">Transaksi DO</li>
                 <li class="nav-item">
-                  <a href="{{ route('uang-jalan.index') }}" class="nav-link  {{ request()->routeIs('uang-jalan*') ? 'active' : '' }}" >
-                     <i class="fas fa-file-invoice-dollar  nav-icon"></i>
-                      <p>Uang Jalan</p>
+                  <a href="" class="nav-link  {{ request()->routeIs('transportir*') ? 'active' : '' }}" >
+                      <i class="fas fa-warehouse nav-icon"></i>
+                      <p>Order Masuk</p>
                   </a>
               </li>
-                <li class="nav-item">
-                  <a href="{{ route('setoran.index') }}" class="nav-link  {{ request()->routeIs('setoran*') ? 'active' : '' }}" >
-                      <i class="fas fa-shopping-cart nav-icon"></i>
-                      <p>Setoran</p>
-                  </a>
-              </li>
-                <li class="nav-item">
-                  <a href="{{ route('pembayaran.index') }}" class="nav-link  {{ request()->routeIs('pembayaran*') ? 'active' : '' }}" >
-                        <i class="fas fa-shopping-cart nav-icon"></i>
-                        <p>Pembayaran</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-hand-holding-usd nav-icon"></i>
-                        <p>Pencairan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Laporan</p>
-                    </a>
-                </li>
+              <li class="nav-item">
+               <a href="" class="nav-link  {{ request()->routeIs('transportir*') ? 'active' : '' }}" >
+                   <i class="fas fa-warehouse nav-icon"></i>
+                   <p>Pelanggan</p>
+               </a>
+           </li>
+               
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -7,7 +7,6 @@
             style="font-size: 10px !important; color: #737373!important; font-style: italic;">
           {{ $info }} </span>
     </label>
-    <input id="{{ $id }}" type="file" data-max-file-size="{{ $max }}" class="filepond "
-        accept="{{ config('upload.pengajuan.filetype') }}" name="{{ $id }}">
+    {{ $slot }}
     <span  class="text-danger error-text {{ $id }}_err"></span>
 </div>

@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Data tujuan</h1>
+                        <h1 class="m-0">Data Lokasi</h1>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
-                                            class="fas fa-plus"></i> Tambah tujuan</a>
+                                            class="fas fa-plus"></i> Tambah Lokasi</a>
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -55,7 +55,7 @@
         </section>
     </div>
 @endsection
-@include('app.tujuan.modal-create')
+@include('app.lokasi.modal-create')
 @push('js')
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -79,7 +79,7 @@
                 order: [
                     [2, 'desc']
                 ],
-                ajax: @json(route('tujuan.index')),
+                ajax: @json(route('lokasi.index')),
 
                 columns: [{
                         data: "DT_RowIndex",
@@ -118,7 +118,7 @@
                 formData.append('method', 'PUT');
                 $.ajax({
                     type: 'POST',
-                    url: @json(route('tujuan.store')),
+                    url: @json(route('lokasi.store')),
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -166,7 +166,7 @@
             $('#datatable').on('click', '.btn_hapus', function(e) {
                 let data = $(this).attr('data-hapus');
                 Swal.fire({
-                    title: 'Apakah anda yakin ingin menghapus data tujuan?',
+                    title: 'Apakah anda yakin ingin menghapus data Lokasi?',
                     text: data,
                     icon: 'warning',
                     showCancelButton: true,

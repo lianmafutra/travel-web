@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Harga\HargaController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\Kendaraan\MobilController;
 use App\Http\Controllers\Kendaraan\PemilikController;
 use App\Http\Controllers\Kendaraan\SupirController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Transaksi\PembayaranController;
 use App\Http\Controllers\Transaksi\PencairanController;
 use App\Http\Controllers\Transaksi\SetoranController;
@@ -24,30 +26,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
       Route::resource('supir', SupirController::class);
    });
 
-   
-   Route::controller(SetoranController::class)->group(function () {
-      Route::resource('setoran', SetoranController::class);
-      Route::post('master-harga', 'getMasterHarga')->name('master.harga');
-   });
-
-
-   Route::prefix('pembayaran')->name('pembayaran.')->controller(PembayaranController::class)->group(function () {
-      Route::get('/', 'index')->name('index');
-      Route::post('bayar', 'bayar')->name('bayar');
-   });
-
-
-   Route::resource('pencairan', PencairanController::class);
-   Route::resource('uang-jalan', UangJalanController::class);
-   Route::resource('transportir', TransportirController::class);
-
-   Route::controller(HargaController::class)->group(function () {
-      Route::resource('harga', HargaController::class);
-      Route::post('destroyMulti', 'destroyMulti')->name('destroy.multi');
-   });
-  
    Route::resource('harga', HargaController::class);
-   Route::resource('tujuan', TujuanController::class);
+   Route::resource('lokasi', LokasiController::class);
+   Route::resource('jadwal', JadwalController::class);
   
 
    

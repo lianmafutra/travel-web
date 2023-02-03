@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Kendaraan;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobilRequest;
-use App\Models\Pemilik;
 use App\Models\Mobil;
-use App\Models\MobilJenis;
+use App\Models\Supir;
 use App\Utils\ApiResponse;
+use Illuminate\Http\Request;
 
 class MobilController extends Controller
 {
    use ApiResponse;
    public function index()
    {
-      // abort_if(Gate::denies('kelola mobil'), 403);
       $x['title']    = 'Kelola Mobil';
-      $x['pemilik']    = Pemilik::get();
-      $x['jenis']    = MobilJenis::get();
-      $data = Mobil::with('pemilik', 'mobil_jenis');
+      $x['supir']    = Supir::get();
+
+      $data = Mobil::with('supir');
 
       if (request()->ajax()) {
          return  datatables()->of($data)
@@ -26,26 +24,39 @@ class MobilController extends Controller
             ->addColumn('action', function ($data) {
                return view('app.mobil.action', compact('data'));
             })
-            ->rawColumns(['action'])
+            ->editColumn('foto', function ($data) {
+               return '<img src="' . $data->getFotoUrl() . '" height="100px" width="100px">';
+            })
+            ->rawColumns(['action', 'foto'])
             ->make(true);
       }
-      return view('app.mobil.index', $x, compact(['data']));
+      return view('app.mobil.index', $x);
    }
 
-   public function store(MobilRequest $request)
+   public function store(Request $request)
    {
+
+
       try {
+         $old = Mobil::find($request->id)?->foto;
+         if ('images/' . $request->file('foto')->getClientOriginalName() != $old) {
+            $image_path = $request->file('foto')->store('images', 'public');
+         } else {
+            $image_path = $old;
+         }
 
          Mobil::updateOrCreate(
-            ['id'               => $request->mobil_id],
+            ['id'               => $request->id],
             [
-               'plat'             => $request->plat,
-               'mobil_jenis_id'   => $request->mobil_jenis_id,
-               'pemilik_mobil_id' => $request->pemilik_mobil_id
+               'nama'     => $request->nama,
+               'plat'     => $request->plat,
+               'supir_id' => $request->supir_id,
+               'foto'     =>  $image_path,
             ]
          );
 
-         if ($request->mobil_id)  return $this->success('Berhasil Mengubah Data');
+
+         if ($request->id)  return $this->success('Berhasil Mengubah Data');
          else return $this->success('Berhasil Menginput Data');
       } catch (\Throwable $th) {
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);

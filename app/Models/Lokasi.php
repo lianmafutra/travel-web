@@ -6,11 +6,11 @@ use App\Utils\AutoUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tujuan extends Model
+class Lokasi extends Model
 {
     use HasFactory;
    //  use AutoUUID;
-    protected $table = 'tujuan';
+    protected $table = 'lokasi';
     protected $guarded = [];
 
     protected $casts = [

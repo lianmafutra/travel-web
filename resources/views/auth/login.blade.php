@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Login - {{ ENV('APP_NAME') }}</title>
+        <title>Login - {{ config('global.app_name') }}</title>
         <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png" />
         <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{ asset('template/admin/plugins/fontawesome-free/css/all.min.css') }}">
         <!-- icheck bootstrap -->
@@ -25,8 +25,8 @@
         <!-- /.login-logo -->
             <div class="card card-outline card-primary">
                 <div class="card-header text-center">
-                    <a href="{{ route('login') }}" class="h1"><b>{{ ENV('APP_NAME') }}</b></a>
-                 
+                    <a href="{{ route('login') }}" class="h1"><b>{{ config('global.app_name') }}</b></a>
+                     <p>{{ config('global.app_desc') }}</p>
                 </div>
                 <div class="card-body">
                     <form method="POST" id="#recaptcha-form" action="{{ route('login') }}">
@@ -54,13 +54,13 @@
                         </div>
                         <div class="row">
                             <div class="col-8">
-                                <div class="icheck-primary">
+                                {{-- <div class="icheck-primary">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- /.col -->
                             <div class="col-4">

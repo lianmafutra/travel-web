@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Utils\AutoUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Mobil extends Model
 {
@@ -18,25 +19,15 @@ class Mobil extends Model
       'created_at'  => 'date:d-m-Y H:m:s',
       'updated_at'  => 'date:d-m-Y H:m:s',
    ];
+
+   public function getFotoUrl(){
+      return asset('storage/'.$this->foto);
+   }
+
+   public function supir(){
+      return $this->hasOne(Supir::class, 'id', 'supir_id');
+   }
  
-   public function pemilik()
-   {
-      return $this->hasOne(Pemilik::class, 'id', 'pemilik_mobil_id');
-   }
-
-   public function mobil_jenis()
-   {
-      return $this->hasOne(MobilJenis::class, 'id', 'mobil_jenis_id');
-   }
-
-   public function getId($uuid)
-   {
-      return $this->where('uuid', $uuid)->first()->id;
-   }
-
-   public function getJenis()
-   {
-      return ['BAK'];
-   }
+  
 
 }

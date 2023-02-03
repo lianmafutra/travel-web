@@ -1,39 +1,39 @@
 <?php
 
-namespace App\Http\Controllers\Tujuan;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Utils\ApiResponse;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
-use App\Models\Tujuan;
 
 
-class TujuanController extends Controller
+class JadwalController extends Controller
 {
-   use ApiResponse;
-   public function index()
-   {
-      // abort_if(Gate::denies('kelola mobil'), 403);
-      $x['title']    = 'Kelola Tujuan';
-      $data = Tujuan::all();
+   
+    public function index()
+    {
+    
+      $x['title']    = 'Kelola Jadwal Travel';
+      $data = Jadwal::with('mobil', 'supir', 'lokasi_tujuan', 'lokasi_keberangkatan');
 
       if (request()->ajax()) {
          return  datatables()->of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
-               return view('app.tujuan.action', compact('data'));
+               return view('app.jadwal.action', compact('data'));
             })
             ->rawColumns(['action'])
             ->make(true);
       }
-      return view('app.tujuan.index', $x, compact(['data']));
-   }
+      return view('app.jadwal.index', $x, compact(['data']));
+    }
 
-   public function store(Request $request)
-   {
+ 
+   
+    public function store(Request $request)
+    {
       try {
 
-         Tujuan::updateOrCreate(
+         Jadwal::updateOrCreate(
             ['id'               => $request->id],
             [
                'nama'             => $request->nama,
@@ -45,17 +45,18 @@ class TujuanController extends Controller
       } catch (\Throwable $th) {
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
       }
-   }
+    }
 
-   public function edit(Tujuan $Tujuan)
+   
+    public function edit(Jadwal $jadwal)
    {
-      return $this->success('Data Tujuan', $Tujuan);
+      return $this->success('Data Jadwal', $jadwal);
    }
 
-   public function destroy(Tujuan  $Tujuan)
+   public function destroy(Jadwal $jadwal)
    {
       try {
-         $Tujuan->delete();
+         $jadwal->delete();
          return redirect()->back()->with('success', 'Berhasil Hapus Data', 200);
       } catch (\Throwable $th) {
          return redirect()->back()->with('error', 'Gagal Hapus Data', 400);
