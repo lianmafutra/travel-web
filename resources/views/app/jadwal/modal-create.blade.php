@@ -1,6 +1,5 @@
 <style>
-   
-   .modal-dialog {
+    .modal-dialog {
         min-height: calc(100vh - 60px);
         display: flex;
         flex-direction: column;
@@ -26,8 +25,29 @@
             <form id="form_tambah">
                 @csrf
                 <div class="modal-body">
-                    <x-input id='nama' label='Nama tujuan' required=true />
-                    <input hidden  id="id" name="id" value="" />
+                    <input hidden id="id" name="id" value="" />
+                    <x-select2 id="lokasi_tujuan" label="Lokasi Tujuan" required="true"
+                        placeholder="Pilih Lokasi Tujuan">
+                        @foreach ($lokasi as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
+                    </x-select2>
+                    <x-select2 id="lokasi_keberangkatan" label="Lokasi Keberangkatan" required="true"
+                        placeholder="Pilih Lokasi Keberangkatan">
+                        @foreach ($lokasi as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
+                    </x-select2>
+                    <x-select2 id="mobil_id" label="Mobil" required="true" placeholder="Pilih Mobil">
+                        @foreach ($mobil as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }} | {{ $item->plat }}</option>
+                        @endforeach
+                    </x-select2>
+                    <x-input-rupiah id='harga' label='Harga' required=true />
+                    <x-datepicker id='tanggal' label='Tanggal' required=true />
+                    <x-timepicker id='jam' label='Jam' required=true />
+                  
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn_submit btn btn-primary">Simpan</button>

@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{ asset('template/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }} ">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/flatpicker/flatpickr.min.css') }}">
 @endpush
 @section('content')
     <style>
@@ -61,18 +62,48 @@
         </section>
     </div>
 @endsection
-@include('app.lokasi.modal-create')
+@include('app.jadwal.modal-create')
 @push('js')
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2-min.js') }}"></script>
+    <script src="{{ asset('plugins/autoNumeric.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('plugins/flatpicker/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('plugins/flatpicker/id.min.js') }}"></script>
     <script>
         $(document).ready(function() {
 
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
+
+            const flatpicker = flatpickr("#tanggal", {
+                allowInput: true,
+                dateFormat: "d-m-Y",
+                locale: "id",
+            });
+
+
+            const jam = flatpickr("#jam", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true
+            });
+
+            $('.tanggal').mask('00-00-0000');
+            AutoNumeric.multiple('.rupiah', {
+                //  currencySymbol: 'Rp ',
+                digitGroupSeparator: '.',
+                decimalPlaces: 0,
+                minimumValue: 0,
+                decimalCharacter: ',',
+                formatOnPageLoad: true,
+                allowDecimalPadding: false,
+                alwaysAllowDecimalCharacter: false
+            });
 
             let datatable = $("#datatable").DataTable({
                 serverSide: true,
@@ -82,9 +113,9 @@
                 paging: true,
                 info: true,
                 ordering: true,
-                order: [
-                    [2, 'desc']
-                ],
+               //  order: [
+               //      [2, 'desc']
+               //  ],
                 ajax: @json(route('jadwal.index')),
 
                 columns: [{
@@ -137,10 +168,10 @@
             $("#form_tambah").submit(function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);
-                formData.append('method', 'PUT');
+             
                 $.ajax({
                     type: 'POST',
-                    url: @json(route('lokasi.store')),
+                    url: @json(route('jadwal.store')),
                     data: formData,
                     cache: false,
                     contentType: false,
