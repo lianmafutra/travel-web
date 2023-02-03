@@ -79,7 +79,7 @@
                 theme: 'bootstrap4',
             })
 
-            const flatpicker = flatpickr("#tanggal", {
+            const tanggal = flatpickr("#tanggal", {
                 allowInput: true,
                 dateFormat: "d-m-Y",
                 locale: "id",
@@ -137,6 +137,9 @@
                         data: 'supir.nama',
                     }, {
                         data: 'harga',
+                        render: function(data, type, row, meta) {
+                            return rupiah(data)
+                        }
                     }, {
                         data: 'jam',
                     },
@@ -211,8 +214,12 @@
                 let url = $(this).attr('data-url');
                 $.get(url, function(response) {
                     $('#id').val(response.data.id)
-                    $('#nama').val(response.data.nama)
-                    $('#kontak').val(response.data.kontak).trigger('change');
+                    $('#lokasi_tujuan').val(response.data.lokasi_tujuan).trigger('change');
+                    $('#lokasi_keberangkatan').val(response.data.lokasi_keberangkatan).trigger('change');
+                    $('#mobil_id').val(response.data.mobil_id).trigger('change');
+                    AutoNumeric.getAutoNumericElement('#harga').set(response.data.harga)
+                    tanggal.setDate(response.data.tanggal)
+                    jam.setDate(response.data.jam)
                 })
             });
 

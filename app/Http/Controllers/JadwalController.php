@@ -40,7 +40,10 @@ class JadwalController extends Controller
       try {
 
          if ($request->id) {
-            dd("a");
+            $jadwal = Jadwal::find($request->id);
+            $input['supir_id'] =  Mobil::find($request->mobil_id)->supir_id;
+            $input = $request->all();
+            $jadwal->fill($input)->save();
          } else {
             $input = $request->all();
             $input['supir_id'] =  Mobil::find($request->mobil_id)->supir_id;
