@@ -16,8 +16,8 @@ class MobilController extends Controller
       $x['title']    = 'Kelola Mobil';
       $x['supir']    = Supir::get();
 
-      $data = Mobil::with('supir');
-
+      $data = Mobil::with('supir','kursi_mobil');
+     
       if (request()->ajax()) {
          return  datatables()->of($data)
             ->addIndexColumn()

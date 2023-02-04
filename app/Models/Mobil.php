@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\AutoUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Mobil extends Model
 {
@@ -29,5 +28,8 @@ class Mobil extends Model
    }
  
   
+   public function kursi_mobil(){
+      return $this->hasMany(KursiMobil::class);
+   }
 
 }

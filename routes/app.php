@@ -5,6 +5,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\Kendaraan\MobilController;
 use App\Http\Controllers\Kendaraan\PemilikController;
 use App\Http\Controllers\Kendaraan\SupirController;
+use App\Http\Controllers\KursiMobilController;
 use App\Http\Controllers\KustomerController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\RekeningController;
@@ -33,6 +34,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('jadwal', JadwalController::class);
    Route::resource('kustomer', KustomerController::class);
    Route::resource('rekening', RekeningController::class);
+
+   Route::controller(KursiMobilController::class)->group(function () {
+      Route::get('kursi_mobil/{mobil_id}', 'index')->name('kursi_mobil.index');
+      Route::get('kursi_mobil/edit/{kursi_mobil_id}', 'edit')->name('kursi_mobil.edit');
+      Route::post('kursi_mobil/store', 'store')->name('kursi_mobil.store');
+      Route::delete('kursi_mobil/destroy/{kursi_mobil_id}', 'destroy')->name('kursi_mobil.destroy');
+   });
   
 
    
