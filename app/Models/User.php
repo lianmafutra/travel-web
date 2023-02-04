@@ -31,31 +31,17 @@ class User extends Authenticatable
       'remember_token',
    ];
 
+   protected $casts = [
+      'created_at'  => 'date:d-m-Y H:m:s',
+      'updated_at'  => 'date:d-m-Y H:m:s',
+   ];
+
    public function getRoleName()
    {
       return auth()->user()->getRoleNames()[0];
    }
 
-   public function file_foto()
-   {
-      return $this->hasOne(File::class, 'file_id', 'foto');
-   }
 
-   public function getUrlFoto()
-   {
-
-      $file = User::where('id', auth()->user()->id)->with('file_foto')->first()->file_foto;
-
-      if ($file) {
-         return  'http://' . request()->getHttpHost() .
-            '/storage/' .
-            $file->path .
-            '/' .
-            $file->name_random;
-      }
-
-      return "http://" . request()->getHttpHost() . "/img/avatar.png";
-   }
 
    public function checkPassword($password)
    {
@@ -65,4 +51,9 @@ class User extends Authenticatable
          return false;
       }
    }
+
+   public function getFotoUrl(){
+      return asset('storage/'.$this->foto);
+   }
+
 }

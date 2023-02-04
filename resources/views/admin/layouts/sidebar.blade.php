@@ -120,29 +120,36 @@
                     </li>
                 @endcan
                 <li class="nav-item">
+                  <a href="{{ route('rekening.index') }}" class="nav-link  {{ request()->routeIs('rekening*') ? 'active' : '' }}" >
+                     <i class="far fa-credit-card nav-icon"></i>
+                        <p>Kelola Rekening</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('kustomer.index') }}" class="nav-link  {{ request()->routeIs('kustomer*') ? 'active' : '' }}" >
+                     <i class="fas fa-users nav-icon"></i>
+                        <p>Kelola Kustomer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                   <a href="{{ route('lokasi.index') }}" class="nav-link  {{ request()->routeIs('lokasi*') ? 'active' : '' }}" >
-                        <i class="fas fa-road nav-icon"></i>
+                     <i class="fas fa-search-location nav-icon"></i>
                         <p>Kelola Lokasi</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('jadwal.index') }}" class="nav-link  {{ request()->routeIs('jadwal*') ? 'active' : '' }}" >
-                        <i class="fas fa-warehouse nav-icon"></i>
+                     <i class="fas fa-clock nav-icon"></i>
                         <p>Kelola Jadwal</p>
                     </a>
                 </li>
                 <li class="nav-item">
                   <a href="" class="nav-link  {{ request()->routeIs('transportir*') ? 'active' : '' }}" >
-                      <i class="fas fa-warehouse nav-icon"></i>
+                     <i class="fas fa-inbox nav-icon"></i>
                       <p>Order Masuk</p>
                   </a>
               </li>
-              <li class="nav-item">
-               <a href="" class="nav-link  {{ request()->routeIs('transportir*') ? 'active' : '' }}" >
-                   <i class="fas fa-warehouse nav-icon"></i>
-                   <p>Pelanggan</p>
-               </a>
-           </li>
+              
                
             </ul>
         </nav>

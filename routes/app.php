@@ -5,7 +5,9 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\Kendaraan\MobilController;
 use App\Http\Controllers\Kendaraan\PemilikController;
 use App\Http\Controllers\Kendaraan\SupirController;
+use App\Http\Controllers\KustomerController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\Transaksi\PembayaranController;
 use App\Http\Controllers\Transaksi\PencairanController;
 use App\Http\Controllers\Transaksi\SetoranController;
@@ -29,6 +31,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('harga', HargaController::class);
    Route::resource('lokasi', LokasiController::class);
    Route::resource('jadwal', JadwalController::class);
+   Route::resource('kustomer', KustomerController::class);
+   Route::resource('rekening', RekeningController::class);
   
 
    
