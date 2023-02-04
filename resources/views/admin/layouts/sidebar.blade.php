@@ -144,11 +144,17 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link  {{ request()->routeIs('transportir*') ? 'active' : '' }}" >
+                  <a href="{{ route('pesanan.index') }}" class="nav-link  {{ request()->routeIs('pesanan*') ? 'active' : '' }}" >
                      <i class="fas fa-inbox nav-icon"></i>
                       <p>Order Masuk</p>
                   </a>
               </li>
+              <li class="nav-item">
+               <a href="" class="nav-link  " >
+                  <i class="fas fa-inbox nav-icon"></i>
+                   <p>Rekap Laporan</p>
+               </a>
+           </li>
               
                
             </ul>
