@@ -3,83 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rekening;
+use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 
 class RekeningController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+   use ApiResponse;
+   public function index()
+   {
+   
+      $x['title']    = 'Kelola Rekening';
+      $data = Rekening::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+      if (request()->ajax()) {
+         return  datatables()->of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($data) {
+               return view('app.rekening.action', compact('data'));
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+      }
+      return view('app.rekening.index', $x, compact(['data']));
+   }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function store(Request $request)
+   {
+      try {
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Rekening  $rekening
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Rekening $rekening)
-    {
-        //
-    }
+         if ($request->id) {
+            $jadwal = Rekening::find($request->id);
+            $input = $request->all();
+            $jadwal->fill($input)->save();
+         } else {
+            $input = $request->all();
+            (new Rekening())->fill($input)->save();
+         }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Rekening  $rekening
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Rekening $rekening)
-    {
-        //
-    }
+         if ($request->id)  return $this->success('Berhasil Mengubah Data');
+         else return $this->success('Berhasil Menginput Data');
+      } catch (\Throwable $th) {
+         return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
+      }
+   }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rekening  $rekening
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Rekening $rekening)
-    {
-        //
-    }
+   public function edit(Rekening $rekening)
+   {
+      return $this->success('Data rekening', $rekening);
+   }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Rekening  $rekening
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Rekening $rekening)
-    {
-        //
-    }
+   public function destroy(Rekening  $rekening)
+   {
+      try {
+         $rekening->delete();
+         return redirect()->back()->with('success', 'Berhasil Hapus Data', 200);
+      } catch (\Throwable $th) {
+         return redirect()->back()->with('error', 'Gagal Hapus Data', 400);
+      }
+   }
 }
