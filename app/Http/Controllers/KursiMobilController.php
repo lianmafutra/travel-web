@@ -31,7 +31,7 @@ class KursiMobilController extends Controller
             ->rawColumns(['action'])
             ->make(true);
       }
-      return view('app.kursi_mobil.index', $x);
+      return view('app.kursi_mobil.index', $x, compact('data'));
    }
 
    public function edit($kursi_mobil_id)
@@ -57,6 +57,19 @@ class KursiMobilController extends Controller
          }
          if ($request->id)  return $this->success('Berhasil Mengubah Data');
          else return $this->success('Berhasil Menginput Data');
+      } catch (\Throwable $th) {
+         return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
+      }
+   }
+
+   
+   public function updateKolom(Request $request)
+   {
+      try {
+         $mobil = Mobil::find($request->id);
+         $input = $request->all();
+         $mobil->fill($input)->save();
+        return $this->success('Berhasil Mengubah Data');
       } catch (\Throwable $th) {
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
       }

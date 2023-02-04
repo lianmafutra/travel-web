@@ -39,6 +39,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
       Route::get('kursi_mobil/{mobil_id}', 'index')->name('kursi_mobil.index');
       Route::get('kursi_mobil/edit/{kursi_mobil_id}', 'edit')->name('kursi_mobil.edit');
       Route::post('kursi_mobil/store', 'store')->name('kursi_mobil.store');
+      Route::post('kursi_mobil/update/kolom', 'updateKolom')->name('kursi_mobil.update.kolom');
       Route::delete('kursi_mobil/destroy/{kursi_mobil_id}', 'destroy')->name('kursi_mobil.destroy');
    });
   

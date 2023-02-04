@@ -9,8 +9,9 @@
 @section('content')
     <style>
         .grid-container {
+
             display: grid;
-            grid-template-columns: auto auto auto;
+            /* grid-template-columns: auto auto auto; */
             background-color: #2195f365;
             padding: 10px;
         }
@@ -21,13 +22,13 @@
             padding: 10px;
             margin: 5px;
             font-size: 20px;
-         
+
             text-align: center;
         }
 
-       .kosong {
+        .kosong {
             background-color: rgba(214, 214, 214, 0.8);
-        
+
         }
 
         .supir {
@@ -65,6 +66,8 @@
                                 <h3 class="card-title">
                                     <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
                                             class="fas fa-plus"></i> Tambah Kursi</a>
+                                            <a href="#" class="btn btn-sm btn-secondary" id="btn_kolom"><i
+                                             class="fas fa-edit"></i> Jumlah Kolom Kursi</a>
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -94,6 +97,7 @@
         </section>
     </div>
     @include('app.kursi_mobil.modal-create')
+    @include('app.kursi_mobil.modal-edit-kolom')
 @endsection
 @push('js')
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -108,14 +112,24 @@
                 theme: 'bootstrap4',
             })
 
+            let kolom='';
+            for (let i = 1; i <=@json($data->kolom_kursi); i++) {
+               kolom +=' auto';
+            }
 
-            $.get(@json(route('kursi_mobil.index', 1)), function(response) {
+            $('.grid-container').css('grid-template-columns', kolom)
+
+            let url = '{{ route('kursi_mobil.index', ':id') }}';
+            url = url.replace(':id', @json(last(request()->segments())));
+
+            $.get(url, function(response) {
 
                 response.data.forEach(data => {
 
                     if (data.tipe == 'KOSONG') {
                         $('.grid_kursi').append(
-                            `<div class="grid-item kosong">${data.nama ? data.nama : "" }</div>`);
+                            `<div class="grid-item kosong">${data.nama ? data.nama : "" }</div>`
+                        );
                     } else if (data.tipe == 'SUPIR') {
                         $('.grid_kursi').append(
                             `<div class="grid-item supir"><i class="fas fa-wheelchair"></i><br>${data.nama}</div>`
@@ -129,6 +143,9 @@
 
             })
 
+
+
+
             let datatable = $("#datatable").DataTable({
                 serverSide: true,
                 processing: true,
@@ -140,7 +157,7 @@
                 //  order: [
                 //      [4, 'desc']
                 //  ],
-                ajax: @json(route('kursi_mobil.index', 1)),
+                ajax: url,
 
                 columns: [{
                         data: "DT_RowIndex",
@@ -175,10 +192,15 @@
             $("#btn_tambah").click(function() {
                 clearInput()
                 $('#modal_create').modal('show')
-                $('#mobil_id').val(1)
+                $('#mobil_id').val(@json(last(request()->segments())))
                 $('.modal-title').text('Tambah Data')
+            });
 
 
+            $("#btn_kolom").click(function() {
+                clearInput()
+                $('#modal_kolom').modal('show')
+                $('.modal-title').text('Atur Jumlah Kolom Kursi')
             });
 
 
@@ -199,14 +221,14 @@
                     },
                     success: (response) => {
                         $('.grid_kursi').empty();
-                        $.get(@json(route('kursi_mobil.index', 1)), function(response) {
+                        $.get(url, function(response) {
 
                             response.data.forEach(data => {
 
                                 if (data.tipe == 'KOSONG') {
                                     $('.grid_kursi').append(
                                         `<div class="grid-item kosong">${data.nama ? data.nama : "" }</div>`
-                                        );
+                                    );
                                 } else if (data.tipe == 'SUPIR') {
                                     $('.grid_kursi').append(
                                         `<div class="grid-item supir"><i class="fas fa-wheelchair"></i><br>${data.nama}</div>`
@@ -244,6 +266,45 @@
                 });
             });
 
+            $("#form_kolom").submit(function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: @json(route('kursi_mobil.update.kolom')),
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    beforeSend: function() {
+                        showLoading()
+                    },
+                    success: (response) => {
+                        if (response) {
+                            this.reset()
+                            $('#modal_kolom').modal('hide')
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                showCancelButton: true,
+                                allowEscapeKey: false,
+                                showCancelButton: false,
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                swal.hideLoading()
+                                datatable.ajax.reload()
+                                location.reload();
+                            })
+                            swal.hideLoading()
+                        }
+                    },
+                    error: function(response) {
+                        showError(response)
+                    }
+                });
+            });
+
             $('#datatable').on('click', '.btn_edit', function(e) {
                 $('#modal_create').modal('show')
                 $('.modal-title').text('Ubah Data')
@@ -262,8 +323,8 @@
             $('#datatable').on('click', '.btn_hapus', function(e) {
                 let data = $(this).attr('data-hapus');
                 Swal.fire({
-                    title: 'Apakah anda yakin ingin menghapus data Mobil?',
-                    text: data,
+                    title: 'Apakah anda yakin ingin menghapus data Kursi?',
+                    text: 'Nomor : ' + data,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',

@@ -102,13 +102,13 @@
                                     <p>Mobil</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ route('pemilik.index') }}"
                                     class="nav-link {{ request()->routeIs('pemilik*') ? 'active' : '' }}">
                                     <i class="fas fa-user-cog nav-icon"></i>
                                     <p>Kursi</p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                               <a href="{{ route('supir.index') }}" class="nav-link {{ request()->routeIs('supir*') ? 'active' : '' }}">
                                   <i class="fas fa-users nav-icon"></i>
