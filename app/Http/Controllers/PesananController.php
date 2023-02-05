@@ -11,17 +11,41 @@ class PesananController extends Controller
    use ApiResponse;
    public function index()
    {
-   
-      $x['title']    = 'Kelola Data Pesanan';
-      $data = Pesanan::all();
 
+      $x['title']    = 'Kelola Data Pesanan';
+      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan', 'jadwal.lokasi_tujuan', 'kursi_pesanan');
+    
       if (request()->ajax()) {
          return  datatables()->of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                return view('app.pesanan.action', compact('data'));
             })
-            ->rawColumns(['action'])
+            ->editColumn('bukti_pembayaran', function ($data) {
+               if (!empty($data->bukti_pembayaran)) {
+                  return '<a target="_blank" href="' . $data->getBuktiPembayaranUrl() . '" class=""><i class="far fa-eye"></i> Lihat</a>';
+               }
+            })
+            ->editColumn('status_pembayaran', function ($data) {
+               if ($data->status_pembayaran == 'BELUM') {
+                  return '<span class="badge badge-secondary">Belum Verifikasi</span>';
+               } else if ($data->status_pembayaran == 'LUNAS') {
+                  return '<span class="badge badge-success">Dibayar</span>';
+               }
+            })
+            ->editColumn('status_pesanan', function ($data) {
+               if ($data->status_pesanan == 'PROSES') {
+                  return '<span class="badge badge-secondary">Proses</span>';
+               } else if ($data->status_pesanan == 'SELESAI') {
+                  return '<span class="badge badge-success">Selesai</span>';
+               } else if ($data->status_pesanan == 'DITOLAK') {
+                  return '<span class="badge badge-danger">Ditolak</span>';
+               }
+            })
+            ->editColumn('jumlah_kursi', function ($data) {
+               return $data->getjumlahKursiPesanan();
+            })
+            ->rawColumns(['action', 'bukti_pembayaran', 'status_pesanan', 'status_pembayaran'])
             ->make(true);
       }
       return view('app.pesanan.index', $x, compact(['data']));
@@ -30,7 +54,6 @@ class PesananController extends Controller
    public function store(Request $request)
    {
       try {
-
          if ($request->id) {
             $jadwal = Pesanan::find($request->id);
             $input = $request->all();
@@ -47,6 +70,44 @@ class PesananController extends Controller
       }
    }
 
+
+   public function updateVerifikasiPembayaran(Request $request)
+   {
+      try {
+         $pesanan = Pesanan::find($request->id);
+         if ($pesanan->status_pembayaran == 'BELUM') {
+            $pesanan->update([
+               'status_pembayaran' => 'LUNAS'
+            ]);
+            return redirect()->back()->with('success-modal', ["title" => 'Berhasil Verifikasi Pembayaran']);
+         } else {
+            $pesanan->update([
+               'status_pembayaran' => 'BELUM'
+            ]);
+            return redirect()->back()->with('success-modal', ["title" => 'Berhasil Membatalkan Verifikasi Pembayaran']);
+         }
+      } catch (\Throwable $th) {
+         return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
+      }
+   }
+
+
+   public function updateStatusPesanan(Request $request)
+   {
+      try {
+         $pesanan = Pesanan::find($request->pesanan_id);
+         $pesanan->update([
+            'status_pesanan' => $request->status_pesanan
+         ]);
+         return redirect()->back()->with('success-modal', ["title" => 'Berhasil Merubah Status Pesanan']);
+      } catch (\Throwable $th) {
+         return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
+      }
+   }
+
+
+
+
    public function edit(Pesanan $pesanan)
    {
       return $this->success('Data Pesanan', $pesanan);
@@ -62,4 +123,3 @@ class PesananController extends Controller
       }
    }
 }
-

@@ -79,8 +79,8 @@ ul.nav.nav-treeview {
 }
 
 a.dropdown-item {
-  padding-top: 10px;
-   padding-bottom: 10px;
+  /* padding-top: 10px;
+   padding-bottom: 10px; */
 }
 
 span.brand-text.font-weight-light {

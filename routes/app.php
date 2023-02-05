@@ -36,7 +36,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('jadwal', JadwalController::class);
    Route::resource('kustomer', KustomerController::class);
    Route::resource('rekening', RekeningController::class);
-   Route::resource('pesanan', PesananController::class);
+
+   Route::controller(PesananController::class)->group(function () {
+      Route::resource('pesanan', PesananController::class);
+      Route::put('pesanan/update/verifikasi', 'updateVerifikasiPembayaran')->name('pesanan.pembayaran.verifikasi');
+      Route::put('pesanan/update/status_pesanan', 'updateStatusPesanan')->name('pesanan.status');
+
+   });
 
    Route::controller(KursiMobilController::class)->group(function () {
       Route::get('kursi_mobil/{mobil_id}', 'index')->name('kursi_mobil.index');
