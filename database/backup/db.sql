@@ -87,6 +87,8 @@ CREATE TABLE `harga` (
   `tujuan_id` int(11) DEFAULT NULL,
   `transportir_id` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
+  `harga_pembayaran` int(11) DEFAULT NULL,
+  `harga_pencairan` int(11) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -95,7 +97,7 @@ CREATE TABLE `harga` (
   KEY `FK_harga_transportir` (`transportir_id`),
   CONSTRAINT `FK_harga_transportir` FOREIGN KEY (`transportir_id`) REFERENCES `transportir` (`id`),
   CONSTRAINT `FK_harga_tujuan` FOREIGN KEY (`tujuan_id`) REFERENCES `tujuan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,8 +106,133 @@ CREATE TABLE `harga` (
 
 LOCK TABLES `harga` WRITE;
 /*!40000 ALTER TABLE `harga` DISABLE KEYS */;
-INSERT INTO `harga` VALUES (87,3,3,15000,'2023-01-15','2023-01-07 17:53:28','2023-01-07 17:53:28'),(94,3,3,13000,'2023-01-13','2023-01-07 17:53:28','2023-01-15 15:22:22'),(95,3,1,19000,'2023-01-19','2023-01-15 16:19:36','2023-01-15 16:19:36'),(96,3,3,11000,'2023-01-11','2023-01-07 17:53:28','2023-01-07 17:53:28'),(97,3,3,10000,'2023-01-10','2023-01-07 17:53:28','2023-01-15 15:22:22');
+INSERT INTO `harga` VALUES (94,6,3,260,258,265,'2023-01-13','2023-01-07 17:53:28','2023-01-24 17:48:02'),(96,5,3,245,243,250,'2023-01-11','2023-01-07 17:53:28','2023-01-24 17:47:53'),(97,3,3,1000,998,1,'2023-01-10','2023-01-07 17:53:28','2023-02-01 15:50:25'),(99,8,3,100,98,105,'2023-01-14','2023-01-22 02:27:51','2023-02-01 15:45:54'),(100,1,5,167,165,172,'2023-01-04','2023-01-22 02:36:00','2023-01-24 17:47:33'),(101,7,3,160,158,165,'2023-01-13','2023-01-22 14:20:04','2023-01-24 17:48:10'),(102,9,3,227,225,232,'2023-01-14','2023-01-22 02:27:51','2023-01-24 17:48:30'),(103,5,1,1232,1,1,'2023-01-14','2023-01-30 21:05:43','2023-01-30 21:05:43'),(104,5,1,180,178,181,'2023-02-08','2023-02-01 15:28:07','2023-02-01 15:28:07'),(105,5,5,100,98,103,'2023-02-10','2023-02-01 23:17:48','2023-02-01 23:17:48');
 /*!40000 ALTER TABLE `harga` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `harga_pengaturan`
+--
+
+DROP TABLE IF EXISTS `harga_pengaturan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `harga_pengaturan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `hrg_pembayaran` int(11) DEFAULT NULL,
+  `hrg_pencairan` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `harga_pengaturan`
+--
+
+LOCK TABLES `harga_pengaturan` WRITE;
+/*!40000 ALTER TABLE `harga_pengaturan` DISABLE KEYS */;
+INSERT INTO `harga_pengaturan` VALUES (1,-2,5,'2023-01-07 17:53:28','2023-02-01 12:07:19');
+/*!40000 ALTER TABLE `harga_pengaturan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `histori_pembayaran`
+--
+
+DROP TABLE IF EXISTS `histori_pembayaran`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `histori_pembayaran` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kode` char(20) NOT NULL,
+  `tgl_bayar` date NOT NULL,
+  `setoran_id` varchar(500) NOT NULL,
+  `kasbon_id` varchar(500) NOT NULL,
+  `mobil_id` int(11) NOT NULL,
+  `mobil_plat` varchar(50) NOT NULL DEFAULT '',
+  `supir_id` int(11) NOT NULL,
+  `supir_nama` varchar(50) NOT NULL DEFAULT '',
+  `pemilik_mobil_id` int(11) NOT NULL,
+  `pemilik_nama` varchar(50) NOT NULL DEFAULT '',
+  `data` json NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `histori_pembayaran`
+--
+
+LOCK TABLES `histori_pembayaran` WRITE;
+/*!40000 ALTER TABLE `histori_pembayaran` DISABLE KEYS */;
+INSERT INTO `histori_pembayaran` VALUES (43,'1/BYR/02-02-23','2023-02-02','[\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"35\",\"36\",\"37\",\"38\"]','[5,41,42,43,44,45,46,47,48,49,50,51,52,53,54]',27,'B 983 OPL',6,'widodo',5,'Joko','{\"data\": {\"total\": 10150000, \"kasbon\": [{\"id\": 5, \"nama\": \"GANTI BAUT RODA\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"23-01-2023 21:01:49\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 205000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 3}, {\"id\": 41, \"nama\": \"BAN DALAM\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:08\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 195000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 42, \"nama\": \"SLENDANG JAWO\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:22\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 65000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 43, \"nama\": \"CEK KLAAHR\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:36\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 155000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 44, \"nama\": \"GEMUK\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:50\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 65000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 45, \"nama\": \"REPSOL\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:59\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 550000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 46, \"nama\": \"UPAH PASANAG\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:11\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 5000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 47, \"nama\": \"FILTER OLI\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:25\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 85000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 48, \"nama\": \"FILTER SKR UP\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:36\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 50000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 49, \"nama\": \"FILTER SOALR LOW\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:47\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 26000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 50, \"nama\": \"LOW\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:00\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 20000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 51, \"nama\": \"KANEBO\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:13\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 15000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 52, \"nama\": \"BOLA BOAL STIR\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:24\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 405000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 53, \"nama\": \"KINGPEN\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:35\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 305000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}, {\"id\": 54, \"nama\": \"STEL REM\", \"status\": \"LUNAS\", \"mobil_id\": 27, \"tgl_bayar\": \"2023-02-02\", \"created_at\": \"24-01-2023 14:01:45\", \"updated_at\": \"01-02-2023 17:02:00\", \"jumlah_uang\": 65000, \"tanggal_kasbon\": \"24-01-2023\", \"pemilik_mobil_id\": 1}], \"tgl_bayar\": \"02-02-2023\", \"plat_mobil\": \"B 983 OPL\", \"supir_mobil\": \"widodo\", \"data_setoran\": [{\"id\": 29, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 12820, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 1, \"created_at\": \"24-01-2023 14:01:55\", \"harga_cair\": 172, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 700000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 165, \"tgl_bongkar\": \"23-02-2023\", \"total_kotor\": 2115300, \"tujuan_nama\": \"KT\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1215300, \"uang_lainnya\": 200000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 900000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 30, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 12400, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 1, \"created_at\": \"24-01-2023 14:01:08\", \"harga_cair\": 172, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 700000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 165, \"tgl_bongkar\": \"10-02-2023\", \"total_kotor\": 2046000, \"tujuan_nama\": \"KT\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1146000, \"uang_lainnya\": 200000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 900000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 31, \"pg\": 1000000, \"foto\": null, \"uuid\": null, \"berat\": 12720, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 3, \"created_at\": \"24-01-2023 14:01:18\", \"harga_cair\": 1, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 1800000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 998, \"tgl_bongkar\": \"08-02-2023\", \"total_kotor\": 13694560, \"tujuan_nama\": \"BHJ\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 12394560, \"uang_lainnya\": -500000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1300000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 32, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13830, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 5, \"created_at\": \"24-01-2023 14:01:29\", \"harga_cair\": 1, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 0, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 1, \"tgl_bongkar\": \"22-02-2023\", \"total_kotor\": 13830, \"tujuan_nama\": \"KAI 02 JN N\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 13830, \"uang_lainnya\": 0, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 0, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 33, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13340, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 6, \"created_at\": \"24-01-2023 14:01:42\", \"harga_cair\": 265, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 258, \"tgl_bongkar\": \"28-02-2023\", \"total_kotor\": 3441720, \"tujuan_nama\": \"BHS\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1741720, \"uang_lainnya\": 900000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1700000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 34, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13900, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 1, \"created_at\": \"24-01-2023 14:01:56\", \"harga_cair\": 172, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 165, \"tgl_bongkar\": \"28-02-2023\", \"total_kotor\": 2293500, \"tujuan_nama\": \"KT\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1393500, \"uang_lainnya\": 100000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 900000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 35, \"pg\": 600000, \"foto\": null, \"uuid\": null, \"berat\": 13940, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 7, \"created_at\": \"24-01-2023 14:01:03\", \"harga_cair\": 165, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 158, \"tgl_bongkar\": \"09-02-2023\", \"total_kotor\": 2802520, \"tujuan_nama\": \"IBN\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1402520, \"uang_lainnya\": 600000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1400000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 36, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13970, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 8, \"created_at\": \"24-01-2023 14:01:14\", \"harga_cair\": 105, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 98, \"tgl_bongkar\": \"17-02-2023\", \"total_kotor\": 1369060, \"tujuan_nama\": \"BM 01 SSN A\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": -330940, \"uang_lainnya\": 900000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1700000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 37, \"pg\": 600000, \"foto\": null, \"uuid\": null, \"berat\": 13610, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 7, \"created_at\": \"24-01-2023 14:01:26\", \"harga_cair\": 165, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 158, \"tgl_bongkar\": \"16-02-2023\", \"total_kotor\": 2750380, \"tujuan_nama\": \"IBN\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1400380, \"uang_lainnya\": 550000, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1350000, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}, {\"id\": 38, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13940, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": \"2023-02-02 00:00:00\", \"tujuan_id\": 9, \"created_at\": \"24-01-2023 14:01:35\", \"harga_cair\": 232, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 0, \"updated_at\": \"02-02-2023 13:02:02\", \"harga_bayar\": 225, \"tgl_bongkar\": \"25-01-2023\", \"total_kotor\": 3136500, \"tujuan_nama\": \"TEBO PRIMA\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 3136500, \"uang_lainnya\": 0, \"tgl_pencairan\": \"2023-02-02 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"BELUM\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 0, \"tgl_ambil_uang_jalan\": \"24-01-2023\"}], \"total_kasbon\": \"2211000\", \"pemilik_mobil\": \"Ade Sukron\", \"total_pihak_gas\": 2200000, \"total_uang_jalan\": 7200000, \"total_uang_kotor\": 33663370, \"total_uang_bersih\": 23513370, \"total_uang_lainnya\": 2950000}}','2023-02-02 13:42:02','2023-02-02 13:42:02');
+/*!40000 ALTER TABLE `histori_pembayaran` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `histori_pencairan`
+--
+
+DROP TABLE IF EXISTS `histori_pencairan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `histori_pencairan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kode` char(20) NOT NULL,
+  `transportir_id` char(20) NOT NULL,
+  `tgl_pencairan` date NOT NULL,
+  `setoran_id` varchar(500) NOT NULL,
+  `data` json DEFAULT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `histori_pencairan`
+--
+
+LOCK TABLES `histori_pencairan` WRITE;
+/*!40000 ALTER TABLE `histori_pencairan` DISABLE KEYS */;
+INSERT INTO `histori_pencairan` VALUES (5,'1/PCR/03-02-23','1','2023-02-03','[\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"35\",\"36\",\"37\",\"38\"]','{\"data\": {\"total\": 10150000, \"transportir\": {\"id\": 1, \"nama\": \"PT NAN RAING\", \"created_at\": \"03-01-2023 15:01:51\", \"updated_at\": \"31-01-2023 07:01:17\", \"harga_pencairan\": 1}, \"data_setoran\": [{\"id\": 29, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 12820, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 1, \"created_at\": \"24-01-2023 14:01:55\", \"harga_cair\": 172, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 700000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 165, \"tgl_bongkar\": \"23-02-2023\", \"total_kotor\": 2115300, \"tujuan_nama\": \"KT\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1215300, \"uang_lainnya\": 200000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 900000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 2205040}, {\"id\": 30, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 12400, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 1, \"created_at\": \"24-01-2023 14:01:08\", \"harga_cair\": 172, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 700000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 165, \"tgl_bongkar\": \"10-02-2023\", \"total_kotor\": 2046000, \"tujuan_nama\": \"KT\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1146000, \"uang_lainnya\": 200000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 900000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 2132800}, {\"id\": 31, \"pg\": 1000000, \"foto\": null, \"uuid\": null, \"berat\": 12720, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 3, \"created_at\": \"24-01-2023 14:01:18\", \"harga_cair\": 1, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 1800000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 998, \"tgl_bongkar\": \"08-02-2023\", \"total_kotor\": 13694560, \"tujuan_nama\": \"BHJ\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 12394560, \"uang_lainnya\": -500000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1300000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 1012720}, {\"id\": 32, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13830, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 5, \"created_at\": \"24-01-2023 14:01:29\", \"harga_cair\": 1, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 0, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 1, \"tgl_bongkar\": \"22-02-2023\", \"total_kotor\": 13830, \"tujuan_nama\": \"KAI 02 JN N\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 13830, \"uang_lainnya\": 0, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 0, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 13830}, {\"id\": 33, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13340, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 6, \"created_at\": \"24-01-2023 14:01:42\", \"harga_cair\": 265, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 258, \"tgl_bongkar\": \"28-02-2023\", \"total_kotor\": 3441720, \"tujuan_nama\": \"BHS\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1741720, \"uang_lainnya\": 900000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1700000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 3535100}, {\"id\": 34, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13900, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 1, \"created_at\": \"24-01-2023 14:01:56\", \"harga_cair\": 172, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 165, \"tgl_bongkar\": \"28-02-2023\", \"total_kotor\": 2293500, \"tujuan_nama\": \"KT\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1393500, \"uang_lainnya\": 100000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 900000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 2390800}, {\"id\": 35, \"pg\": 600000, \"foto\": null, \"uuid\": null, \"berat\": 13940, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 7, \"created_at\": \"24-01-2023 14:01:03\", \"harga_cair\": 165, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 158, \"tgl_bongkar\": \"09-02-2023\", \"total_kotor\": 2802520, \"tujuan_nama\": \"IBN\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1402520, \"uang_lainnya\": 600000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1400000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 2900100}, {\"id\": 36, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13970, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 8, \"created_at\": \"24-01-2023 14:01:14\", \"harga_cair\": 105, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 98, \"tgl_bongkar\": \"17-02-2023\", \"total_kotor\": 1369060, \"tujuan_nama\": \"BM 01 SSN A\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": -330940, \"uang_lainnya\": 900000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1700000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 1466850}, {\"id\": 37, \"pg\": 600000, \"foto\": null, \"uuid\": null, \"berat\": 13610, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 7, \"created_at\": \"24-01-2023 14:01:26\", \"harga_cair\": 165, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 800000, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 158, \"tgl_bongkar\": \"16-02-2023\", \"total_kotor\": 2750380, \"tujuan_nama\": \"IBN\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 1400380, \"uang_lainnya\": 550000, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 1350000, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 2845650}, {\"id\": 38, \"pg\": 0, \"foto\": null, \"uuid\": null, \"berat\": 13940, \"mobil_id\": 27, \"supir_id\": 6, \"tgl_muat\": \"24-01-2023\", \"tgl_bayar\": null, \"tujuan_id\": 9, \"created_at\": \"24-01-2023 14:01:35\", \"harga_cair\": 232, \"mobil_plat\": \"B 983 OPL\", \"supir_nama\": \"widodo\", \"uang_jalan\": 0, \"updated_at\": \"02-02-2023 22:02:00\", \"harga_bayar\": 225, \"tgl_bongkar\": \"25-01-2023\", \"total_kotor\": 3136500, \"tujuan_nama\": \"TEBO PRIMA\", \"pemilik_nama\": \"Ade Sukron\", \"total_bersih\": 3136500, \"uang_lainnya\": 0, \"tgl_pencairan\": \"2023-02-03 00:00:00\", \"transportir_id\": 1, \"pemilik_mobil_id\": 1, \"status_pencairan\": \"LUNAS\", \"transportir_nama\": \"PT NAN RAING\", \"status_pembayaran\": \"LUNAS\", \"total_uang_lainnya\": 0, \"tgl_ambil_uang_jalan\": \"24-01-2023\", \"total_bersih_pencairan\": 3234080}], \"tgl_pencairan\": \"03-02-2023\", \"total_pihak_gas\": 2200000, \"total_uang_jalan\": 7200000, \"total_uang_kotor\": 21736970, \"total_uang_bersih\": 21736970, \"total_uang_lainnya\": 2950000}}','2023-02-02 22:40:01','2023-02-02 22:40:01');
+/*!40000 ALTER TABLE `histori_pencairan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `kasbon`
+--
+
+DROP TABLE IF EXISTS `kasbon`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kasbon` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `jumlah_uang` int(100) NOT NULL,
+  `tanggal_kasbon` date NOT NULL,
+  `tgl_bayar` date DEFAULT NULL,
+  `mobil_id` int(11) NOT NULL,
+  `pemilik_mobil_id` int(11) NOT NULL,
+  `status` enum('LUNAS','BELUM') NOT NULL DEFAULT 'BELUM',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kasbon`
+--
+
+LOCK TABLES `kasbon` WRITE;
+/*!40000 ALTER TABLE `kasbon` DISABLE KEYS */;
+INSERT INTO `kasbon` VALUES (4,'GANTI MEDITRAN',390,'2023-01-20',NULL,2,1,'BELUM','2023-01-24 04:37:49','2023-02-02'),(5,'GANTI BAUT RODA',205000,'2023-01-24','2023-02-02',27,3,'LUNAS','2023-01-24 04:37:49','2023-02-02'),(7,'GANTI FILTER SOLAR BAWAH',30,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2023-01-24'),(8,'FILTER HAWA2',100,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2023-01-24'),(9,'GT 750',1440000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(10,'GANTI MEDITRAN',400000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(11,'GANTI FILTER OLI',100000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(12,'GANTI FILTER SOLAR',60000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(13,'GANTI FILTER  SOLAR BAWAH',30000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(14,'GEMUK MOBIL',30000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(15,'FILTER HAWA',180000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(16,'GIGI TUNGGU',2400000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(17,'PARET HDA',200000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(18,'LEM GASKET',40000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(19,'PASANG PIN OMBENG',140000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(20,'JAMBRIT',120000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(21,'GANTI GIGI',380000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(22,'STEL REM',40000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(23,'TRANSFER',15000000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(24,'BUKA TRANSMISI',400000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(25,'SENTRAL BAWAH STEL',90000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(26,'CO ASSY HT',130000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(27,'MINYAM 1000',80000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(28,'GIGI TUNGGU PS125T',2400000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(29,'GIGI 3',700000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(30,'NUP307NR',630000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(31,'FILTER POMPA SOLAR',150000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(32,'LAMPU DEPAN',60000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(33,'GANTI CENTRAL ATAS',70000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(34,'CM MINYAK BESI HT 125',180000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(35,'MINYAK REM 1000',85000,'2023-01-24',NULL,1,1,'BELUM','2023-01-24 04:37:49','2021-12-06'),(41,'BAN DALAM',195000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:42:08','2023-02-02'),(42,'SLENDANG JAWO',65000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:42:22','2023-02-02'),(43,'CEK KLAAHR',155000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:42:36','2023-02-02'),(44,'GEMUK',65000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:42:50','2023-02-02'),(45,'REPSOL',550000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:42:59','2023-02-02'),(46,'UPAH PASANAG',5000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:43:11','2023-02-02'),(47,'FILTER OLI',85000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:43:25','2023-02-02'),(48,'FILTER SKR UP',50000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:43:36','2023-02-02'),(49,'FILTER SOALR LOW',26000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:43:47','2023-02-02'),(50,'LOW',20000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:44:00','2023-02-02'),(51,'KANEBO',15000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:44:13','2023-02-02'),(52,'BOLA BOAL STIR',405000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:44:24','2023-02-02'),(53,'KINGPEN',305000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:44:35','2023-02-02'),(54,'STEL REM',65000,'2023-01-24','2023-02-02',27,1,'LUNAS','2023-01-24 21:44:45','2023-02-02'),(56,'GANTI MEDITRAN',1212,'2023-01-21',NULL,2,1,'BELUM','2023-01-27 07:01:59','2023-02-02');
+/*!40000 ALTER TABLE `kasbon` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -145,13 +272,17 @@ CREATE TABLE `mobil` (
   `plat` char(50) DEFAULT NULL,
   `mobil_jenis_id` int(11) NOT NULL,
   `pemilik_mobil_id` int(11) NOT NULL,
+  `supir_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `plat` (`plat`),
   KEY `FK_mobil_pemilik_mobil` (`pemilik_mobil_id`) USING BTREE,
   KEY `FK_mobil_mobil_jenis` (`mobil_jenis_id`) USING BTREE,
-  CONSTRAINT `FK_mobil_pemilik_mobil` FOREIGN KEY (`pemilik_mobil_id`) REFERENCES `pemilik_mobil` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+  KEY `FK_mobil_supir` (`supir_id`),
+  CONSTRAINT `FK_mobil_pemilik_mobil` FOREIGN KEY (`pemilik_mobil_id`) REFERENCES `pemilik_mobil` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_mobil_supir` FOREIGN KEY (`supir_id`) REFERENCES `supir` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +291,7 @@ CREATE TABLE `mobil` (
 
 LOCK TABLES `mobil` WRITE;
 /*!40000 ALTER TABLE `mobil` DISABLE KEYS */;
-INSERT INTO `mobil` VALUES (1,'B 981 OPL',2,1,'2023-01-03 18:06:46','2023-01-06 06:53:55'),(2,'B 982 OPL',1,1,'2023-01-03 18:06:46','2023-01-04 18:53:48'),(27,'B 983 OPL',2,3,'2023-01-03 18:06:46','2023-01-04 18:53:48'),(35,'9-09-09-0808078070',2,3,'2023-01-06 08:51:24','2023-01-18 03:31:00');
+INSERT INTO `mobil` VALUES (1,'B 981 OPL',2,3,1,'2023-01-03 18:06:46','2023-01-26 23:01:45'),(2,'B 982 OPL',1,1,5,'2023-01-03 18:06:46','2023-01-04 18:53:48'),(27,'B 983 OPL',1,5,6,'2023-01-03 18:06:46','2023-01-26 23:01:38');
 /*!40000 ALTER TABLE `mobil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +467,7 @@ CREATE TABLE `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +476,7 @@ CREATE TABLE `permissions` (
 
 LOCK TABLES `permissions` WRITE;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
-INSERT INTO `permissions` VALUES (1,'filemanager','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(2,'read module','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(3,'delete setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(4,'update setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(5,'read setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(6,'create setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(7,'delete user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(8,'update user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(9,'read user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(10,'create user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(11,'delete role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(12,'update role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(13,'read role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(14,'create role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(15,'delete permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(16,'update permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(17,'read permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(18,'create permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(19,'view_data_pegawai','web','2022-11-18 04:16:07','2022-11-18 04:16:07'),(20,'pengajuan menu','web','2022-11-18 04:41:26','2022-11-29 01:42:51'),(21,'pengajuan create','web','2022-11-22 02:08:40','2022-11-22 02:08:40'),(22,'pengajuan store','web','2022-11-22 07:59:32','2022-11-22 07:59:32'),(23,'pengajuan destroy','web','2022-11-22 07:59:43','2022-11-22 07:59:43'),(24,'pengajuan update','web','2022-11-22 07:59:50','2022-11-22 07:59:50'),(25,'profile menu','web','2022-11-29 01:43:03','2022-11-29 01:43:03'),(26,'pengajuan index','web','2022-11-29 01:43:44','2022-11-29 01:43:44'),(27,'pengajuan show','web','2022-12-03 09:27:42','2022-12-03 09:27:42'),(28,'pengajuan verifikasi kirim','web','2022-12-05 02:25:00','2022-12-05 02:38:16'),(29,'pengajuan verifikasi index','web','2022-12-05 02:38:59','2022-12-05 02:38:59'),(31,'pengajuan selesai','web','2022-12-06 03:06:08','2022-12-06 03:06:08'),(32,'pengajuan filter','web','2022-12-06 18:14:56','2022-12-06 18:14:56'),(33,'master rekom pegawai','web','2022-12-07 04:02:14','2022-12-07 04:02:31');
+INSERT INTO `permissions` VALUES (1,'filemanager','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(2,'read module','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(3,'delete setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(4,'update setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(5,'read setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(6,'create setting','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(7,'delete user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(8,'update user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(9,'read user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(10,'create user','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(11,'delete role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(12,'update role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(13,'read role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(14,'create role','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(15,'delete permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(16,'update permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(17,'read permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(18,'create permission','web','2022-11-18 03:50:20','2022-11-18 03:50:20'),(19,'view_data_pegawai','web','2022-11-18 04:16:07','2022-11-18 04:16:07'),(20,'pengajuan menu','web','2022-11-18 04:41:26','2022-11-29 01:42:51'),(21,'pengajuan create','web','2022-11-22 02:08:40','2022-11-22 02:08:40'),(22,'pengajuan store','web','2022-11-22 07:59:32','2022-11-22 07:59:32'),(23,'pengajuan destroy','web','2022-11-22 07:59:43','2022-11-22 07:59:43'),(24,'pengajuan update','web','2022-11-22 07:59:50','2022-11-22 07:59:50'),(25,'profile menu','web','2022-11-29 01:43:03','2022-11-29 01:43:03'),(26,'pengajuan index','web','2022-11-29 01:43:44','2022-11-29 01:43:44'),(27,'pengajuan show','web','2022-12-03 09:27:42','2022-12-03 09:27:42');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,7 +553,7 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -444,22 +575,25 @@ DROP TABLE IF EXISTS `setoran`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `setoran` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pemilik_mobil_id` int(11) DEFAULT NULL,
-  `supir_id` int(11) DEFAULT NULL,
-  `supir_nama` varchar(50) DEFAULT NULL,
-  `mobil_id` int(11) DEFAULT NULL,
-  `uang_jalan` int(11) DEFAULT NULL,
+  `pemilik_mobil_id` int(11) NOT NULL,
+  `supir_id` int(11) NOT NULL,
+  `supir_nama` varchar(50) NOT NULL,
+  `pemilik_nama` varchar(50) NOT NULL,
+  `mobil_plat` varchar(50) NOT NULL,
+  `mobil_id` int(11) NOT NULL,
   `pg` int(11) DEFAULT NULL,
-  `uang_tambahan` int(11) DEFAULT '0',
-  `uang_kurangan` int(11) DEFAULT '0',
+  `uang_jalan` int(11) DEFAULT NULL,
+  `uang_lainnya` int(11) DEFAULT '0',
   `tgl_ambil_uang_jalan` date DEFAULT NULL,
   `tgl_muat` date DEFAULT NULL,
   `tgl_bongkar` date DEFAULT NULL,
   `berat` int(20) DEFAULT '0',
   `tujuan_id` int(11) DEFAULT NULL,
   `tujuan_nama` varchar(50) DEFAULT NULL,
-  `status_pembayaran` varchar(50) DEFAULT 'belum lunas',
-  `status_pencairan` varchar(20) DEFAULT '0',
+  `status_pembayaran` enum('LUNAS','BELUM') DEFAULT 'BELUM',
+  `status_pencairan` enum('LUNAS','BELUM') NOT NULL DEFAULT 'BELUM',
+  `tgl_bayar` datetime DEFAULT NULL,
+  `tgl_pencairan` datetime DEFAULT NULL,
   `transportir_id` int(11) DEFAULT NULL,
   `transportir_nama` varchar(50) DEFAULT NULL,
   `foto` text,
@@ -467,7 +601,7 @@ CREATE TABLE `setoran` (
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -476,7 +610,7 @@ CREATE TABLE `setoran` (
 
 LOCK TABLES `setoran` WRITE;
 /*!40000 ALTER TABLE `setoran` DISABLE KEYS */;
-INSERT INTO `setoran` VALUES (16,NULL,3,'Udin',NULL,67000,10000,60000,79999,'2023-01-06','2023-01-18',NULL,6,3,'TEBAT PATAH','belum lunas','0',3,'ADS',NULL,NULL,'2023-01-18 11:31:25','2023-01-15 22:18:55'),(17,NULL,1,'Andi',NULL,788888,80000,690000,89999,'2023-01-15','2023-01-19',NULL,56,3,'TEBAT PATAH','belum lunas','0',1,'PT NAN RAING',NULL,NULL,'2023-01-18 11:08:28','2023-01-15 23:19:53');
+INSERT INTO `setoran` VALUES (22,1,5,'Dedek','Ade Sukron','B 982 OPL',2,40000,1777,-700000,'2023-01-18','2023-01-18',NULL,6789,3,'TEBAT PATAH','BELUM','LUNAS',NULL,'2023-02-02 00:00:00',3,'ADS',NULL,NULL,'2023-02-02 06:59:18','2023-01-22 07:23:39'),(29,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,700000,200000,'2023-01-24','2023-01-24','2023-02-23',12820,1,'KT','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:09:55'),(30,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,700000,200000,'2023-01-24','2023-01-24','2023-02-10',12400,1,'KT','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:10:08'),(31,1,6,'widodo','Ade Sukron','B 983 OPL',27,1000000,1800000,-500000,'2023-01-24','2023-01-24','2023-02-08',12720,3,'BHJ','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:10:18'),(32,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,0,0,'2023-01-24','2023-01-24','2023-02-22',13830,5,'KAI 02 JN N','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:10:29'),(33,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,800000,900000,'2023-01-24','2023-01-24','2023-02-28',13340,6,'BHS','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:10:42'),(34,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,800000,100000,'2023-01-24','2023-01-24','2023-02-28',13900,1,'KT','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:10:56'),(35,1,6,'widodo','Ade Sukron','B 983 OPL',27,600000,800000,600000,'2023-01-24','2023-01-24','2023-02-09',13940,7,'IBN','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:11:03'),(36,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,800000,900000,'2023-01-24','2023-01-24','2023-02-17',13970,8,'BM 01 SSN A','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:11:14'),(37,1,6,'widodo','Ade Sukron','B 983 OPL',27,600000,800000,550000,'2023-01-24','2023-01-24','2023-02-16',13610,7,'IBN','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:11:26'),(38,1,6,'widodo','Ade Sukron','B 983 OPL',27,0,0,0,'2023-01-24','2023-01-24','2023-01-25',13940,9,'TEBO PRIMA','LUNAS','LUNAS',NULL,'2023-02-03 00:00:00',1,'PT NAN RAING',NULL,NULL,'2023-02-03 05:40:00','2023-01-24 21:11:35');
 /*!40000 ALTER TABLE `setoran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -527,7 +661,7 @@ CREATE TABLE `supir` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,7 +670,7 @@ CREATE TABLE `supir` (
 
 LOCK TABLES `supir` WRITE;
 /*!40000 ALTER TABLE `supir` DISABLE KEYS */;
-INSERT INTO `supir` VALUES (1,'Andi','082244261525',NULL,'2023-01-03 15:08:51','2023-01-06 07:29:32'),(3,'Udin','082244261525',NULL,'2023-01-03 15:08:51','2023-01-03 15:08:52'),(5,'Dedek','0823782632323',NULL,'2023-01-06 07:28:05','2023-01-07 10:23:49');
+INSERT INTO `supir` VALUES (1,'Andi','082244261525',NULL,'2023-01-03 15:08:51','2023-01-06 07:29:32'),(3,'Udin','082244261525',NULL,'2023-01-03 15:08:51','2023-01-03 15:08:52'),(5,'Dedek','0823782632323',NULL,'2023-01-06 07:28:05','2023-01-07 10:23:49'),(6,'widodo','0981203213213',NULL,'2023-01-24 13:45:49','2023-01-24 13:45:49');
 /*!40000 ALTER TABLE `supir` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,6 +684,7 @@ DROP TABLE IF EXISTS `transportir`;
 CREATE TABLE `transportir` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama` char(50) DEFAULT NULL,
+  `harga_pencairan` int(11) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -562,7 +697,7 @@ CREATE TABLE `transportir` (
 
 LOCK TABLES `transportir` WRITE;
 /*!40000 ALTER TABLE `transportir` DISABLE KEYS */;
-INSERT INTO `transportir` VALUES (1,'PT NAN RAING','2023-01-03 15:08:51','2023-01-06 07:29:32'),(3,'ADS','2023-01-03 15:08:51','2023-01-03 15:08:52'),(5,'DSH','2023-01-06 07:28:05','2023-01-06 08:38:07');
+INSERT INTO `transportir` VALUES (1,'PT NAN RAING',1,'2023-01-03 15:08:51','2023-01-31 07:10:17'),(3,'ADS',5,'2023-01-03 15:08:51','2023-02-01 14:09:22'),(5,'DSH',3,'2023-01-06 07:28:05','2023-02-01 14:09:26');
 /*!40000 ALTER TABLE `transportir` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -579,7 +714,7 @@ CREATE TABLE `tujuan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -588,7 +723,7 @@ CREATE TABLE `tujuan` (
 
 LOCK TABLES `tujuan` WRITE;
 /*!40000 ALTER TABLE `tujuan` DISABLE KEYS */;
-INSERT INTO `tujuan` VALUES (1,'BHS','2023-01-03 15:08:51','2023-01-06 07:29:32'),(3,'TEBAT PATAH','2023-01-03 15:08:51','2023-01-03 15:08:52'),(5,'KAI','2023-01-06 07:28:05','2023-01-06 08:38:07');
+INSERT INTO `tujuan` VALUES (1,'KT','2023-01-03 15:08:51','2023-01-06 07:29:32'),(3,'BHJ','2023-01-03 15:08:51','2023-01-03 15:08:52'),(5,'KAI 02 JN N','2023-01-06 07:28:05','2023-01-06 08:38:07'),(6,'BHS','2023-01-24 14:04:29','2023-01-24 14:04:32'),(7,'IBN','2023-01-24 14:04:29','2023-01-24 14:04:32'),(8,'BM 01 SSN A','2023-01-24 14:04:30','2023-01-24 14:04:31'),(9,'TEBO PRIMA','2023-01-24 14:04:30','2023-01-24 14:04:31');
 /*!40000 ALTER TABLE `tujuan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -621,7 +756,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'superadmin','Lian Mafutra','082244261525',NULL,NULL,'$2y$10$0TCZyv09VXo58L2.JmjSeen0p126nwBE9LkBK41zy1TQ0.ftCASLG','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24');
+INSERT INTO `users` VALUES (1,'superadmin','Ade Sukron','082244261525',NULL,NULL,'$2y$10$0TCZyv09VXo58L2.JmjSeen0p126nwBE9LkBK41zy1TQ0.ftCASLG','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -634,4 +769,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-18 16:29:05
+-- Dump completed on 2023-02-06  6:26:01
