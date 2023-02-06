@@ -207,9 +207,9 @@
                 serverSide: true,
                 processing: true,
                 searching: true,
-                lengthChange: true,
-                paging: true,
-                info: true,
+                lengthChange: false,
+                paging: false,
+                info: false,
                 ordering: true,
                 //  order: [
                 //      [5, 'desc']
