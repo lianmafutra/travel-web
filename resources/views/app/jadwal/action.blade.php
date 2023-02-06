@@ -8,6 +8,8 @@
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         </button>
         <ul class="dropdown-menu">
+         <li><a  href="{{ route('jadwal.show', $data->id) }}" class=" dropdown-item" >Detail</a> </li>
+         <div class="dropdown-divider"></div>
             <li><a data-url='{{ route('jadwal.edit', $data->id) }}'  href="#" class="btn_edit dropdown-item" >Ubah Data</a> </li>
             <div class="dropdown-divider"></div>
              <li><a data-hapus="{{ $data->plat }}"  data-url="{{ route('jadwal.destroy', $data->id) }}" class="btn_hapus dropdown-item" href="#">Hapus

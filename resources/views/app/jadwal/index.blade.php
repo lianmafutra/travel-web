@@ -39,6 +39,7 @@
                                                     <th>No</th>
                                                     <th>Keberangkatan</th>
                                                     <th>Tujuan</th>
+                                                    <th>Kursi Tersedia</th>
                                                     <th>Mobil</th>
                                                     <th>Supir</th>
                                                     <th>Harga</th>
@@ -130,6 +131,10 @@
 
                     {
                         data: 'lokasi_tujuan_r.nama',
+                    },
+                    {
+                        data: 'kursi_tersedia',
+                        className: 'dt-center',
                     },
                     {
                         data: 'mobil.nama',

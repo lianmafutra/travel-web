@@ -12,7 +12,7 @@ class Jadwal extends Model
    use HasFactory;
    protected $table = 'jadwal';
    protected $guarded = [];
-
+   protected $appends = ['kursi_tersedia'];
    protected $casts = [
       'created_at' => 'date:d-m-Y H:m:s',
       'updated_at' => 'date:d-m-Y H:m:s',
@@ -24,6 +24,12 @@ class Jadwal extends Model
    public function lokasi_tujuan_r()
    {
       return $this->hasOne(Lokasi::class, 'id', 'lokasi_tujuan');
+   }
+
+   public function getKursiTersediaAttribute()
+   {
+      $diambil = KursiMobil::where('mobil_id', $this->attributes['mobil_id'])->with('kursi_pesanan')->has('kursi_pesanan')->count();
+      return  $diambil ."/". KursiMobil::where('mobil_id', $this->attributes['mobil_id'])->with('kursi_pesanan')->doesnthave('kursi_pesanan')->count();
    }
 
    public function lokasi_keberangkatan_r()

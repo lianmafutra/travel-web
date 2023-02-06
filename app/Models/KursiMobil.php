@@ -16,6 +16,10 @@ class KursiMobil extends Model
        'updated_at' => 'date:d-m-Y H:m:s',
     ];
 
-   
+
+    public function kursi_pesanan()
+    {
+        return $this->hasOne(KursiPesanan::class);
+    }
  
 }

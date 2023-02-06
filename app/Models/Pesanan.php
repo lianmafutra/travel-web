@@ -43,6 +43,9 @@ class Pesanan extends Model
       return $this->hasMany(KursiPesanan::class);
    }
 
+   
+ 
+
    public function getJumlahKursiPesanan()
    {
       return $this->kursi_pesanan->count();
