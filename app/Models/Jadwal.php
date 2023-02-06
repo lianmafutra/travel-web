@@ -21,12 +21,12 @@ class Jadwal extends Model
    ];
 
 
-   public function lokasi_tujuan()
+   public function lokasi_tujuan_r()
    {
       return $this->hasOne(Lokasi::class, 'id', 'lokasi_tujuan');
    }
 
-   public function lokasi_keberangkatan()
+   public function lokasi_keberangkatan_r()
    {
       return $this->hasOne(Lokasi::class, 'id', 'lokasi_keberangkatan');
    }

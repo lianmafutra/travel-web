@@ -8,7 +8,7 @@
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         </button>
         <ul class="dropdown-menu">
-         <li><a data-url='{{ route('pesanan.edit', $data->id) }}' href="#" class="btn_edit dropdown-item">Detail</a> </li>
+         <li><a  href="{{ route('pesanan.detail', $data->id) }}" class="btn_edit dropdown-item">Detail</a> </li>
     <div class="dropdown-divider"></div>
             <li><a data-url='{{ route('pesanan.edit', $data->id) }}' href="#" class="btn_edit dropdown-item">Ubah
                     Data</a> </li>

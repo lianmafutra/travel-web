@@ -41,6 +41,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
       Route::resource('pesanan', PesananController::class);
       Route::put('pesanan/update/verifikasi', 'updateVerifikasiPembayaran')->name('pesanan.pembayaran.verifikasi');
       Route::put('pesanan/update/status_pesanan', 'updateStatusPesanan')->name('pesanan.status');
+      Route::get('pesanan/detail/{id_pesanan}', 'detail')->name('pesanan.detail');
 
    });
 

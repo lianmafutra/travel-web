@@ -45,7 +45,7 @@
                     </x-select2>
                     <x-input-rupiah id='harga' label='Harga' required=true />
                     <x-datepicker id='tanggal' label='Tanggal' required=true />
-                    <x-timepicker id='jam' label='Jam' required=true />
+                    <x-timepicker id='jam' label='Jam Keberangkatan' required=true />
                   
 
                 </div>

@@ -15,4 +15,10 @@ class KursiPesanan extends Model
       'created_at'  => 'date:d-m-Y H:m:s',
       'updated_at'  => 'date:d-m-Y H:m:s',
    ];
+
+ 
+   public function kursi_mobil()
+   {
+       return $this->hasOne(KursiMobil::class, 'id', 'kursi_mobil_id');
+   }
 }

@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Data Rekening</h1>
+                        <h1 class="m-0">{{$title}}</h1>
                     </div>
                 </div>
             </div>
@@ -104,11 +104,11 @@
                         orderable: false,
                     },
                     {
-                        data: 'jadwal.lokasi_keberangkatan.nama',
+                        data: 'jadwal.lokasi_keberangkatan_r.nama',
                         orderable: false,
                     },
                     {
-                        data: 'jadwal.lokasi_tujuan.nama',
+                        data: 'jadwal.lokasi_tujuan_r.nama',
                         orderable: false,
                     },
                     {

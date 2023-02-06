@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KursiMobil;
+use App\Models\Mobil;
 use App\Models\Pesanan;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
@@ -13,8 +15,8 @@ class PesananController extends Controller
    {
 
       $x['title']    = 'Kelola Data Pesanan';
-      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan', 'jadwal.lokasi_tujuan', 'kursi_pesanan');
-    
+      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan');
+
       if (request()->ajax()) {
          return  datatables()->of($data)
             ->addIndexColumn()
@@ -69,6 +71,22 @@ class PesananController extends Controller
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
       }
    }
+
+   public function detail($id_pesanan)
+   {
+
+      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
+         ->where('id', $id_pesanan)->first();
+
+      $kursi_mobil =  Mobil::with('supir')->where('id',$data->mobil_id)->first();
+     
+      $kursi_pesanan = $data->kursi_pesanan->pluck('kursi_mobil.nama');
+
+
+      $x['title']    = 'Detail Pesanan ( ' . $data->first()->kode_pesanan . ' )';
+      return view('app.pesanan.detail', $x, compact(['data', 'kursi_mobil', 'kursi_pesanan']));
+   }
+
 
 
    public function updateVerifikasiPembayaran(Request $request)
