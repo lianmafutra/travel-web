@@ -70,6 +70,10 @@
                                         <td>{{ $data->nama }}</td>
                                     </tr>
                                     <tr>
+                                       <th>User Foto</th>
+                                       <td><img src="{{ $data->user->getFotoUrl() }}" width="80px" height="80px"></td>
+                                   </tr>
+                                    <tr>
                                         <th>Kontak</th>
                                         <td>{{ $data->kontak }}</td>
                                     </tr>
@@ -82,6 +86,10 @@
                                        <th>Mobil</th>
                                        <td>{{$kursi_mobil->nama}} ( {{$kursi_mobil->plat}} )</td>
                                    </tr>
+                                   <tr>
+                                    <th>Foto Mobil</th>
+                                    <td><img src="{{ $kursi_mobil->getFotoUrl() }}" width="80px" height="80px"></td>
+                                </tr>
                                    <tr>
                                     <th>Supir</th>
                                     <td>{{$kursi_mobil->supir->nama}} ( {{ $kursi_mobil->supir->kontak  }})</td>

@@ -125,11 +125,11 @@
                         width: '1%'
                     },
                     {
-                        data: 'lokasi_keberangkatan.nama',
+                        data: 'lokasi_keberangkatan_r.nama',
                     },
 
                     {
-                        data: 'lokasi_tujuan.nama',
+                        data: 'lokasi_tujuan_r.nama',
                     },
                     {
                         data: 'mobil.nama',

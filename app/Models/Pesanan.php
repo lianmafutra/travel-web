@@ -27,6 +27,12 @@ class Pesanan extends Model
       return $this->hasOne(Jadwal::class, 'id', 'jadwal_id');
    }
 
+
+   public function user()
+   {
+      return $this->hasOne(User::class, 'id', 'user_id');
+   }
+
    public function kursi_pesanan()
    {
       return $this->hasMany(KursiPesanan::class);
