@@ -71,7 +71,7 @@
                                     </tr>
                                     <tr>
                                        <th>User Foto</th>
-                                       <td><img src="{{ $data->user->getFotoUrl() }}" width="80px" height="80px"></td>
+                                       <td><img style="object-fit: cover" src="{{ $data->user->getFotoUrl() }}" width="80px" height="80px"></td>
                                    </tr>
                                     <tr>
                                         <th>Kontak</th>
@@ -88,7 +88,7 @@
                                    </tr>
                                    <tr>
                                     <th>Foto Mobil</th>
-                                    <td><img src="{{ $kursi_mobil->getFotoUrl() }}" width="80px" height="80px"></td>
+                                    <td><img style="object-fit: cover" src="{{ $kursi_mobil->getFotoUrl() }}" width="80px" height="80px"></td>
                                 </tr>
                                    <tr>
                                     <th>Supir</th>
@@ -101,11 +101,11 @@
                                     </tr>
                                     <tr>
                                         <th>Tanggal Pesan</th>
-                                        <td>{{ $data->tgl_pesan }}</td>
+                                        <td>@tanggal($data->tgl_pesan)</td>
                                     </tr>
                                     <tr>
                                         <th>Tanggal Keberangkatan</th>
-                                        <td>{{ $data->tgl_keberangkatan }}</td>
+                                        <td>@tanggal($data->tgl_keberangkatan) </td>
                                     </tr>
                                     <tr>
                                         <th>Status Pesanan</th>

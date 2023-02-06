@@ -6,6 +6,7 @@ use App\Http\Services\Pegawai\PengajuanService;
 use App\Models\Pengajuan;
 use App\Models\PengajuanHistori;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -28,5 +29,11 @@ class AppServiceProvider extends ServiceProvider
    public function boot()
    {
       Blade::directive('rupiah', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
+
+      Blade::directive('tanggal', function($expression) {
+         return "<?php echo \Carbon\Carbon::parse($expression)->translatedFormat('d-m-y H:m:s'); ?>";
+     });
+
+
    }
 }

@@ -75,8 +75,11 @@ class PesananController extends Controller
    public function detail($id_pesanan)
    {
 
+    
+
       $data = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
          ->where('id', $id_pesanan)->first();
+         
 
       $kursi_mobil =  Mobil::with('supir')->where('id',$data->mobil_id)->first();
      

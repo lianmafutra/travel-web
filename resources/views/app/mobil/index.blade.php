@@ -8,7 +8,6 @@
 @endpush
 @section('content')
     <style>
-
     </style>
     <div class="content-wrapper">
         <div class="content-header">
@@ -42,9 +41,7 @@
                                                     <th>Nama</th>
                                                     <th>Supir</th>
                                                     <th>Foto</th>
-
                                                     <th>created_at</th>
-
                                                     <th>#Aksi</th>
                                                 </tr>
                                             </thead>
@@ -60,9 +57,11 @@
             </div>
         </section>
     </div>
-@endsection
 @include('app.mobil.modal-create')
+
+@endsection
 @push('js')
+
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
@@ -75,18 +74,17 @@
     <script src="{{ asset('plugins/filepond/filepond-plugin-image-preview.js') }}"></script>
     <script>
         $(document).ready(function() {
-
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
 
+         
             // Filepond
             FilePond.registerPlugin(
                 FilePondPluginFileEncode,
                 FilePondPluginImagePreview,
                 FilePondPluginFileValidateType,
                 FilePondPluginFileValidateSize);
-
             let foto_mobil = FilePond.create(document.querySelector('#foto'));
             foto_mobil.setOptions({
                 storeAsFile: true,
@@ -103,7 +101,6 @@
                     [4, 'desc']
                 ],
                 ajax: @json(route('mobil.index')),
-
                 columns: [{
                         data: "DT_RowIndex",
                         orderable: false,
@@ -130,7 +127,6 @@
                     {
                         data: 'created_at',
                     },
-
                     {
                         data: "action",
                         orderable: false,
@@ -138,24 +134,19 @@
                     },
                 ]
             });
-
             $("#btn_tambah").click(function() {
                 clearInput()
                 $('#modal_create').modal('show')
                 $('.modal-title').text('Tambah Data')
-                
                 if (foto_mobil.getFiles().length != 0) {
                     for (var i = 0; i <= foto_mobil.getFiles().length - 1; i++) {
-                     foto_mobil.removeFile(foto_mobil.getFiles()[0].id)
+                        foto_mobil.removeFile(foto_mobil.getFiles()[0].id)
                     }
                 }
             });
-
-
             $("#form_tambah").submit(function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);
-
                 $.ajax({
                     type: 'POST',
                     url: @json(route('mobil.store')),
@@ -190,7 +181,6 @@
                     }
                 });
             });
-
             $('#datatable').on('click', '.btn_edit', function(e) {
                 $('#modal_create').modal('show')
                 $('.modal-title').text('Ubah Data')
@@ -198,7 +188,7 @@
                 let url = $(this).attr('data-url');
                 if (foto_mobil.getFiles().length != 0) {
                     for (var i = 0; i <= foto_mobil.getFiles().length - 1; i++) {
-                     foto_mobil.removeFile(foto_mobil.getFiles()[0].id)
+                        foto_mobil.removeFile(foto_mobil.getFiles()[0].id)
                     }
                 }
                 $.get(url, function(response) {
@@ -206,7 +196,6 @@
                     $('#plat').val(response.data.plat)
                     $('#nama').val(response.data.nama)
                     $('#supir_id').val(response.data.supir_id).trigger('change')
-                    
                     foto_mobil.setOptions({
                         storeAsFile: true,
                         files: [{
@@ -215,7 +204,6 @@
                     });
                 })
             });
-
             $('#datatable').on('click', '.btn_hapus', function(e) {
                 let data = $(this).attr('data-hapus');
                 Swal.fire({
@@ -233,7 +221,6 @@
                     }
                 })
             });
-
         })
     </script>
 @endpush

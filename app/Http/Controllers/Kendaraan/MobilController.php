@@ -25,7 +25,7 @@ class MobilController extends Controller
                return view('app.mobil.action', compact('data'));
             })
             ->editColumn('foto', function ($data) {
-               return '<img src="' . $data->getFotoUrl() . '" height="100px" width="100px">';
+               return '<img class="foto_mobil" src="' . $data->getFotoUrl() . '" height="100px" width="100px"; style="object-fit: cover;">';
             })
             ->rawColumns(['action', 'foto'])
             ->make(true);

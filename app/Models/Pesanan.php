@@ -2,25 +2,30 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pesanan extends Model
 {
-    use HasFactory;
-    protected $table = 'pesanan';
-    protected $guarded = [];
- 
-    protected $casts = [
-       'created_at' => 'date:d-m-Y H:m:s',
-       'updated_at' => 'date:d-m-Y H:m:s',
-       'tgl_pembayaran' => 'date:d-m-Y H:m',
-       'tgl_keberangkatan' => 'date:d-m-Y H:m',
-       'tgl_pesan' => 'date:d-m-Y H:m',
-    ];
+   use HasFactory;
+   protected $table = 'pesanan';
+   protected $guarded = [];
 
-    public function getBuktiPembayaranUrl(){
-      return asset('storage/images/'.$this->bukti_pembayaran);
+   protected $casts = [
+      'created_at' => 'date:d-m-Y H:m:s',
+      'updated_at' => 'date:d-m-Y H:m:s',
+      'tgl_pembayaran' => 'date:d-m-Y H:m',
+      'tgl_keberangkatan' => 'date:d-m-Y H:m',
+      'tgl_pesan' => 'date:d-m-Y H:m',
+   ];
+
+ 
+
+
+   public function getBuktiPembayaranUrl()
+   {
+      return asset('storage/images/' . $this->bukti_pembayaran);
    }
    public function jadwal()
    {
@@ -42,5 +47,4 @@ class Pesanan extends Model
    {
       return $this->kursi_pesanan->count();
    }
-
 }
