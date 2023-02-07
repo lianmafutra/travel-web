@@ -96,7 +96,7 @@ class JadwalController extends Controller
            });
 
        
-       $total_kursi =  KursiMobil::where('mobil_id', $jadwal->mobil_id);
+       $total_kursi =  KursiMobil::where('mobil_id', $jadwal->mobil_id)->whereNotIn('tipe', ['SUPIR','KOSONG']);
 
         
       if (request()->ajax()) {

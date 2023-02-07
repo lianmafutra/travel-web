@@ -9,8 +9,8 @@
         </button>
         <ul class="dropdown-menu">
          <li><a  href="{{ route('pesanan.detail', $data->id) }}" class="btn_edit dropdown-item">Detail</a> </li>
-    <div class="dropdown-divider"></div>
-            <li><a data-url='{{ route('pesanan.edit', $data->id) }}' href="#" class="btn_edit dropdown-item">Ubah
+    {{-- <div class="dropdown-divider"></div> --}}
+            {{-- <li><a data-url='{{ route('pesanan.edit', $data->id) }}' href="#" class="btn_edit dropdown-item">Ubah
                     Data</a> </li>
             <div class="dropdown-divider"></div>
             @if ($data->status_pembayaran == 'BELUM')
@@ -36,7 +36,7 @@
             @endif
                     <li><a data-id='{{ $data->id }}'  data-status='{{ $data->status_pesanan }}' data-pesanan='{{ $data->kode_pesanan }}'  href="#"
                       class="btn_status_pesanan dropdown-item">Ubah Status Pesanan
-                   </a> </li>
+                   </a> </li> --}}
         </ul>
     </div>
 </div>

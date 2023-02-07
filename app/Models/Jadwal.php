@@ -39,7 +39,7 @@ class Jadwal extends Model
        function (Builder $query) use($data) {
          $query->whereIn('pesanan_id', $data->pluck('id'));
         });
-        $total_kursi =  KursiMobil::where('mobil_id',  $this->attributes['mobil_id']);
+        $total_kursi =  KursiMobil::where('mobil_id',  $this->attributes['mobil_id'])->whereNotIn('tipe', ['SUPIR','KOSONG']);
         return  $kursi_pesanan->count()."/".  $total_kursi->count();
    }
 
