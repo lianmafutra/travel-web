@@ -49,7 +49,7 @@ class dbsync extends Command
       }
       $this->info("Drop Database Success");
 
-      DB::unprepared(file_get_contents('database/backup/db.sql'));
+      DB::unprepared(file_get_contents('database/backup/db_travel.sql'));
       $this->info("Success Import New Database");
 
 
