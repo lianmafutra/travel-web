@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::post('user/register', [AuthController::class, 'register']);
+Route::post('user/login', [AuthController::class, 'login'])->name('login');
+Route::put('user/password/lupa', [AuthController::class, 'lupaPassword']);
+
+Route::post('notif/send', [NotifController::class, 'send']);
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
