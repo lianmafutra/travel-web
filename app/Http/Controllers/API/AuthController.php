@@ -20,13 +20,10 @@ class AuthController extends Controller
    public function login(Request $request)
    {
       if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-
-         $user   = Auth::user();
-
+         $user   = auth()->user();
          // if($user->active != 1){
          //    return $this->error('User Telah di Nonaktifkan, Silahkan hubungi operator ', 200, "");
          // }
-
          $success['token'] = $user->createToken('travel_app')->accessToken;
          $success['user']  = $user;
          return $this->success('User Berhasil Login', $success);
@@ -49,23 +46,26 @@ class AuthController extends Controller
    {
       try {
          $input = $request->all();
+       
          $image_path = $request->file('foto')->store('images', 'public');
+       
          $input['password'] = bcrypt($request->password);
+         $input['username'] = $request->email;
+        
          $input['foto'] = $image_path;
-         $user =User::create($input);
-         return $this->success("Pendaftaran akun berhasil",   $user);
+       
+         $user = User::create($input);
+         return $this->success("Pendaftaran akun berhasil");
+        
       } catch (QueryException $th) {
          $errorCode = $th->errorInfo[1];
          if ($errorCode == 1062) {
             return $this->error("Gagal, Maaf User Sudah pernah terdaftar",  400);
          }
-      } catch (\Throwable $th) {
+         return $this->error("Pendaftaran User Gagal , ".$th->getMessage(), 400);
+      } catch (\Exception $th) {
          return $this->error("Pendaftaran User Gagal , ".$th->getMessage(), 400);
       }
-   }
-
-   public function userDetail()
-   {
    }
 
    public function ubahPassword(Request $request)

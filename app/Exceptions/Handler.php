@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use App\Utils\ApiResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Spatie\FlareClient\Http\Exceptions\NotFound;
@@ -70,7 +71,10 @@ class Handler extends ExceptionHandler
          if ($exception instanceof NotFoundHttpException ) {
             return $this->error('endpoint tidak ditemukan', 404);
           }
-       
+          if ($exception instanceof ModelNotFoundException ) {
+            return $this->error('Data Tidak Ditemukan', 404);
+          }
+
      }
      
 
