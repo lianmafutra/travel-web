@@ -2,12 +2,19 @@
 
 namespace App\Exceptions;
 
+use App\Utils\ApiResponse;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
+use Spatie\FlareClient\Http\Exceptions\NotFound;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
+   use ApiResponse;
    /**
     * A list of the exception types that are not reported.
     *
@@ -55,6 +62,16 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => $exception->getMessage()], 400);
          }
       }
+
+      if ($request->is('api/*')) {
+         if ($exception instanceof AuthenticationException ) {
+           return $this->error('token tidak cocok', 401);
+         }
+         if ($exception instanceof NotFoundHttpException ) {
+            return $this->error('endpoint tidak ditemukan', 404);
+          }
+       
+     }
      
 
       return parent::render($request, $exception);

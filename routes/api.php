@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\LokasiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,8 @@ Route::post('user/login', [AuthController::class, 'login'])->name('login');
 Route::put('user/password/lupa', [AuthController::class, 'lupaPassword']);
 
 // Route::post('notif/send', [NotifController::class, 'send']);
+Route::middleware(['auth:api'])->group(function () {
+   Route::get('lokasi', [LokasiController::class, 'getLokasi']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
 });
+
