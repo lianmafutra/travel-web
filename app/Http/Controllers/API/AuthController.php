@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Utils\ApiResponse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,21 +19,20 @@ class AuthController extends Controller
    use ApiResponse;
    public function login(Request $request)
    {
-      if(Auth::attempt(['username' =>$request->username, 'password' => $request->password])){ 
+      if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
 
          $user   = Auth::user();
 
          // if($user->active != 1){
          //    return $this->error('User Telah di Nonaktifkan, Silahkan hubungi operator ', 200, "");
          // }
-         
+
          $success['token'] = $user->createToken('travel_app')->accessToken;
          $success['user']  = $user;
          return $this->success('User Berhasil Login', $success);
-      } 
-     else{ 
-         return $this->error('Username atau password salah' ,400);
-     } 
+      } else {
+         return $this->error('Username atau password salah', 400);
+      }
    }
 
    public function logout()
@@ -47,12 +47,25 @@ class AuthController extends Controller
 
    public function register(Request $request)
    {
-     
+      try {
+         $input = $request->all();
+         $image_path = $request->file('foto')->store('images', 'public');
+         $input['password'] = bcrypt($request->password);
+         $input['foto'] = $image_path;
+         $user =User::create($input);
+         return $this->success("Pendaftaran akun berhasil",   $user);
+      } catch (QueryException $th) {
+         $errorCode = $th->errorInfo[1];
+         if ($errorCode == 1062) {
+            return $this->error("Gagal, Maaf User Sudah pernah terdaftar",  400);
+         }
+      } catch (\Throwable $th) {
+         return $this->error("Pendaftaran User Gagal , ".$th->getMessage(), 400);
+      }
    }
 
    public function userDetail()
    {
-      
    }
 
    public function ubahPassword(Request $request)
@@ -74,29 +87,28 @@ class AuthController extends Controller
          }
       } catch (Exception $e) {
          DB::rollback();
-         return $this->error("Error "+$e, 400);
+         return $this->error("Error " + $e, 400);
       }
    }
 
    public function lupaPassword(Request $request)
    {
       DB::beginTransaction();
-      try{
-          $user = User::where([['no_hp', trim($request->nik)],
-          ['email', trim($request->email)]])->firstOrFail();
-          $user->password = Hash::make(trim($request->password_baru));
-          $user->save();
-          DB::commit();
-          return $this->success("Password Berhasil Diubah","");
-      }catch (ModelNotFoundException $e){
+      try {
+         $user = User::where([
+            ['no_hp', trim($request->nik)],
+            ['email', trim($request->email)]
+         ])->firstOrFail();
+         $user->password = Hash::make(trim($request->password_baru));
+         $user->save();
+         DB::commit();
+         return $this->success("Password Berhasil Diubah", "");
+      } catch (ModelNotFoundException $e) {
          DB::rollback();
-         return $this->error("Data User Tidak Ditemukan",200);
-     }
-      catch (Exception $e){
-          DB::rollback();
-          return $this->error($e."Password Gagal Diubah", 400);
+         return $this->error("Data User Tidak Ditemukan", 200);
+      } catch (Exception $e) {
+         DB::rollback();
+         return $this->error($e . "Password Gagal Diubah", 400);
       }
    }
-
-
 }

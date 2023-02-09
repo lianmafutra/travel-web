@@ -21,10 +21,8 @@ class User extends Authenticatable
    use ApiResponse;
 
 
-   protected $fillable = [
-      'username',
-      'password',
-      'opd_id',
+   protected $guarded = [
+     
    ];
 
    protected $hidden = [
