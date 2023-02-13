@@ -366,6 +366,7 @@ CREATE TABLE `oauth_access_tokens` (
 
 LOCK TABLES `oauth_access_tokens` WRITE;
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
+INSERT INTO `oauth_access_tokens` VALUES ('03c7596d2780072131b753c28807843584d3f9130bd63718fd5d0d90e3469eea75fd2b5982f7d449',1,1,'travel_app','[]',0,'2023-02-11 17:17:38','2023-02-11 17:17:38','2024-02-12 00:17:38'),('1d8b70399494a083c807d53036bec668a3acd6d0a705e95ac19d9ef157f1e7a20398f96465602b2e',1,1,'travel_app','[]',0,'2023-02-11 15:46:29','2023-02-11 15:46:29','2024-02-11 22:46:29'),('292e35df12aaff18dd415a5faba95ea393b96d418711c9d29d8556d2b63eed64787e0ee3f63a1a96',1,1,'travel_app','[]',0,'2023-02-09 15:04:00','2023-02-09 15:04:00','2024-02-09 22:04:00'),('3b2c33b0618453be7049250c3d0dd86dc360a0f73fd1cf0986540916785c00886421d106b38503d9',1,1,'travel_app','[]',0,'2023-02-11 17:36:33','2023-02-11 17:36:33','2024-02-12 00:36:33'),('3cb0d2700b861a3b85ba02199f4c3cd938f505235e0ee72bd2ac43e2c2e234d8a6ca265c721fd0de',1,1,'travel_app','[]',0,'2023-02-12 11:33:36','2023-02-12 11:33:36','2024-02-12 18:33:36'),('53e29bdb29478503debc767f2769a683d35e78231b88354348029ad2ef209a2ce68c3abcd4a43c7c',1,1,'travel_app','[]',0,'2023-02-11 17:13:42','2023-02-11 17:13:42','2024-02-12 00:13:42'),('6188d3c45f5de558f1ac2d946c7e49abef941e69bb9a96cd7518f55aa885d6c0cbd6538bfc568ec8',1,1,'travel_app','[]',0,'2023-02-13 15:39:02','2023-02-13 15:39:03','2024-02-13 22:39:02'),('65ea2a29013f632f7c6c7a25650796adf69748f27ee9ced394de2974ee13046abfaa8cc886ced46a',1,1,'travel_app','[]',0,'2023-02-11 17:17:45','2023-02-11 17:17:45','2024-02-12 00:17:45'),('6d4e9ab0c34081549f2355e7ef2e91e6ab2831339950f67e01e202ee1c51dba5c192460c85ccc85d',1,1,'travel_app','[]',0,'2023-02-11 15:39:02','2023-02-11 15:39:02','2024-02-11 22:39:02'),('718b4f9fca75c9ec06fe07d499772df4798771a2655b0b9f91f30f07f1a64b46fa5ebf2e8d92887e',1,1,'travel_app','[]',0,'2023-02-11 15:44:37','2023-02-11 15:44:37','2024-02-11 22:44:37'),('7ee10a50193dd395b0d78140597eb7cf227e5f80b74514b333fe8a06e5089d848fb809b470d309b7',1,1,'travel_app','[]',0,'2023-02-11 15:01:56','2023-02-11 15:01:57','2024-02-11 22:01:56'),('89e0ea7111131e8b09ec6262d6506f66c3bc2be00536bac24401b62d567a5c566f1eb222d7a70f36',1,1,'travel_app','[]',0,'2023-02-09 14:52:00','2023-02-09 14:52:01','2024-02-09 21:52:00'),('8cd02157e1e86b1bd08a80849ca63f815e2875b14df0889d938e4bcfb011a96e69fb629284c011a7',1,1,'travel_app','[]',0,'2023-02-11 15:50:51','2023-02-11 15:50:51','2024-02-11 22:50:51'),('ad38a96b6285d9cff1737080a7ebc0bd12dbbae9913fc696d133631d76ffd7732b57b83d327df083',1,1,'travel_app','[]',0,'2023-02-11 15:36:16','2023-02-11 15:36:16','2024-02-11 22:36:16'),('afbdd9837a1af9667087ec608153f4337c100795e2c861b96ab963b08519ed4818d9f27da16626b9',1,1,'travel_app','[]',0,'2023-02-11 17:17:51','2023-02-11 17:17:52','2024-02-12 00:17:51'),('b5280d754d3184bc5a4f9006e8903f40e7d5f822f502cb95e0ead1fb9b88f91396e2610385f1a5b0',1,1,'travel_app','[]',0,'2023-02-11 17:37:34','2023-02-11 17:37:35','2024-02-12 00:37:34'),('b75d978f130638ac2ba9aba9731f76ad75b0318f3b5d816e6bcbfc53a2df898026bcbe23278b5677',1,1,'travel_app','[]',0,'2023-02-11 17:27:18','2023-02-11 17:27:18','2024-02-12 00:27:18'),('bfc4b48225ab4b988b96c3906fb7cfdd5c0372e6f10e082b245288a10521f2b537b76c9bdfffb08e',1,1,'travel_app','[]',0,'2023-02-11 17:35:50','2023-02-11 17:35:50','2024-02-12 00:35:50'),('d0b465451d6b171692a78247a29f547c9673b52626fe8804dd0308116ae546f6b5fe860add5dffcf',1,1,'travel_app','[]',0,'2023-02-09 14:53:08','2023-02-09 14:53:08','2024-02-09 21:53:08'),('e72e9e3b5387adbfcafbe4669cf7f4b9a72211b2720df49dfff137039278b52230fb5e6d84d7c765',1,1,'travel_app','[]',0,'2023-02-11 15:46:34','2023-02-11 15:46:34','2024-02-11 22:46:34'),('f2f01032fea2b09b5b2d351f5af359d21106e5d027d140c38515b41742609b1b1b1f210e565fa62a',1,1,'travel_app','[]',0,'2023-02-12 11:01:18','2023-02-12 11:01:18','2024-02-12 18:01:18'),('fce27714b66e9ecadcaae575bbb1cf3247aac2d8b37de66df90339ed01b0168eafbac8307d9d2ad7',1,1,'travel_app','[]',0,'2023-02-11 17:14:26','2023-02-11 17:14:26','2024-02-12 00:14:26');
 /*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -581,7 +582,7 @@ CREATE TABLE `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -590,6 +591,7 @@ CREATE TABLE `personal_access_tokens` (
 
 LOCK TABLES `personal_access_tokens` WRITE;
 /*!40000 ALTER TABLE `personal_access_tokens` DISABLE KEYS */;
+INSERT INTO `personal_access_tokens` VALUES (1,'App\\Models\\User',1,'travel_app','80e8f772feb0e3f932ae49ef1151444b023c3bc7ac616d1f62f46166c7ea1598','[\"*\"]',NULL,'2023-02-09 14:50:26','2023-02-09 14:50:26');
 /*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,7 +638,7 @@ CREATE TABLE `pesanan` (
 
 LOCK TABLES `pesanan` WRITE;
 /*!40000 ALTER TABLE `pesanan` DISABLE KEYS */;
-INSERT INTO `pesanan` VALUES (1,'1BCGAH',13,2,1,NULL,'SELESAI','BELUM',NULL,'2023-02-05 01:10:29','2023-02-05 01:12:12','Lian Mafutra','082244261525',NULL,NULL,'bukti_transfer.jpg','2023-01-03 15:08:51','2023-02-06 14:48:49'),(3,'2BCGAH',13,3,1,NULL,'PROSES','LUNAS',NULL,'2023-02-05 01:10:29','2023-02-05 01:12:12','Andi Susanto','082244261525',NULL,NULL,NULL,'2023-01-03 15:08:51','2023-02-05 00:35:46'),(4,'3BCGAH',14,3,2,NULL,'DITOLAK','BELUM','2023-02-07 04:06:36','2023-02-05 01:10:29','2023-02-05 01:12:12','Andi Susanto','082244261525',NULL,NULL,NULL,'2023-01-03 15:08:51','2023-02-05 01:20:44');
+INSERT INTO `pesanan` VALUES (1,'1BCGAH',13,2,1,NULL,'SELESAI','BELUM',NULL,'2023-02-05 01:10:29','2023-02-05 01:12:12','Lian Mafutra','082244261525',5,'OK, Baik sekali pelayanannnya mantab','bukti_transfer.jpg','2023-01-03 15:08:51','2023-02-09 15:34:31'),(3,'2BCGAH',13,3,1,NULL,'PROSES','LUNAS',NULL,'2023-02-05 01:10:29','2023-02-05 01:12:12','Andi Susanto','082244261525',NULL,NULL,NULL,'2023-01-03 15:08:51','2023-02-05 00:35:46'),(4,'3BCGAH',14,3,2,NULL,'DITOLAK','BELUM','2023-02-07 04:06:36','2023-02-05 01:10:29','2023-02-05 01:12:12','Andi Susanto','082244261525',NULL,NULL,NULL,'2023-01-03 15:08:51','2023-02-05 01:20:44');
 /*!40000 ALTER TABLE `pesanan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -792,20 +794,21 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` char(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` char(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `nama_lengkap` char(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kontak` char(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci,
-  `jenkel` enum('L','P') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jenis_kelamin` enum('L','P') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` text COLLATE utf8mb4_unicode_ci,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -814,7 +817,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admintravel','Admin Travel',NULL,'082244261525','Jl. Sunan Kalijaga RT. 16',NULL,'profile_superadmin.jpg','$2a$12$j/ZV5ZiFnRjrb23LbKbOE.rZ2CbfSLZ85RpkaurNxZnDLIEtmX14u','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24'),(2,'joko','Lian Mafutra',NULL,'082244261525','Jl. Sunan Kalijaga RT. 16',NULL,'profile_superadmin.jpg','$2a$12$j/ZV5ZiFnRjrb23LbKbOE.rZ2CbfSLZ85RpkaurNxZnDLIEtmX14u','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24'),(3,'ddaqwd','Jokow',NULL,'082244261525','Jl. Sunan Kalijaga RT. 16',NULL,'profile_superadmin.jpg','$2a$12$j/ZV5ZiFnRjrb23LbKbOE.rZ2CbfSLZ85RpkaurNxZnDLIEtmX14u','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24');
+INSERT INTO `users` VALUES (1,'admintravel','Admin Travel','lianmafutra2@gmail.com','082244261525','Jl. Sunan Kalijaga RT. 16',NULL,'profile_superadmin.jpg','$2a$12$FeFOuSpZgnqVq8cLlUbfdup9JFvxwif6CVQ2kRSsiNL0JGiKRhah6','s9oosXYqvHBwdAfwuZHwRCCPVTcO9WLE7jnwsl4XQH4d1RlQpGK0kkQfvSEn','2022-11-23 09:04:52','2023-01-03 14:02:24'),(2,'joko','Lian Mafutra',NULL,'082244261525','Jl. Sunan Kalijaga RT. 16',NULL,'profile_superadmin.jpg','$2a$12$j/ZV5ZiFnRjrb23LbKbOE.rZ2CbfSLZ85RpkaurNxZnDLIEtmX14u','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24'),(3,'ddaqwd','Jokow',NULL,'082244261525','Jl. Sunan Kalijaga RT. 16',NULL,'profile_superadmin.jpg','$2a$12$j/ZV5ZiFnRjrb23LbKbOE.rZ2CbfSLZ85RpkaurNxZnDLIEtmX14u','Tc7kVUAW72LPv0KLVIXOR9hZqbDLESOoG6L7rxeogph0BOeWXwjmCUGikpWc','2022-11-23 09:04:52','2023-01-03 14:02:24'),(5,'lianmafutra2@gmail.com2','Abdullah','lianmafutra2@gmail.com2','082244261525','Jambi','L','images/hAnFEqj9zgSSr3kmE3RPLycGewnkrAjXL6zXySgZ.jpg','$2y$10$bvJhTjmzke0/9aUtrHBkMuAGC35I.JuVQJpCLRZbjfbWd1QO2Qoq2',NULL,'2023-02-09 15:00:48','2023-02-09 15:00:48');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -827,4 +830,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-08  6:32:44
+-- Dump completed on 2023-02-14  1:25:47

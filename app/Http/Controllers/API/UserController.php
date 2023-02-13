@@ -10,8 +10,8 @@ class UserController extends Controller
 {
    use ApiResponse;
 
-   public function getUserDetail($id_user){
-     $user = User::findOrFail($id_user);
+   public function getUserDetail(){
+     $user = User::findOrFail(auth()->user()->id);
      return $this->success("User Detail", $user);
    }
 }

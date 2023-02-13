@@ -26,7 +26,7 @@ Route::put('user/password/lupa', [AuthController::class, 'lupaPassword']);
 // Route::post('notif/send', [NotifController::class, 'send']);
 Route::middleware(['auth:api'])->group(function () {
    Route::get('lokasi', [LokasiController::class, 'getLokasi']);
-   Route::get('user/{id}', [UserController::class, 'getUserDetail']);
+   Route::get('user/detail', [UserController::class, 'getUserDetail']);
    Route::post('jadwal/lokasi', [JadwalController::class, 'getJadwalByLokasi']);
    Route::get('jadwal/{id}', [JadwalController::class, 'getJadwalDetail']);
    Route::post('pesanan/review', [PesananController::class, 'kirimReview']);

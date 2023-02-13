@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Jadwal;
 use App\Utils\ApiResponse;
+use Illuminate\Database\Eloquent\Builder;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -23,8 +24,16 @@ class JadwalController extends Controller
       return $this->error($validator->errors(), 400);
      }
 
-     $jadwal = Jadwal::where('lokasi_tujuan', $request->lokasi_tujuan)
-     ->where('lokasi_keberangkatan', $request->lokasi_keberangkatan)->get();
+     $jadwal = Jadwal::with(['lokasi_tujuan_r', 'lokasi_keberangkatan_r', 'mobil'])
+     ->whereHas('lokasi_tujuan_r',
+     function (Builder $query) use($request) {
+       $query->where('nama', $request->lokasi_tujuan);
+      })
+      ->whereHas('lokasi_keberangkatan_r',
+      function (Builder $query) use($request) {
+        $query->where('nama', $request->lokasi_keberangkatan);
+       })->get();
+   
      return $this->success("Data Jadwal Berdasarkan Lokasi", $jadwal);
    }
 

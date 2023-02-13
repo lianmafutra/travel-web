@@ -13,7 +13,7 @@ class Jadwal extends Model
    use HasFactory;
    protected $table = 'jadwal';
    protected $guarded = [];
-   protected $appends = ['kursi_tersedia'];
+   protected $appends = ['kursi_tersedia', 'status'];
    protected $casts = [
       'created_at' => 'date:d-m-Y H:m:s',
       'updated_at' => 'date:d-m-Y H:m:s',
@@ -41,6 +41,29 @@ class Jadwal extends Model
         });
         $total_kursi =  KursiMobil::where('mobil_id',  $this->attributes['mobil_id'])->whereNotIn('tipe', ['SUPIR','KOSONG']);
         return  $kursi_pesanan->count()."/".  $total_kursi->count();
+   }
+
+   public function getStatusAttribute()
+   {
+      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
+         ->where('jadwal_id',  $this->attributes['id']);
+
+   
+
+      $kursi_pesanan =  KursiMobil::with('kursi_pesanan')->where('mobil_id', $this->attributes['mobil_id'])
+      ->whereNotIn('tipe', ['SUPIR','KOSONG'])->has('kursi_pesanan')->whereHas('kursi_pesanan',
+       function (Builder $query) use($data) {
+         $query->whereIn('pesanan_id', $data->pluck('id'));
+        });
+        $total_kursi =  KursiMobil::where('mobil_id',  $this->attributes['mobil_id'])->whereNotIn('tipe', ['SUPIR','KOSONG']);
+
+        if($kursi_pesanan->count() >= $total_kursi->count()){
+         return  "penuh";
+        }else{
+         return  "tersedia";
+        }
+
+      
    }
 
    public function lokasi_keberangkatan_r()
