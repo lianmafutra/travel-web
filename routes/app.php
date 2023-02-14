@@ -45,6 +45,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
    });
 
+
+
+   
+});
+
+Route::prefix('admin')->group(function () {
    Route::controller(KursiMobilController::class)->group(function () {
       Route::get('kursi_mobil/{mobil_id}', 'index')->name('kursi_mobil.index');
       Route::get('kursi_mobil/edit/{kursi_mobil_id}', 'edit')->name('kursi_mobil.edit');
@@ -53,8 +59,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
       Route::delete('kursi_mobil/destroy/{kursi_mobil_id}', 'destroy')->name('kursi_mobil.destroy');
    });
   
-
-   
 });
 
 

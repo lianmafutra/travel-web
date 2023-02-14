@@ -147,6 +147,40 @@ class JadwalController extends Controller
       return view('app.jadwal.detail', $x, compact(['jadwal', 'kursi_mobil', 'total_kursi', 'kursi_pesanan', 'kursi_tersedia']));
    }
 
+
+   public function showKursi(Jadwal $jadwal)
+   {
+
+      $x['title']    = 'Detail Jadwal';
+    
+     
+      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
+         ->where('jadwal_id', $jadwal->id);
+
+     
+
+         $kursi_tersedia =  KursiMobil::where('mobil_id', $jadwal->mobil_id)->with(['kursi_pesanan'=>function($query) use ($data){
+            $query->whereIn('id',  $data->pluck('id'));
+
+       }])->whereNotIn('tipe', ['SUPIR','KOSONG'])->doesntHave('kursi_pesanan');
+
+   
+
+         $kursi_pesanan =  KursiMobil::with('kursi_pesanan')->where('mobil_id', $jadwal->mobil_id)
+         ->whereNotIn('tipe', ['SUPIR','KOSONG'])->has('kursi_pesanan')->whereHas('kursi_pesanan',
+          function (EloquentBuilder $query) use($data) {
+            $query->whereIn('pesanan_id', $data->pluck('id'));
+           });
+
+       
+       $total_kursi =  KursiMobil::where('mobil_id', $jadwal->mobil_id)->whereNotIn('tipe', ['SUPIR','KOSONG']);
+
+      
+      $kursi_mobil =  Mobil::with('supir')->where('id', $jadwal->mobil_id)->first();
+
+      return view('app.jadwal.detail', $x, compact(['jadwal', 'kursi_mobil', 'total_kursi', 'kursi_pesanan', 'kursi_tersedia']));
+   }
+
    public function destroy(Jadwal $jadwal)
    {
       try {
