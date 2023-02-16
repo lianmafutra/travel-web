@@ -30,5 +30,10 @@ class PesananController extends Controller
       return $this->success("Review Pesanan Berdasarkan Mobil", $pesanan);
     }
 
+    public function detailPesanan(){
+      $x['title'] = 'Pesanan Detail';
+      return view('app.api.pesanan-detail', $x); 
+    }
+
    
 }

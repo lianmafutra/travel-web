@@ -23,6 +23,7 @@ Route::post('user/register', [AuthController::class, 'register']);
 Route::post('user/login', [AuthController::class, 'login'])->name('login');
 Route::put('user/password/lupa', [AuthController::class, 'lupaPassword']);
 Route::get('jadwal/kursi/{id_jadwal}', [JadwalController::class, 'showKursi']);
+Route::get('pesanan/detail/bayar', [PesananController::class, 'detailPesanan']);
 // Route::post('notif/send', [NotifController::class, 'send']);
 Route::middleware(['auth:api'])->group(function () {
    Route::get('lokasi', [LokasiController::class, 'getLokasi']);

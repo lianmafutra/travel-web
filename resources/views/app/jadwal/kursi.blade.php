@@ -110,12 +110,8 @@
                     kursi_dipilih2.push(item.id);
                     
                 }
-              
+
                 Android.sendData(kursi_dipilih2.toString());
-
-                  
-
-
             });
 
 
