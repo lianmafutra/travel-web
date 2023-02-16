@@ -48,8 +48,6 @@ class Jadwal extends Model
       $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
          ->where('jadwal_id',  $this->attributes['id']);
 
-   
-
       $kursi_pesanan =  KursiMobil::with('kursi_pesanan')->where('mobil_id', $this->attributes['mobil_id'])
       ->whereNotIn('tipe', ['SUPIR','KOSONG'])->has('kursi_pesanan')->whereHas('kursi_pesanan',
        function (Builder $query) use($data) {
@@ -63,7 +61,6 @@ class Jadwal extends Model
          return  "tersedia";
         }
 
-      
    }
 
    public function lokasi_keberangkatan_r()

@@ -31,8 +31,16 @@ class AppServiceProvider extends ServiceProvider
       Blade::directive('rupiah', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
 
       Blade::directive('tanggal', function($expression) {
-         return "<?php echo \Carbon\Carbon::parse($expression)->translatedFormat('d-m-y H:m:s'); ?>";
+         return "<?php echo \Carbon\Carbon::parse($expression)->translatedFormat('d-m-Y H:i:s'); ?>";
      });
+
+     Blade::directive('tanggal_only', function($expression) {
+      return "<?php echo \Carbon\Carbon::parse($expression)->translatedFormat('d-m-Y'); ?>";
+  });
+
+     Blade::directive('jam', function($expression) {
+      return "<?php echo \Carbon\Carbon::parse($expression)->translatedFormat('H:i'); ?>";
+  });
 
 
    }

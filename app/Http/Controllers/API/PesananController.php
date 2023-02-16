@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Jadwal;
+use App\Models\KursiMobil;
 use App\Models\Pesanan;
+use App\Models\Rekening;
+use App\Models\User;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -30,8 +34,25 @@ class PesananController extends Controller
       return $this->success("Review Pesanan Berdasarkan Mobil", $pesanan);
     }
 
-    public function detailPesanan(){
+    public function detailPesanan(Request $request){
+
       $x['title'] = 'Pesanan Detail';
+      $x['kursi'] = $request->input('id_kursi_pesanan');
+      $x['user'] =  User::find($request->input('id_user')); 
+      $x['jadwal'] = Jadwal::with('mobil', 'supir', 'lokasi_tujuan_r', 'lokasi_keberangkatan_r')->where('id', $request->input('id_jadwal'))->first();
+
+     $array = explode(',',$request->input('id_kursi_pesanan'));
+
+      // takes first three elements
+    
+      
+ 
+
+
+      $x['kursi'] = KursiMobil::whereIn('id',   $array)->get()->pluck('nama')->toArray() ;
+     
+       $x['rekening'] = Rekening::get();
+
       return view('app.api.pesanan-detail', $x); 
     }
 
