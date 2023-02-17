@@ -28,6 +28,7 @@ class JadwalController extends Controller
 
 
       if (request()->ajax()) {
+         
          $data = Jadwal::with('mobil', 'supir', 'lokasi_tujuan_r', 'lokasi_keberangkatan_r');
 
 

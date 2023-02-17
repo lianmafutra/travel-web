@@ -38,9 +38,9 @@
         }
 
         .card img {
-         height: 80px;
-         width: auto;
-         object-fit: contain;
+            height: 80px;
+            width: auto;
+            object-fit: contain;
             flex: 1;
             margin-right: 30px;
         }
@@ -59,6 +59,7 @@
                         <h4 style="color:rgb(81, 81, 227)">#Data Pesanan</h4>
                         <div class="grid-container grid_kursi">
                             <table style="width:100%">
+                             
                                 <tr>
                                     <th>Nama</th>
                                     <td>{{ $user->nama_lengkap }}</td>
@@ -79,29 +80,7 @@
                             </table>
                         </div>
 
-
-
-
-                        <div style="margin-top:20px" class="rekening">
-                            <h4 style="color:rgb(81, 81, 227)">#Nomor Rekening</h4>
-                            @foreach ($rekening as $item)
-                                {{-- <div style="margin-top: 10px; background-color:rgba(255, 228, 196, 0.486)" class="card">
-                                    <img  style="float: left;"  src="{{ asset('img/avatar.png') }}" height="70px" width="70px">
-                                    <div class="container">
-                                        <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
-                                        <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
-                                      {{ $item->nama_pemilik }} , Kontak ({{ $item->kontak }} )
-                                    </div>
-                                </div> --}}
-                                <div class="card">
-                                    <img height="auto" width="30px" src="{{ asset('img/ic_bank.png') }}">
-                                    <div class="card-content">
-                                        <h4>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</h4>
-                                        <p> Atas Nama : {{ $item->nama_pemilik }} <br> Kontak : {{ $item->kontak }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+                       
 
                         <div style="margin-top:20px" class="rincian_biaya">
                             <h4 style="color:rgb(81, 81, 227)">#Rincian Biaya</h4>
@@ -121,6 +100,27 @@
                             </table>
 
                         </div>
+
+                        <div style="margin-top:20px" class="rekening">
+                           <h4 style="color:rgb(81, 81, 227)">#Nomor Rekening</h4>
+                           @foreach ($rekening as $item)
+                               {{-- <div style="margin-top: 10px; background-color:rgba(255, 228, 196, 0.486)" class="card">
+                                   <img  style="float: left;"  src="{{ asset('img/avatar.png') }}" height="70px" width="70px">
+                                   <div class="container">
+                                       <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
+                                       <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
+                                     {{ $item->nama_pemilik }} , Kontak ({{ $item->kontak }} )
+                                   </div>
+                               </div> --}}
+                               <div class="card">
+                                   <img height="auto" width="30px" src="{{ asset('img/ic_bank.png') }}">
+                                   <div class="card-content">
+                                       <h4>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</h4>
+                                       <p> Atas Nama : {{ $item->nama_pemilik }} <br> Kontak : {{ $item->kontak }}</p>
+                                   </div>
+                               </div>
+                           @endforeach
+                       </div>
 
                     </div>
 

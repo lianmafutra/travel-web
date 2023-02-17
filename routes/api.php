@@ -23,7 +23,8 @@ Route::post('user/register', [AuthController::class, 'register']);
 Route::post('user/login', [AuthController::class, 'login'])->name('login');
 Route::put('user/password/lupa', [AuthController::class, 'lupaPassword']);
 Route::get('jadwal/kursi/{id_jadwal}', [JadwalController::class, 'showKursi']);
-Route::get('pesanan/detail/bayar', [PesananController::class, 'detailPesanan']);
+Route::get('pesanan/detail/bayar', [PesananController::class, 'detailUpload']);
+Route::get('pesanan/detail/verifikasi', [PesananController::class, 'detailVerifikasi']);
 // Route::post('notif/send', [NotifController::class, 'send']);
 Route::middleware(['auth:api'])->group(function () {
    Route::get('lokasi', [LokasiController::class, 'getLokasi']);
@@ -31,6 +32,7 @@ Route::middleware(['auth:api'])->group(function () {
    Route::post('jadwal/lokasi', [JadwalController::class, 'getJadwalByLokasi']);
    Route::get('jadwal/{id}', [JadwalController::class, 'getJadwalDetail']);
    Route::post('pesanan/review', [PesananController::class, 'kirimReview']);
+   Route::post('user/pesanan', [PesananController::class, 'buatPesanan']);
    Route::get('pesanan/mobil/{id}/review', [PesananController::class, 'listReviewByMobil']);
  
 
