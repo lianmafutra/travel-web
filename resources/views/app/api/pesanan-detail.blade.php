@@ -20,18 +20,33 @@
             text-align: left;
         }
 
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-            width: 100%;
-            padding-top: 5px;
-            padding-bottom: 10px;
-            padding-left: 10px;
-            border-radius: 5px;
-        }
 
         .card:hover {
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+
+        .card {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            /* border: 1px solid #ccc; */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .card img {
+         height: 80px;
+         width: auto;
+         object-fit: contain;
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .card-content {
+            flex: 2;
         }
     </style>
     <div class="content-wrapper">
@@ -64,15 +79,25 @@
                             </table>
                         </div>
 
+
+
+
                         <div style="margin-top:20px" class="rekening">
                             <h4 style="color:rgb(81, 81, 227)">#Nomor Rekening</h4>
                             @foreach ($rekening as $item)
-                                <div class="card">
-
+                                {{-- <div style="margin-top: 10px; background-color:rgba(255, 228, 196, 0.486)" class="card">
+                                    <img  style="float: left;"  src="{{ asset('img/avatar.png') }}" height="70px" width="70px">
                                     <div class="container">
-                                        <h4><b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b></h4>
-                                        <span class=""></span> {{ $item->nama_pemilik }} , Kontak (
-                                        {{ $item->kontak }} )
+                                        <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
+                                        <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
+                                      {{ $item->nama_pemilik }} , Kontak ({{ $item->kontak }} )
+                                    </div>
+                                </div> --}}
+                                <div class="card">
+                                    <img height="auto" width="30px" src="{{ asset('img/ic_bank.png') }}">
+                                    <div class="card-content">
+                                        <h4>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</h4>
+                                        <p> Atas Nama : {{ $item->nama_pemilik }} <br> Kontak : {{ $item->kontak }}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -81,18 +106,18 @@
                         <div style="margin-top:20px" class="rincian_biaya">
                             <h4 style="color:rgb(81, 81, 227)">#Rincian Biaya</h4>
                             <table style="width:100%">
-                            <tr>
-                              
-                                <td>Kursi : {{ implode(', ', $kursi) }}</td>
-                            </tr>
-                            <tr>
-                              
-                                <td>Harga : @rupiah($jadwal->harga) x {{ count($kursi) }}</td>
-                            </tr>
-                            <tr>
-                               
-                                <td>Total : @rupiah($jadwal->harga* count($kursi))</td>
-                            </tr>
+                                <tr>
+
+                                    <td>Kursi : {{ implode(', ', $kursi) }}</td>
+                                </tr>
+                                <tr>
+
+                                    <td>Harga : @rupiah($jadwal->harga) x {{ count($kursi) }}</td>
+                                </tr>
+                                <tr>
+
+                                    <td>Total : @rupiah($jadwal->harga * count($kursi))</td>
+                                </tr>
                             </table>
 
                         </div>
