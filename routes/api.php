@@ -33,6 +33,7 @@ Route::middleware(['auth:api'])->group(function () {
    Route::get('jadwal/{id}', [JadwalController::class, 'getJadwalDetail']);
    Route::post('pesanan/review', [PesananController::class, 'kirimReview']);
    Route::post('user/pesanan', [PesananController::class, 'buatPesanan']);
+   Route::get('user/pesanan/list', [PesananController::class, 'listPesananByUser']);
    Route::get('pesanan/mobil/{id}/review', [PesananController::class, 'listReviewByMobil']);
  
 

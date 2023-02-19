@@ -61,7 +61,7 @@
                             <table style="width:100%">
                               <tr>
                                  <th>Kode Pesanan : </th>
-                                 <td>{{ $user->nama_lengkap }}</td>
+                                 <td>{{ $pesanan->kode_pesanan }}</td>
                              </tr>
                                 <tr>
                                     <th>Nama</th>
@@ -89,15 +89,12 @@
                             <h4 style="color:rgb(81, 81, 227)">#Rincian Biaya</h4>
                             <table style="width:100%">
                                 <tr>
-
                                     <td>Kursi : {{ implode(', ', $kursi) }}</td>
                                 </tr>
                                 <tr>
-
                                     <td>Harga : @rupiah($jadwal->harga) x {{ count($kursi) }}</td>
                                 </tr>
                                 <tr>
-
                                     <td>Total : @rupiah($jadwal->harga * count($kursi))</td>
                                 </tr>
                             </table>

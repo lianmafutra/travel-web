@@ -41,6 +41,14 @@ class PesananController extends Controller
       return $this->success("Review Pesanan Berdasarkan Mobil", $pesanan);
    }
 
+   
+   public function listPesananByUser()
+   {
+      $pesanan = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan')->where('user_id', auth()->user()->id)->get();
+      return $this->success("List Pesanan User", $pesanan);
+   }
+
+
 
    public function buatPesanan(Request $request)
    {
@@ -51,12 +59,12 @@ class PesananController extends Controller
 
          $image_path = $request->file('img_bukti')->store('images', 'public');
 
-         $jadwal = Jadwal::find($request->jadwal_id)->first();
+         $jadwal = Jadwal::find($request->jadwal_id);
 
 
          $pesanan = Pesanan::create([
             'kode_pesanan'      => Str::random(5),
-            'jadwal_id'         => $jadwal->id,
+            'jadwal_id'         => $request->jadwal_id,
             'user_id'           => auth()->user()->id,
             'mobil_id'          => $jadwal->mobil_id,
             'tgl_pembayaran'    => Carbon::now(),
@@ -110,6 +118,8 @@ class PesananController extends Controller
    public function detailVerifikasi(Request $request)
    {
 
+    
+
       $x['title'] = 'Pesanan Detail';
       $x['kursi'] = $request->input('id_kursi_pesanan');
       $x['user'] =  User::find($request->input('id_user'));
@@ -120,6 +130,8 @@ class PesananController extends Controller
       $x['kursi'] = KursiMobil::whereIn('id',   $array)->get()->pluck('nama')->toArray();
 
       $x['rekening'] = Rekening::get();
+
+      $x['pesanan'] = Pesanan::where('jadwal_id',  $x['jadwal']->id)->where('user_id', $x['user']->id)->first();
 
       return view('app.api.pesanan-verifikasi', $x);
    }
