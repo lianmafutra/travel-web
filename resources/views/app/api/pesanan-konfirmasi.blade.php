@@ -59,10 +59,7 @@
                         <h4 style="color:rgb(81, 81, 227)">#Data Pesanan</h4>
                         <div class="grid-container grid_kursi">
                             <table style="width:100%">
-                              <tr>
-                                 <th>Kode Pesanan : </th>
-                                 <td>{{ $pesanan->first()->kode_pesanan }}</td>
-                             </tr>
+                             
                                 <tr>
                                     <th>Nama</th>
                                     <td>{{ $user->nama_lengkap }}</td>
@@ -89,41 +86,19 @@
                             <h4 style="color:rgb(81, 81, 227)">#Rincian Biaya</h4>
                             <table style="width:100%">
                                 <tr>
-
-                                    <td>Kursi : {{ $kursi }}</td>
+                                    <td>Kursi : {{ implode(', ', $kursi) }}</td>
                                 </tr>
                                 <tr>
-
-                                    <td>Harga : @rupiah($jadwal->harga) x {{ $jumlah_kursi }}</td>
+                                    <td>Harga : @rupiah($jadwal->harga) x {{ count($kursi) }}</td>
                                 </tr>
                                 <tr>
-
-                                    <td>Total : @rupiah($jadwal->harga * $jumlah_kursi)</td>
+                                    <td>Total : @rupiah($jadwal->harga * count($kursi))</td>
                                 </tr>
                             </table>
 
                         </div>
 
-                        <div style="margin-top:20px" class="rekening">
-                           <h4 style="color:rgb(81, 81, 227)">#Nomor Rekening</h4>
-                           @foreach ($rekening as $item)
-                               {{-- <div style="margin-top: 10px; background-color:rgba(255, 228, 196, 0.486)" class="card">
-                                   <img  style="float: left;"  src="{{ asset('img/avatar.png') }}" height="70px" width="70px">
-                                   <div class="container">
-                                       <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
-                                       <b>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</b> 
-                                     {{ $item->nama_pemilik }} , Kontak ({{ $item->kontak }} )
-                                   </div>
-                               </div> --}}
-                               <div class="card">
-                                   <img height="auto" width="30px" src="{{ asset('img/ic_bank.png') }}">
-                                   <div class="card-content">
-                                       <h4>{{ $item->nama_bank }} ( {{ $item->no_rek }} )</h4>
-                                       <p> Atas Nama : {{ $item->nama_pemilik }} <br> Kontak : {{ $item->kontak }}</p>
-                                   </div>
-                               </div>
-                           @endforeach
-                       </div>
+                       
 
                     </div>
 

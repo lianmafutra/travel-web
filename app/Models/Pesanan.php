@@ -11,7 +11,7 @@ class Pesanan extends Model
    use HasFactory;
    protected $table = 'pesanan';
    protected $guarded = [];
-
+ 
    protected $casts = [
       'created_at' => 'date:d-m-Y H:m:s',
       'updated_at' => 'date:d-m-Y H:m:s',
@@ -43,8 +43,7 @@ class Pesanan extends Model
       return $this->hasMany(KursiPesanan::class);
    }
 
-   
- 
+
 
    public function getJumlahKursiPesanan()
    {
