@@ -22,25 +22,10 @@ class PesananController extends Controller
 
    use ApiResponse;
 
-   public function kirimReview(Request $request)
-   {
-      try {
-         $pesanan = Pesanan::where('id', $request->id_pesanan)->update([
-            'rating_nilai' => $request->rating_nilai,
-            'rating_komen' => $request->rating_komen,
-         ]);
-         return $this->success("Update Data Review Pesanan Berhasil");
-      } catch (Exception $e) {
-         return $this->error("Gagal Update Data " + $e->getMessage(), 400);
-      }
-   }
 
-   public function listReviewByMobil($id_mobil)
-   {
-      $pesanan = Pesanan::with('user')->where('mobil_id', $id_mobil)->get();
-      return $this->success("Review Pesanan Berdasarkan Mobil", $pesanan);
-   }
 
+
+   
    
    public function listPesananByUser()
    {
@@ -56,6 +41,10 @@ class PesananController extends Controller
       DB::beginTransaction();
       // upload bukti pembayaran dan generate kode pesanan otomatis, id jadwal, user, kursi pesan
       try {
+
+         $array = explode(',', $request->input('id_kursi_pesanan'));
+         $array2 = KursiMobil::whereIn('id',   $array)->get()->pluck('nama')->toArray();
+       
          $jadwal = Jadwal::find($request->jadwal_id);
          $pesanan = Pesanan::create([
             'kode_pesanan'      => Str::random(5),
@@ -67,6 +56,7 @@ class PesananController extends Controller
             'tgl_pesan'         => Carbon::now(),
             'nama'              => auth()->user()->nama_lengkap,
             'kontak'            => auth()->user()->kontak,
+            'total_biaya'       =>  $jadwal->harga * sizeof($array2),
          ]);
          $array = explode(',', $request->id_kursi_pesanan);
          foreach ($array as  $item) {
@@ -103,7 +93,7 @@ class PesananController extends Controller
          $x['kursi'] = implode(', ',  $array2);
       }else{
          $array = explode(',', $request->input('id_kursi_pesanan'));
-          $array2 = KursiMobil::whereIn('id',   $array)->get()->pluck('nama')->toArray();
+         $array2 = KursiMobil::whereIn('id',   $array)->get()->pluck('nama')->toArray();
          $x['kursi'] =  implode(', ', $array2);
 
          $x['jumlah_kursi'] =  sizeof($array2);

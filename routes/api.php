@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\JadwalController;
 use App\Http\Controllers\API\LokasiController;
 use App\Http\Controllers\API\PesananController;
+use App\Http\Controllers\API\ReviewController;
 use App\Http\Controllers\API\UserController;
 
 use Illuminate\Support\Facades\Route;
@@ -30,14 +31,19 @@ Route::get('pesanan/detail/verifikasi', [PesananController::class, 'detailVerifi
 
 // Route::post('notif/send', [NotifController::class, 'send']);
 Route::middleware(['auth:api'])->group(function () {
+   
    Route::get('lokasi', [LokasiController::class, 'getLokasi']);
    Route::get('user/detail', [UserController::class, 'getUserDetail']);
+
    Route::post('jadwal/lokasi', [JadwalController::class, 'getJadwalByLokasi']);
    Route::get('jadwal/{id}', [JadwalController::class, 'getJadwalDetail']);
-   Route::post('pesanan/review', [PesananController::class, 'kirimReview']);
+
+   Route::post('pesanan/review', [ReviewController::class, 'kirimReview']);
+   Route::get('pesanan/mobil/{id}/review', [ReviewController::class, 'listReviewByMobil']);
+
    Route::post('user/pesanan', [PesananController::class, 'buatPesanan']);
    Route::get('user/pesanan/list', [PesananController::class, 'listPesananByUser']);
-   Route::get('pesanan/mobil/{id}/review', [PesananController::class, 'listReviewByMobil']);
+ 
  
 
 
