@@ -14,7 +14,7 @@ class ReviewController extends Controller
 
    public function listReviewByMobil($id_mobil)
    {
-      $pesanan = Pesanan::with('user')->where('mobil_id', $id_mobil)->get();
+      $pesanan = Pesanan::with('user')->where('mobil_id', $id_mobil)->latest()->get();
       return $this->success("Review Pesanan Berdasarkan Mobil", $pesanan);
    }
 
