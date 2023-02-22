@@ -1,2 +1,16 @@
 
+MOBILE
 ☐ status pesanan ditolak di pesanan
+☐ klik detail notif verifikasi pembayaran,tolak
+☐ Kirim Notif WhatsApp ke Admin jika ada pesanan
+☐ tampil foto profil home
+☐ update password
+☐ update data user
+☐ register upload foto
+
+
+ADMIN
+☐ Kirim Notif Dari Admin ketika verifikasi pembayaran, tolak
+☐ count UI untuk admin pesanan masuk
+☐ view bukti pembayaran
+☐ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak
