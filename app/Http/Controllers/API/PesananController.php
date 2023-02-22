@@ -147,5 +147,14 @@ class PesananController extends Controller
       return view('app.api.pesanan-konfirmasi', $x);
    }
 
+
+    
+   public function detail($kode_pesanan)
+   {
+      $pesanan = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan')
+      ->where('kode_pesanan', $kode_pesanan)->get();
+      return $this->success("detail pesanan user", $pesanan);
+   }
+
    
 }
