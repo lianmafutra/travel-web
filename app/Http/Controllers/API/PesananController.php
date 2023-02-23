@@ -23,8 +23,15 @@ class PesananController extends Controller
    use ApiResponse;
 
 
-
-
+   
+   public function getNotifCount()
+   {
+      $pesanan = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan')
+      ->where('user_id', auth()->user()->id)
+      ->where('status_pesanan', 'PROSES')
+      ->count();
+      return $this->success("Notif count Pesanan masih dalam Proses", $pesanan);
+   }
    
    
    public function listPesananByUser()

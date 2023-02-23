@@ -19,7 +19,15 @@ class AuthController extends Controller
    use ApiResponse;
    public function login(Request $request)
    {
-      if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+
+      $credentials = $request->only('username', 'password');
+      if (filter_var($credentials['username'], FILTER_VALIDATE_EMAIL)) {
+         $credentials['email'] = $credentials['username'];
+         unset($credentials['username']);
+     }
+ 
+
+      if (Auth::attempt($credentials)) {
          $user   = auth()->user();
          // if($user->active != 1){
          //    return $this->error('User Telah di Nonaktifkan, Silahkan hubungi operator ', 200, "");
@@ -68,7 +76,7 @@ class AuthController extends Controller
       }
    }
 
-   public function ubahPassword(Request $request)
+   public function updatePassword(Request $request)
    {
       DB::beginTransaction();
       try {
@@ -77,14 +85,10 @@ class AuthController extends Controller
          $pass1 = trim($request->password_baru);
 
          $user = User::find($id_user);
-         if (Hash::check($current, $user->password)) {
-            $user->password = Hash::make($pass1);
+         $user->password = Hash::make($pass1);
             $user->save();
             DB::commit();
             return $this->success("Berhasil update Password");
-         } else {
-            return $this->error("Password lama tidak cocok", 200);
-         }
       } catch (Exception $e) {
          DB::rollback();
          return $this->error("Error " + $e, 400);
