@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\TokenFCM;
 use App\Models\User;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class UserController extends Controller
          $user->update($request->all());
          return $this->success("Berhasil update Profil");
       } catch (Exception $e) {
-         return $this->error("Gagal update Profil" .$e, 400);
+         return $this->error("Gagal update Profil" . $e, 400);
       }
    }
 
@@ -38,7 +39,19 @@ class UserController extends Controller
          ]);
          return $this->success("Berhasil update Foto Profil");
       } catch (Exception $e) {
-         return $this->error("Gagal update Foto Profil" .$e, 400);
+         return $this->error("Gagal update Foto Profil" . $e, 400);
+      }
+   }
+
+   public function storeTokenFCM(Request $request)
+   {
+      try {
+         TokenFCM::create([
+            'token' =>  $request->token
+         ]);
+         return $this->success("Berhasil Insert Token");
+      } catch (Exception $e) {
+         return $this->error("Gagal Insert Token" . $e, 400);
       }
    }
 }

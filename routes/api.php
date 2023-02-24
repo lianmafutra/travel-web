@@ -37,6 +37,7 @@ Route::middleware(['auth:api'])->group(function () {
    Route::post('user/password/update', [AuthController::class, 'updatePassword']);
    Route::post('user/profil/update', [UserController::class, 'updateProfil']);
    Route::post('user/profil/foto/update', [UserController::class, 'updateFoto']);
+   Route::post('user/token/fcm', [UserController::class, 'storeTokenFCM']);
 
    Route::post('jadwal/lokasi', [JadwalController::class, 'getJadwalByLokasi']);
    Route::get('jadwal/{id}', [JadwalController::class, 'getJadwalDetail']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Action\Notif\Notif;
 use App\Models\KursiMobil;
 use App\Models\Mobil;
 use App\Models\Pesanan;
@@ -92,7 +93,7 @@ class PesananController extends Controller
 
 
 
-   public function updateVerifikasiPembayaran(Request $request)
+   public function updateVerifikasiPembayaran(Request $request, Notif $notif)
    {
       try {
          $pesanan = Pesanan::find($request->id);
@@ -100,6 +101,9 @@ class PesananController extends Controller
             $pesanan->update([
                'status_pembayaran' => 'LUNAS'
             ]);
+
+            $notif->kirim('Pesanan Berhaisl diverifikasi Admin','','');
+             
             return redirect()->back()->with('success-modal', ["title" => 'Berhasil Verifikasi Pembayaran']);
          } else {
             $pesanan->update([
