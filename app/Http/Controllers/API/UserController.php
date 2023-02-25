@@ -47,7 +47,9 @@ class UserController extends Controller
    {
       try {
          TokenFCM::create([
-            'token' =>  $request->token
+            'user_id' =>  auth()->user()->id,
+            'token' =>  $request->token,
+       
          ]);
          return $this->success("Berhasil Insert Token");
       } catch (Exception $e) {
