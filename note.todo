@@ -10,12 +10,14 @@ MOBILE
 ✔ ubah login menggunakan email @done (2/24/2023, 12:58:11 AM)
 ✔ Kirim notif ke client sudah berhasil @done (2/25/2023, 9:36:57 AM)
 ✔ batalkan pesanan @done (2/25/2023, 2:02:33 PM)
-☐ upload bukti pembayaran di menu pesanan belum ada rincian biaya
+✔ upload bukti pembayaran di menu pesanan belum ada rincian biaya @done (2/25/2023, 2:32:04 PM)
+✔ remove token fcm local dan server ketika logout @done (2/25/2023, 2:49:29 PM)
+✔ validasi register null cek required @done (2/25/2023, 3:11:28 PM)
 
 
 ADMIN
 ✔ Kirim Notif Dari Admin ketika verifikasi pembayaran, @done (2/25/2023, 11:37:37 AM)
-☐ Kirim Notif Dari Admin ketika verifikasi  tolak 
+☐ Kirim Notif Dari Admin ketika verifikasi tolak 
 ✔ view bukti pembayaran @done (2/25/2023, 11:39:09 AM)
 ☐ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak
 ☐ sortir order masuk terbaru
