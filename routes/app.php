@@ -9,15 +9,8 @@ use App\Http\Controllers\KursiMobilController;
 use App\Http\Controllers\KustomerController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PesananController;
-use App\Http\Controllers\PesananlController;
 use App\Http\Controllers\RekeningController;
-use App\Http\Controllers\Transaksi\PembayaranController;
-use App\Http\Controllers\Transaksi\PencairanController;
-use App\Http\Controllers\Transaksi\SetoranController;
-use App\Http\Controllers\Transaksi\UangJalanController;
-use App\Http\Controllers\Transportir\TransportirController;
-use App\Http\Controllers\Tujuan\TujuanController;
-use App\Models\Pesanan;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +29,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('jadwal', JadwalController::class);
    Route::resource('kustomer', KustomerController::class);
    Route::resource('rekening', RekeningController::class);
+
+   Route::get('review/index', [ReviewController::class, 'index'])->name('review.index');
 
    Route::controller(PesananController::class)->group(function () {
       Route::resource('pesanan', PesananController::class);

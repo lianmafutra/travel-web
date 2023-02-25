@@ -38,6 +38,16 @@ class Pesanan extends Model
       return $this->hasOne(User::class, 'id', 'user_id');
    }
 
+   public function mobil()
+   {
+      return $this->hasOne(Mobil::class, 'id', 'mobil_id');
+   }
+
+   public function supir()
+   {
+      return $this->hasOne(Supir::class, 'id', 'supir_id');
+   }
+
    public function kursi_pesanan()
    {
       return $this->hasMany(KursiPesanan::class);

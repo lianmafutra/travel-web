@@ -1,7 +1,7 @@
 
 MOBILE
 ☐ status pesanan ditolak di pesanan
-☐ klik detail notif verifikasi pembayaran, tolak
+☐ klik detail notif verifikasi pembayaran, tolak -> 
 ☐ Kirim Notif WhatsApp ke Admin jika ada pesanan
 ✔ tampil foto profil home @done (2/24/2023, 12:58:07 AM)
 ✔ update password @done (2/24/2023, 10:41:05 AM)
@@ -18,8 +18,10 @@ MOBILE
 ADMIN
 ✔ Kirim Notif Dari Admin ketika verifikasi pembayaran, @done (2/25/2023, 11:37:37 AM)
 ☐ Kirim Notif Dari Admin ketika verifikasi tolak 
+☐ list pesanan ketika dibatalkan oleh user
 ✔ view bukti pembayaran @done (2/25/2023, 11:39:09 AM)
 ☐ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak
+☐ tambahkan alasan ketika pesana ditolak
 ☐ sortir order masuk terbaru
 ☐ notif count order masuk
 ☐ buat role owner dan admin

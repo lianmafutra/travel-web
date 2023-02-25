@@ -120,6 +120,12 @@
                     </li>
                 @endcan
                 <li class="nav-item">
+                  <a href="{{ route('review.index') }}" class="nav-link  {{ request()->routeIs('review*') ? 'active' : '' }}" >
+                     <i class="far fa-comment-alt nav-icon"></i>
+                        <p>Review Pengguna</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                   <a href="{{ route('rekening.index') }}" class="nav-link  {{ request()->routeIs('rekening*') ? 'active' : '' }}" >
                      <i class="far fa-credit-card nav-icon"></i>
                         <p>Kelola Rekening</p>

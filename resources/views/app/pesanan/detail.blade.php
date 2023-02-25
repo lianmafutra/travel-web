@@ -12,17 +12,20 @@
             border: 1px solid rgba(185, 185, 185, 0.477);
             border-collapse: collapse;
         }
+
         th,
         td {
             padding: 5px;
             text-align: left;
         }
+
         .grid-container {
             display: grid;
             /* grid-template-columns: auto auto auto; */
             background-color: #2195f365;
             padding: 10px;
         }
+
         .grid-item {
             background-color: rgba(255, 255, 255, 0.8);
             /* border: 1px solid rgba(0, 0, 0, 0.8); */
@@ -32,9 +35,11 @@
             font-size: 20px;
             text-align: center;
         }
+
         .kosong {
             background-color: rgba(214, 214, 214, 0.8);
         }
+
         .supir {
             color: red;
         }
@@ -70,9 +75,10 @@
                                         <td>{{ $data->nama }}</td>
                                     </tr>
                                     <tr>
-                                       <th>User Foto</th>
-                                       <td><img style="object-fit: cover" src="{{ $data->user->getFotoUrl() }}" width="80px" height="80px"></td>
-                                   </tr>
+                                        <th>User Foto</th>
+                                        <td><img style="object-fit: cover" src="{{ $data->user->getFotoUrl() }}"
+                                                width="80px" height="80px"></td>
+                                    </tr>
                                     <tr>
                                         <th>Kontak</th>
                                         <td>{{ $data->kontak }}</td>
@@ -83,17 +89,18 @@
                                             {{ $kursi_pesanan->implode(', ', ', ') }} )</td>
                                     </tr>
                                     <tr>
-                                       <th>Mobil</th>
-                                       <td>{{$kursi_mobil->nama}} ( {{$kursi_mobil->plat}} )</td>
-                                   </tr>
-                                   <tr>
-                                    <th>Foto Mobil</th>
-                                    <td><img style="object-fit: cover" src="{{ $kursi_mobil->getFotoUrl() }}" width="80px" height="80px"></td>
-                                </tr>
-                                   <tr>
-                                    <th>Supir</th>
-                                    <td>{{$kursi_mobil->supir->nama}} ( {{ $kursi_mobil->supir->kontak  }})</td>
-                                </tr>
+                                        <th>Mobil</th>
+                                        <td>{{ $kursi_mobil->nama }} ( {{ $kursi_mobil->plat }} )</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Foto Mobil</th>
+                                        <td><img style="object-fit: cover" src="{{ $kursi_mobil->getFotoUrl() }}"
+                                                width="80px" height="80px"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Supir</th>
+                                        <td>{{ $kursi_mobil->supir->nama }} ( {{ $kursi_mobil->supir->kontak }})</td>
+                                    </tr>
                                     <tr>
                                         <th>Rute</th>
                                         <td>{{ $data->jadwal->lokasi_keberangkatan_r->nama }} -
@@ -114,6 +121,8 @@
                                                 <span class="badge badge-secondary">Proses</span>
                                             @elseif ($data->status_pesanan == 'SELESAI')
                                                 <span class="badge badge-success">Selesai</span>
+                                            @elseif ($data->status_pesanan == 'DIBATALKAN')
+                                                <span class="badge badge-danger">Dibatalkan oleh pengguna</span>
                                             @elseif ($data->status_pesanan == 'DITOLAK')
                                                 <span class="badge badge-danger">Ditolak</span>
                                             @endif
@@ -141,43 +150,50 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                       <th>Biaya Perjalanan</th>
-                                       <td>@rupiah($data->jadwal->harga)</td>
-                                   </tr>
-                                   <tr>
-                                    <th>Total Biaya </th>
-                                    <td>{{ $data->getjumlahKursiPesanan() }} x @rupiah($data->jadwal->harga) = @rupiah($data->getjumlahKursiPesanan()*$data->jadwal->harga)</td>
-                                </tr>
+                                        <th>Biaya Perjalanan</th>
+                                        <td>@rupiah($data->jadwal->harga)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Biaya </th>
+                                        <td>{{ $data->getjumlahKursiPesanan() }} x @rupiah($data->jadwal->harga) = @rupiah($data->getjumlahKursiPesanan() * $data->jadwal->harga)
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="card-footer">
-                                @if ($data->status_pembayaran == 'BELUM')
-                                    <a data-tipe='verifikasi' data-pesanan='{{ $data->kode_pesanan }}' href="#"
-                                        class="btn_verifikasi btn btn-sm btn-secondary" id="btn_tambah"><i
-                                            class="fas fa-edit"></i> Verifikasi Pembayaran
-                                        <form hidden id="form-verifikasi"
-                                            action="{{ route('pesanan.pembayaran.verifikasi') }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input hidden name="id" value="{{ $data->id }}">
-                                        </form>
-                                    </a>
-                                @else
-                                    <a data-tipe='batal' data-pesanan='{{ $data->kode_pesanan }}' href="#"
-                                        class="btn_verifikasi btn btn-sm btn-danger" id="btn_tambah"><i
-                                            class="fas fa-edit"></i> Batalkan Verifikasi Pembayaran
-                                        <form hidden id="form-verifikasi"
-                                            action="{{ route('pesanan.pembayaran.verifikasi') }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <input hidden name="id" value="{{ $data->id }}">
-                                        </form>
-                                    </a>
+
+
+                                @if ($data->status_pesanan != 'DIBATALKAN')
+                                    @if ($data->status_pembayaran == 'BELUM')
+                                        <a data-tipe='verifikasi' data-pesanan='{{ $data->kode_pesanan }}' href="#"
+                                            class="btn_verifikasi btn btn-sm btn-secondary" id="btn_tambah"><i
+                                                class="fas fa-edit"></i> Verifikasi Pembayaran
+                                            <form hidden id="form-verifikasi"
+                                                action="{{ route('pesanan.pembayaran.verifikasi') }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input hidden name="id" value="{{ $data->id }}">
+                                            </form>
+                                        </a>
+                                    @else
+                                        <a data-tipe='batal' data-pesanan='{{ $data->kode_pesanan }}' href="#"
+                                            class="btn_verifikasi btn btn-sm btn-danger" id="btn_tambah"><i
+                                                class="fas fa-edit"></i> Batalkan Verifikasi Pembayaran
+                                            <form hidden id="form-verifikasi"
+                                                action="{{ route('pesanan.pembayaran.verifikasi') }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input hidden name="id" value="{{ $data->id }}">
+                                            </form>
+                                        </a>
+                                    @endif
+                                    <a data-id='{{ $data->id }}' data-status='{{ $data->status_pesanan }}'
+                                        data-pesan_tolak='{{ $data->pesan_tolak }}'
+                                        data-pesanan='{{ $data->kode_pesanan }}' href="#"
+                                        class="btn btn_status_pesanan btn-sm btn-secondary" id="btn_tambah"><i
+                                            class="fas fa-edit"></i> Ubah Status Pesanan</a>
                                 @endif
-                                <a data-id='{{ $data->id }}' data-status='{{ $data->status_pesanan }}'
-                                    data-pesanan='{{ $data->kode_pesanan }}' href="#"
-                                    class="btn btn_status_pesanan btn-sm btn-secondary" id="btn_tambah"><i
-                                        class="fas fa-edit"></i> Ubah Status Pesanan</a>
+
                             </div>
                         </div>
                     </div>
@@ -207,6 +223,18 @@
     <script src="{{ asset('plugins/sweetalert2/sweetalert2-min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+
+            //trigger only select dropdown
+            $('#status_pesanan').change(function(e) {
+                let val = $(this).val();
+                if (val == "DITOLAK") {
+                    $('.layout_pesan_tolak').css('display', 'block');
+                } else {
+                    $('.layout_pesan_tolak').css('display', 'none');
+                }
+            });
+
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
@@ -272,6 +300,7 @@
                 clearInput()
                 $('#modal_status_pesanan').modal('show')
                 $('#pesanan_id').val($(this).attr('data-id'))
+                $('#pesan_tolak').val($(this).attr('data-pesan_tolak'))
                 $('#status_pesanan').val($(this).attr('data-status')).trigger('change')
                 $('.modal-title').text('Ubah Status Pesanan (' + $(this).attr('data-pesanan') + ' )')
             });

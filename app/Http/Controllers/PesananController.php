@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Action\Notif\Notif;
 use App\Models\KursiMobil;
+use App\Models\KursiPesanan;
 use App\Models\Mobil;
 use App\Models\Pesanan;
 use App\Models\TokenFCM;
@@ -11,6 +12,7 @@ use App\Models\User;
 use App\Services\Notif as ServicesNotif;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PesananController extends Controller
 {
@@ -46,6 +48,9 @@ class PesananController extends Controller
                   return '<span class="badge badge-success">Selesai</span>';
                } else if ($data->status_pesanan == 'DITOLAK') {
                   return '<span class="badge badge-danger">Ditolak</span>';
+               }
+               else if ($data->status_pesanan == 'DIBATALKAN') {
+                  return '<span class="badge badge-danger">Dibatalkan oleh Pelanggan</span>';
                }
             })
             ->editColumn('jumlah_kursi', function ($data) {
@@ -117,15 +122,27 @@ class PesananController extends Controller
    }
 
 
-   public function updateStatusPesanan(Request $request)
+   public function updateStatusPesanan(Request $request,  ServicesNotif $notif)
    {
+      
       try {
+         DB::beginTransaction();
+      
          $pesanan = Pesanan::find($request->pesanan_id);
          $pesanan->update([
-            'status_pesanan' => $request->status_pesanan
+            'status_pesanan' => $request->status_pesanan,
+            'pesan_tolak' => $request->pesan_tolak,
          ]);
+
+         if($request->status_pesanan == "DITOLAK"){
+            $token = TokenFCM::where('user_id', $pesanan->user_id)->get()->pluck('token')->toArray();
+            $notif->kirim('Pesanan Ditolak','kode Pesanan ( '.$pesanan->kode_pesanan.' ) Ditolak oleh Admin',$token);
+            KursiPesanan::where('pesanan_id', $request->pesanan_id)->delete();
+         }
+         DB::commit();
          return redirect()->back()->with('success-modal', ["title" => 'Berhasil Merubah Status Pesanan']);
       } catch (\Throwable $th) {
+         DB::rollback();
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
       }
    }

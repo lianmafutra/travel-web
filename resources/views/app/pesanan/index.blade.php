@@ -88,9 +88,9 @@
                 paging: true,
                 info: true,
                 ordering: true,
-                //  order: [
-                //      [5, 'desc']
-                //  ],
+                 order: [
+                     [12, 'desc']
+                 ],
                 ajax: @json(route('pesanan.index')),
 
                 columns: [{

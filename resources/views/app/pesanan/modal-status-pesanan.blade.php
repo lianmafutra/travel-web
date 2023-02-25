@@ -27,11 +27,21 @@
                 @method('PUT')
                 <div class="modal-body">
                     <input hidden id="pesanan_id" name="pesanan_id" value="" />
-                    <x-select2 id="status_pesanan" label="Status Pesanan" required="true" placeholder="Ubah Status Pesanan">
+                    <x-select2 id="status_pesanan" label="Status Pesanan" required="true"
+                        placeholder="Ubah Status Pesanan">
                         <option value="SELESAI">SELESAI</option>
                         <option value="DITOLAK">DITOLAK</option>
                         <option value="PROSES">PROSES</option>
+                        
                     </x-select2>
+                  
+                    <div style="display: none" class="form-group layout_pesan_tolak">
+                        <label>Informasi Penolakan</label>
+                        <input id="pesan_tolak" type="text" class="form-control input"
+                            name="pesan_tolak" placeholder="" value="">
+                        <span class="text-danger error error-text pesan_tolak_err"></span>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn_submit btn btn-primary">Simpan</button>
