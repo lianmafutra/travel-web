@@ -42,6 +42,7 @@
                                                     <th>No</th>
                                                     <th>Mobil</th>
                                                     <th>Supir</th>
+                                                    <th>Pelanggan</th>
                                                     <th>Rating</th>
                                                     <th>Review</th>
                                                     <th>Tanggal</th>
@@ -101,6 +102,10 @@
                     },
                     {
                         data: 'supir.nama',
+                        orderable: false,
+                    },
+                    {
+                        data: 'user.nama_lengkap',
                         orderable: false,
                     },
                     {

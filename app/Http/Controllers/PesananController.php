@@ -91,9 +91,21 @@ class PesananController extends Controller
      
       $kursi_pesanan = $data->kursi_pesanan->pluck('kursi_mobil.nama');
 
+      $rating="";
+     
+      $rating_no = 5 - $data->rating_nilai;
+      
+      for ($i=0; $i < $data->rating_nilai; $i++) { 
+         $rating .=  '<span class="fa fa-star checked"></span>';
+      }
+      for ($i=0; $i < $rating_no; $i++) { 
+         $rating .=  '<span class="fa fa-star"></span>';
+      }
+     
+
 
       $x['title']    = 'Detail Pesanan ( ' . $data->kode_pesanan . ' )';
-      return view('app.pesanan.detail', $x, compact(['data', 'kursi_mobil', 'kursi_pesanan']));
+      return view('app.pesanan.detail', $x, compact(['data', 'kursi_mobil', 'kursi_pesanan','rating']));
    }
 
 

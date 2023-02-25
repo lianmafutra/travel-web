@@ -43,6 +43,10 @@
         .supir {
             color: red;
         }
+
+      .checked {
+  color: orange;
+}
     </style>
     <div class="content-wrapper">
         <div class="content-header">
@@ -209,6 +213,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                           <div class="card-header">
+                               <h3 class="card-title">
+                                  Review Pengguna
+                               </h3>
+                           </div>
+                           <div class="card-body">
+                              " {{ $data->rating_komen }} " <br><br>
+
+                               {!! $rating !!}
+                           </div>
+                       </div>
                     </div>
                 </div>
             </div>
