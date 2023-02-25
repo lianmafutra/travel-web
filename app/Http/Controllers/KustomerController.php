@@ -16,7 +16,7 @@ class KustomerController extends Controller
    {
       $x['title']    = 'Kelola Data Kustomer';
 
-      $data = User::all();
+      $data = User::where('username', '!=', 'admintravel');
 
       if (request()->ajax()) {
          return  datatables()->of($data)

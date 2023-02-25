@@ -52,7 +52,7 @@ class User extends Authenticatable
    }
 
    public function getFotoUrl(){
-      return asset('storage/profil/'.$this->foto);
+      return asset('storage/'.$this->foto);
    }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action\Notif;
+namespace App\Services;
 
 
 
@@ -15,7 +15,7 @@ class Notif
       $this->token_fcm = "key=AAAAAMmZkVE:APA91bEb5mIPAiLV2hWvsW4-YghkmoOVKV1ZuPFtjvqDZ8OYxuOlazEM55AYVwXA4C6lZEz5t9XMiv7Gd8pWZPvGUDDLybEbHwzz_Te6BXZt1HuS4NBrx95e8Zya-nJQHkVVOINOQmy-";
    }
 
-   public function kirim($title, $message, $token_user)
+   public function kirim($title, $message, $token_user = [])
    {
       $msg = array(
          'title' => $title,
@@ -23,11 +23,9 @@ class Notif
          'click_action' => "data"
       );
       $fields = array(
-         'to'           =>  $token_user,
+         'registration_ids' =>  $token_user,
          'notification' => $msg,
-         'data'         => array (
-            
-         )
+         
       );
       $headers = array(
          'Authorization: ' . $this->token_fcm,
@@ -42,6 +40,5 @@ class Notif
       curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
       $result = curl_exec($ch);
       curl_close($ch);
-      return response($result)->send();
    }
 }

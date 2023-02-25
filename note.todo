@@ -8,10 +8,14 @@ MOBILE
 ✔ update data user @done (2/24/2023, 12:54:47 AM)
 ✔ register upload foto @done (2/24/2023, 10:41:06 AM)
 ✔ ubah login menggunakan email @done (2/24/2023, 12:58:11 AM)
+✔ Kirim notif ke client sudah berhasil @done (2/25/2023, 9:36:57 AM)
 
 
 ADMIN
-☐ Kirim Notif Dari Admin ketika verifikasi pembayaran, tolak
-☐ count UI untuk admin pesanan masuk
-☐ view bukti pembayaran
+✔ Kirim Notif Dari Admin ketika verifikasi pembayaran, @done (2/25/2023, 11:37:37 AM)
+☐ Kirim Notif Dari Admin ketika verifikasi  tolak 
+✔ view bukti pembayaran @done (2/25/2023, 11:39:09 AM)
 ☐ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak
+☐ sortir order masuk terbaru
+☐ notif count order masuk
+✔ tampilkan user foto di detail pesanan @done (2/25/2023, 11:42:53 AM)

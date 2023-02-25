@@ -6,6 +6,9 @@ use App\Action\Notif\Notif;
 use App\Models\KursiMobil;
 use App\Models\Mobil;
 use App\Models\Pesanan;
+use App\Models\TokenFCM;
+use App\Models\User;
+use App\Services\Notif as ServicesNotif;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -76,39 +79,36 @@ class PesananController extends Controller
    public function detail($id_pesanan)
    {
 
-    
-
       $data = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
          ->where('id', $id_pesanan)->first();
          
-
       $kursi_mobil =  Mobil::with('supir')->where('id',$data->mobil_id)->first();
      
       $kursi_pesanan = $data->kursi_pesanan->pluck('kursi_mobil.nama');
 
 
-      $x['title']    = 'Detail Pesanan ( ' . $data->first()->kode_pesanan . ' )';
+      $x['title']    = 'Detail Pesanan ( ' . $data->kode_pesanan . ' )';
       return view('app.pesanan.detail', $x, compact(['data', 'kursi_mobil', 'kursi_pesanan']));
    }
 
 
 
-   public function updateVerifikasiPembayaran(Request $request, Notif $notif)
+   public function updateVerifikasiPembayaran(Request $request, ServicesNotif $notif)
    {
       try {
          $pesanan = Pesanan::find($request->id);
+         $token = TokenFCM::where('user_id', $pesanan->user_id)->get()->pluck('token')->toArray();
          if ($pesanan->status_pembayaran == 'BELUM') {
             $pesanan->update([
                'status_pembayaran' => 'LUNAS'
-            ]);
-
-            $notif->kirim('Pesanan Berhaisl diverifikasi Admin','','');
-             
+            ]);   
+            $notif->kirim('Konfirmasi Pembayaran','kode Pesanan ( '.$pesanan->kode_pesanan.' ) Berhasil diverifikasi oleh Admin',$token);
             return redirect()->back()->with('success-modal', ["title" => 'Berhasil Verifikasi Pembayaran']);
          } else {
             $pesanan->update([
                'status_pembayaran' => 'BELUM'
             ]);
+            // $notif->kirim('Pembayaran','kode Pesanan ( '.$pesanan->kode_pesanan.' ) Berhasil diverifikasi oleh Admin',$token);
             return redirect()->back()->with('success-modal', ["title" => 'Berhasil Membatalkan Verifikasi Pembayaran']);
          }
       } catch (\Throwable $th) {

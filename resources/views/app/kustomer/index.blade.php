@@ -25,12 +25,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
+                            {{-- <div class="card-header">
                                 <h3 class="card-title">
                                     <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
                                             class="fas fa-plus"></i> Tambah Kustomer</a>
                                 </h3>
-                            </div>
+                            </div> --}}
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="card-body table-responsive">
@@ -40,6 +40,7 @@
                                                     <th>No</th>
                                                   
                                                     <th>Nama</th>
+                                                    <th>Email</th>
                                                     <th>Kontak</th>
                                                     <th>Alamat</th>
                                                     <th>Foto</th>
@@ -61,7 +62,7 @@
         </section>
     </div>
 @endsection
-@include('app.kustomer.modal-create')
+
 @push('js')
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -112,7 +113,11 @@
                     },
                    
                     {
-                        data: 'name',
+                        data: 'nama_lengkap',
+                        orderable: false,
+                    },
+                    {
+                        data: 'email',
                         orderable: false,
                     },
                     {

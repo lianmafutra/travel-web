@@ -25,7 +25,7 @@ class Pesanan extends Model
 
    public function getBuktiPembayaranUrl()
    {
-      return asset('storage/images/' . $this->bukti_pembayaran);
+      return asset('storage/' . $this->bukti_pembayaran);
    }
    public function jadwal()
    {

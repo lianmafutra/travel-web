@@ -5,28 +5,27 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('dashboard') }}" class="nav-link"> Selamat Datang,  {{ auth()->user()->name }}   ( {{ \Carbon\Carbon::now()->translatedFormat('l, d-F-Y')  }} )</a> 
+            <a href="{{ route('dashboard') }}" class="nav-link"> Selamat Datang,  {{ auth()->user()->nama_lengkap }}   ( {{ \Carbon\Carbon::now()->translatedFormat('l, d-F-Y')  }} )</a> 
            
         </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" id="btntheme" role="button">
                 <i id="icontheme" class="fas fa-sun"></i>
             </a>
-        </li>
-        <li class="nav-item">
+        </li> --}}
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('index') }}" target="_bkank" role="button">
                 <i class="fas fa-globe"></i>
             </a>
-        </li>
+        </li> --}}
      
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                {{-- <img src="{{ $user_data->foto_url }}" class="user-image img-circle elevation-2" alt="User Image"> --}}
-                {{-- <span class="d-none d-md-inline">{{ Auth::user()->name }}</span> --}}
+                <img src="{{ asset('storage/'.auth()->user()->foto ) }}" class="user-image img-circle elevation-2" alt="User Image">
             </a>
 
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
@@ -35,9 +34,9 @@
                   <a href="#" class="btn btn-default">Profile</a>
                   <a href="#" data-toggle="modal" data-target="#modal-logout" data-backdrop="static" data-keyboard="false" class="btn btn-danger float-right">Keluar</a>
               </li> --}}
-                <span 
-                    class="dropdown-item dropdown-header">
-                    <span  class="d-none d-md-inline">{{ Auth::user()->name }}</span></span>
+
+                <span style="background: rgba(219, 219, 219, 0.384)" class="dropdown-item dropdown-header">
+                    <span  class="d-none d-md-inline">{{ Auth::user()->nama_lengkap }}</span></span>
                 <div class="dropdown-divider"></div>
 
                 {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}

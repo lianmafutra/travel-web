@@ -27,8 +27,7 @@ class PesananController extends Controller
    public function getNotifCount()
    {
       $pesanan = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan')
-      ->where('user_id', auth()->user()->id)
-      ->where('status_pesanan', 'PROSES')
+      ->where('status_pembayaran', 'BELUM')
       ->count();
       return $this->success("Notif count Pesanan masih dalam Proses", $pesanan);
    }
@@ -46,7 +45,7 @@ class PesananController extends Controller
    public function buatPesanan(Request $request)
    {
       DB::beginTransaction();
-      // upload bukti pembayaran dan generate kode pesanan otomatis, id jadwal, user, kursi pesan
+      //  generate kode pesanan otomatis, id jadwal, user, kursi pesan
       try {
 
          $array = explode(',', $request->input('id_kursi_pesanan'));
@@ -54,7 +53,7 @@ class PesananController extends Controller
        
          $jadwal = Jadwal::find($request->jadwal_id);
          $pesanan = Pesanan::create([
-            'kode_pesanan'      => Str::random(5),
+            'kode_pesanan'      => strtoupper(Str::random(6)),
             'jadwal_id'         => $request->jadwal_id,
             'user_id'           => auth()->user()->id,
             'mobil_id'          => $jadwal->mobil_id,
@@ -119,8 +118,9 @@ class PesananController extends Controller
       try {
          $image_path = $request->file('img_bukti')->store('images', 'public');
          Pesanan::where('kode_pesanan', $request->kode_pesanan)->update([
-            'bukti_pembayaran' =>  $image_path
+            'bukti_pembayaran' =>  $image_path,
          ]);
+
          DB::commit();
          return $this->success("Berhasil Mengupload Bukti Pembayaran");
       } catch (Throwable $e) {
