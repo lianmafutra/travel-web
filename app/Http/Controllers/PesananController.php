@@ -21,7 +21,15 @@ class PesananController extends Controller
    {
 
       $x['title']    = 'Data Pesanan';
-      $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan');
+    
+
+      if(request()->filter_pesanan == "all"){
+         $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan');
+       
+      }else{
+         $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan');
+         $data->where('status_pesanan', 'PROSES')->where('status_pembayaran', 'BELUM');
+      }
 
       if (request()->ajax()) {
          return  datatables()->of($data)
@@ -117,13 +125,15 @@ class PesananController extends Controller
          $token = TokenFCM::where('user_id', $pesanan->user_id)->get()->pluck('token')->toArray();
          if ($pesanan->status_pembayaran == 'BELUM') {
             $pesanan->update([
-               'status_pembayaran' => 'LUNAS'
+               'status_pembayaran' => 'LUNAS',
+               'status_pesanan' => 'SELESAI'
             ]);   
             $notif->kirim('Konfirmasi Pembayaran','kode Pesanan ( '.$pesanan->kode_pesanan.' ) Berhasil diverifikasi oleh Admin',$token);
             return redirect()->back()->with('success-modal', ["title" => 'Berhasil Verifikasi Pembayaran']);
          } else {
             $pesanan->update([
-               'status_pembayaran' => 'BELUM'
+               'status_pembayaran' => 'BELUM',
+               'status_pesanan' => 'PROSES'
             ]);
             // $notif->kirim('Pembayaran','kode Pesanan ( '.$pesanan->kode_pesanan.' ) Berhasil diverifikasi oleh Admin',$token);
             return redirect()->back()->with('success-modal', ["title" => 'Berhasil Membatalkan Verifikasi Pembayaran']);

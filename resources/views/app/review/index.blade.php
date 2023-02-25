@@ -45,7 +45,7 @@
                                                     <th>Pelanggan</th>
                                                     <th>Rating</th>
                                                     <th>Review</th>
-                                                    <th>Tanggal</th>
+                                                    <th>Tanggal Review</th>
                                                     <th>#</th>
                                                 </tr>
                                             </thead>
@@ -98,30 +98,33 @@
                     },
                     {
                         data: 'mobil.nama',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'supir.nama',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'user.nama_lengkap',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'rating_nilai',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'rating_komen',
-                        orderable: false,
+                        orderable: true,
                       
                     },
                     {
                         data: 'rating_created_at',
+                        orderable: true,
                     },
                     {
                         data: 'action',
+                        orderable: false,
+                        searchable: false
                     },
                     
                 ]

@@ -17,14 +17,14 @@ MOBILE
 
 ADMIN
 ✔ Kirim Notif Dari Admin ketika verifikasi pembayaran, @done (2/25/2023, 11:37:37 AM)
-☐ Kirim Notif Dari Admin ketika verifikasi tolak 
-☐ list pesanan ketika dibatalkan oleh user
+✔ Kirim Notif Dari Admin ketika verifikasi tolak @done (2/25/2023, 5:40:40 PM)
+✔ list pesanan ketika dibatalkan oleh user @done (2/25/2023, 5:40:48 PM)
 ✔ view bukti pembayaran @done (2/25/2023, 11:39:09 AM)
-☐ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak
-☐ tambahkan alasan ketika pesana ditolak
-☐ sortir order masuk terbaru
+✔ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak @done (2/25/2023, 5:40:37 PM)
+✔ tambahkan alasan ketika pesana ditolak @done (2/25/2023, 5:40:35 PM)
+✔ sortir order masuk terbaru @done (2/25/2023, 5:40:31 PM)
 ☐ notif count order masuk
 ☐ buat role owner dan admin
-☐ list review pengguna
+✔ list review pengguna @done (2/25/2023, 5:40:26 PM)
 ☐ cetak laporan admin
 ✔ tampilkan user foto di detail pesanan @done (2/25/2023, 11:42:53 AM)

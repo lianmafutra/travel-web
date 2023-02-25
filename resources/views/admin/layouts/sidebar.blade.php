@@ -153,6 +153,8 @@
                   <a href="{{ route('pesanan.index') }}" class="nav-link  {{ request()->routeIs('pesanan*') ? 'active' : '' }}" >
                      <i class="fas fa-inbox nav-icon"></i>
                       <p>Order Masuk</p>
+                      <span class="right badge badge-danger">  {{ $order_masuk_count }}</span>
+                    
                   </a>
               </li>
               <li class="nav-item">

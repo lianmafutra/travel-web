@@ -23,12 +23,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            {{-- <div class="card-header">
-                                <h3 class="card-title">
-                                    <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
-                                            class="fas fa-plus"></i> Tambah Rekening</a>
-                                </h3>
-                            </div> --}}
+                           <div class="card-header">
+                              <div class="row">
+                                  <div class="col-md-3">
+                                      <x-select2 id="filter_pesanan" label="Filter" required="false" placeholder="Filter Pesanan">
+                                          <option selected value="baru">Perlu Direspon</option>
+                                          <option value="all">Semua Pesanan</option>
+                                      </x-select2>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div style="margin-top:28px">
+                                       {{-- <button id="btn_bayar"
+                                              type="button" class="btn btn-primary"><i
+                                                  class="mr-1 fas fa-file-invoice-dollar  nav-icon"></i>
+                                              Bayar</button> --}}
+                                      </div>
+                                  </div>
+                              </div>
+  
+                          </div>
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="card-body table-responsive">
@@ -75,7 +88,7 @@
 
     <script>
         $(document).ready(function() {
-         
+         let filter_pesanan = '';
          $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
@@ -91,8 +104,12 @@
                  order: [
                      [12, 'desc']
                  ],
-                ajax: @json(route('pesanan.index')),
-
+                ajax: {
+                    url: @json(route('pesanan.index')),
+                    data: function(e) {
+                        e.filter_pesanan = filter_pesanan
+                    }
+                },
                 columns: [{
                         data: "DT_RowIndex",
                         orderable: false,
@@ -105,11 +122,11 @@
                     },
                     {
                         data: 'jadwal.lokasi_keberangkatan_r.nama',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'jadwal.lokasi_tujuan_r.nama',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'jumlah_kursi',
@@ -118,26 +135,27 @@
                     },
                     {
                         data: 'status_pesanan',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'status_pembayaran',
-                        orderable: false,
+                        orderable: true,
                         className: 'dt-center',
                     },
                     {
                         data: 'bukti_pembayaran',
-                        orderable: false,
+                        orderable: true,
                         className: 'dt-center',
+                        searchable: false,
                         defaultContent: '<span style="color:#80808075">Belum ada</span>'
                     },
                     {
                         data: 'tgl_keberangkatan',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'tgl_pesan',
-                        orderable: false,
+                        orderable: true,
                     },
                     {
                         data: 'nama',
@@ -157,6 +175,11 @@
                         searchable: false,
                     },
                 ]
+            });
+          
+            $('#filter_pesanan').change(function() {
+                filter_pesanan = $(this).val()
+                datatable.ajax.reload()
             });
 
             $("#btn_tambah").click(function() {

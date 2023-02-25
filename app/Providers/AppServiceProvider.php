@@ -5,6 +5,7 @@ use App\Config\Role;
 use App\Http\Services\Pegawai\PengajuanService;
 use App\Models\Pengajuan;
 use App\Models\PengajuanHistori;
+use App\Models\Pesanan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,12 @@ class AppServiceProvider extends ServiceProvider
    public function boot()
    {
 
-    
+      view()->composer('*', function ($view) {
+         
+            $order_masuk_count = Pesanan::where('status_pesanan', 'PROSES')->where('status_pembayaran', 'BELUM');
+            $view->with('order_masuk_count',  $order_masuk_count->count());
+
+      });
 
       Blade::directive('rupiah', function ( $expression ) { return "Rp. <?php echo number_format($expression,0,',','.'); ?>"; });
 

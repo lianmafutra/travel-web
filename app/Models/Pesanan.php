@@ -11,16 +11,17 @@ class Pesanan extends Model
    use HasFactory;
    protected $table = 'pesanan';
    protected $guarded = [];
- 
+
    protected $casts = [
-      'created_at' => 'date:d-m-Y H:m:s',
-      'updated_at' => 'date:d-m-Y H:m:s',
-      'tgl_pembayaran' => 'date:d-m-Y H:m',
+      'created_at'        => 'date:d-m-Y H:m:s',
+      'updated_at'        => 'date:d-m-Y H:m:s',
+      'tgl_pembayaran'    => 'date:d-m-Y H:m',
       'tgl_keberangkatan' => 'date:d-m-Y H:m',
-      'tgl_pesan' => 'date:d-m-Y H:m',
+      'tgl_pesan'         => 'date:d-m-Y H:m',
+      'rating_created_at' => 'date:d-m-Y H:m',
    ];
 
- 
+
 
 
    public function getBuktiPembayaranUrl()
