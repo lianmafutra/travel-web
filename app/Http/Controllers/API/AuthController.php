@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\TokenFCM;
 use App\Models\User;
 use App\Utils\ApiResponse;
 use Exception;
@@ -40,10 +41,11 @@ class AuthController extends Controller
       }
    }
 
-   public function logout()
+   public function logout(Request $request)
    {
       try {
          $auth = Auth::user()->token()->revoke();
+         TokenFCM::where('token', $request->token)->delete();
          return $this->success("Token auth dihapus, User Berhasil Logout");
       } catch (\Throwable $th) {
          return $this->error($th, 400);

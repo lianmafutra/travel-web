@@ -52,6 +52,8 @@ Route::middleware(['auth:api'])->group(function () {
 
    Route::get('pesanan/notif/count', [PesananController::class, 'getNotifCount']);
 
+   Route::post('user/logout', [AuthController::class, 'logout']);
+
 
  
  
