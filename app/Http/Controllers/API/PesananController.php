@@ -28,6 +28,8 @@ class PesananController extends Controller
    {
       $pesanan = Pesanan::with('user','jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan')
       ->where('status_pembayaran', 'BELUM')
+      ->where('status_pesanan', '!=','DIBATALKAN')
+      ->where('user_id', auth()->user()->id)
       ->count();
       return $this->success("Notif count Pesanan masih dalam Proses", $pesanan);
    }
@@ -62,7 +64,8 @@ class PesananController extends Controller
             'tgl_pesan'         => Carbon::now(),
             'nama'              => auth()->user()->nama_lengkap,
             'kontak'            => auth()->user()->kontak,
-            'total_biaya'       =>  $jadwal->harga * sizeof($array2),
+            'id_kursi_pesanan'  => $request->input('id_kursi_pesanan'),
+            'total_biaya'       => $jadwal->harga * sizeof($array2),
          ]);
          $array = explode(',', $request->id_kursi_pesanan);
          foreach ($array as  $item) {
@@ -80,7 +83,22 @@ class PesananController extends Controller
       }
    }
 
-
+     
+   public function batalkanPesanan(Request $request)
+   {
+     
+      DB::beginTransaction();
+      // upload bukti pembayaran 
+      try {
+         $pesanan = Pesanan::where('kode_pesanan', $request->kode_pesanan)->update(['status_pesanan'=>'DIBATALKAN']);
+         DB::commit();
+         return $this->success("Pesanan Berhasil Dibatalkan", $pesanan);
+      } catch (Throwable $e) {
+         DB::rollback();
+         return $this->error("Pesanan gagal Dibatalkan" . $e->getMessage(), 400);
+      }
+    
+   }
 
    public function bayar(Request $request)
    {

@@ -18,7 +18,7 @@ class PesananController extends Controller
    public function index()
    {
 
-      $x['title']    = 'Kelola Data Pesanan';
+      $x['title']    = 'Data Pesanan';
       $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan');
 
       if (request()->ajax()) {

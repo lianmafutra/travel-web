@@ -47,6 +47,7 @@ Route::middleware(['auth:api'])->group(function () {
    Route::get('pesanan/mobil/{id}/review', [ReviewController::class, 'listReviewByMobil']);
 
    Route::post('user/pesanan', [PesananController::class, 'buatPesanan']);
+   Route::post('user/pesanan/batalkan', [PesananController::class, 'batalkanPesanan']);
    Route::get('user/pesanan/list', [PesananController::class, 'listPesananByUser']);
 
    Route::get('pesanan/notif/count', [PesananController::class, 'getNotifCount']);
