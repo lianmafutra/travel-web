@@ -28,7 +28,10 @@ class ReviewController extends Controller
                return $rating;
                
             })
-            ->rawColumns(['rating_nilai'])
+            ->addColumn('action', function ($data) {
+               return '<a href='.route('pesanan.detail', $data->id).' class="btn btn-sm btn-success">Detail Pesanan</a>';
+            })
+            ->rawColumns(['rating_nilai','action'])
             ->make(true);
       }
       return view('app.review.index', $x);

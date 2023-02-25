@@ -45,6 +45,7 @@
                                                     <th>Rating</th>
                                                     <th>Review</th>
                                                     <th>Tanggal</th>
+                                                    <th>#</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -113,6 +114,9 @@
                     },
                     {
                         data: 'rating_created_at',
+                    },
+                    {
+                        data: 'action',
                     },
                     
                 ]
