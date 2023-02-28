@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('expired:pembayaran')->everyMinute();
+      //   $schedule->command('expired:pembayaran')->everyMinute();
+        $schedule->command('task1')->everyMinute()->runInBackground()->withoutOverlapping();
+        $schedule->command('task2')->everyMinute()->runInBackground()->withoutOverlapping();
     }
 
     /**

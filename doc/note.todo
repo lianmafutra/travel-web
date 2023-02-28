@@ -1,0 +1,30 @@
+
+MOBILE
+☐ status pesanan ditolak di pesanan
+☐ klik detail notif verifikasi pembayaran, tolak -> 
+☐ Kirim Notif WhatsApp ke Admin jika ada pesanan
+✔ tampil foto profil home @done (2/24/2023, 12:58:07 AM)
+✔ update password @done (2/24/2023, 10:41:05 AM)
+✔ update data user @done (2/24/2023, 12:54:47 AM)
+✔ register upload foto @done (2/24/2023, 10:41:06 AM)
+✔ ubah login menggunakan email @done (2/24/2023, 12:58:11 AM)
+✔ Kirim notif ke client sudah berhasil @done (2/25/2023, 9:36:57 AM)
+✔ batalkan pesanan @done (2/25/2023, 2:02:33 PM)
+✔ upload bukti pembayaran di menu pesanan belum ada rincian biaya @done (2/25/2023, 2:32:04 PM)
+✔ remove token fcm local dan server ketika logout @done (2/25/2023, 2:49:29 PM)
+✔ validasi register null cek required @done (2/25/2023, 3:11:28 PM)
+
+
+ADMIN
+✔ Kirim Notif Dari Admin ketika verifikasi pembayaran, @done (2/25/2023, 11:37:37 AM)
+✔ Kirim Notif Dari Admin ketika verifikasi tolak @done (2/25/2023, 5:40:40 PM)
+✔ list pesanan ketika dibatalkan oleh user @done (2/25/2023, 5:40:48 PM)
+✔ view bukti pembayaran @done (2/25/2023, 11:39:09 AM)
+✔ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak @done (2/25/2023, 5:40:37 PM)
+✔ tambahkan alasan ketika pesana ditolak @done (2/25/2023, 5:40:35 PM)
+✔ sortir order masuk terbaru @done (2/25/2023, 5:40:31 PM)
+☐ notif count order masuk
+☐ buat role owner dan admin
+✔ list review pengguna @done (2/25/2023, 5:40:26 PM)
+☐ cetak laporan admin
+✔ tampilkan user foto di detail pesanan @done (2/25/2023, 11:42:53 AM)
