@@ -21,7 +21,6 @@
                 @canany(['read user', 'read role', 'read permission'])
                     <li class="nav-header ml-2">App Settings</li>
                 @endcanany
-
                 @role('superadmin')
                 <li class="nav-item menu-is-opening {{ request()->is(['admin/user','admin/role','admin/permission','admin/setting']) ? 'menu-open' : '' }} ">
                     <a href="" class="nav-link {{ request()->is(['admin/user','admin/role','admin/permission','admin/setting']) ? 'active' : '' }}">
@@ -57,35 +56,9 @@
                      </a>
                  </li>
              @endcan
-             @can('read setting')
-                 <li class="nav-item">
-                     <a href="{{ route('setting.index') }}"
-                         class="nav-link {{ request()->routeIs('setting.index') ? 'active' : '' }}">
-                         <i class="fas fa-cog nav-icon"></i>
-                         <p>Setting</p>
-                     </a>
-                 </li>
-             @endcan
-                       
                     </ul>
                 </li>
             @endcan
-
-
-
-               
-              
-               
-                {{-- @can('profile menu')
-                    <li class="nav-item">
-                        <a href="{{ route('profile.index') }}"
-                            class="nav-link {{ request()->routeIs('profil*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>Profil</p>
-                        </a>
-                    </li>
-                @endcan --}}
-
                 <li class="nav-header ml-2">Master Data</li>
                 @can('pengajuan verifikasi index')
                     <li class="nav-item menu-is-opening {{ request()->is('admin/kendaraan*') ? 'menu-open' : '' }} ">
@@ -102,20 +75,12 @@
                                     <p>Mobil</p>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a href="{{ route('pemilik.index') }}"
-                                    class="nav-link {{ request()->routeIs('pemilik*') ? 'active' : '' }}">
-                                    <i class="fas fa-user-cog nav-icon"></i>
-                                    <p>Kursi</p>
-                                </a>
-                            </li> --}}
                             <li class="nav-item">
                               <a href="{{ route('supir.index') }}" class="nav-link {{ request()->routeIs('supir*') ? 'active' : '' }}">
                                   <i class="fas fa-users nav-icon"></i>
                                   <p>Supir</p>
                               </a>
                           </li>
-
                         </ul>
                     </li>
                 @endcan
@@ -154,17 +119,14 @@
                      <i class="fas fa-inbox nav-icon"></i>
                       <p>Order Masuk</p>
                       <span class="right badge badge-danger">  {{ $order_masuk_count }}</span>
-                    
                   </a>
               </li>
               <li class="nav-item">
-               <a href="" class="nav-link  " >
+               <a href="{{ route('laporan.index') }}" class="nav-link  {{ request()->routeIs('laporan*') ? 'active' : '' }}" >
                   <i class="fas fa-inbox nav-icon"></i>
                    <p>Rekap Laporan</p>
                </a>
            </li>
-              
-               
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -7,6 +7,7 @@ use App\Http\Controllers\Kendaraan\PemilikController;
 use App\Http\Controllers\Kendaraan\SupirController;
 use App\Http\Controllers\KursiMobilController;
 use App\Http\Controllers\KustomerController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RekeningController;
@@ -31,18 +32,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('rekening', RekeningController::class);
 
    Route::get('review/index', [ReviewController::class, 'index'])->name('review.index');
+   Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
 
    Route::controller(PesananController::class)->group(function () {
       Route::resource('pesanan', PesananController::class);
       Route::put('pesanan/update/verifikasi', 'updateVerifikasiPembayaran')->name('pesanan.pembayaran.verifikasi');
       Route::put('pesanan/update/status_pesanan', 'updateStatusPesanan')->name('pesanan.status');
       Route::get('pesanan/detail/{id_pesanan}', 'detail')->name('pesanan.detail');
-
    });
 
-
-
-   
 });
 
 Route::prefix('admin')->group(function () {
