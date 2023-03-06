@@ -45,7 +45,7 @@
 @endsection
 @push('js')
 
-  
+
  
     <script src="{{ asset('plugins/flatpicker/flatpickr.min.js') }}"></script>
     <script src="{{ asset('plugins/flatpicker/id.min.js') }}"></script>
