@@ -18,11 +18,11 @@
                         <p>Dashboard</p>
                     </a>
                 </li>@php $i = 1; @endphp
-                @canany(['read user', 'read role', 'read permission'])
+                {{-- @canany(['read user', 'read role', 'read permission'])
                     <li class="nav-header ml-2">App Settings</li>
-                @endcanany
+                @endcanany --}}
                 @role('superadmin')
-                <li class="nav-item menu-is-opening {{ request()->is(['admin/user','admin/role','admin/permission','admin/setting']) ? 'menu-open' : '' }} ">
+                {{-- <li class="nav-item menu-is-opening {{ request()->is(['admin/user','admin/role','admin/permission','admin/setting']) ? 'menu-open' : '' }} ">
                     <a href="" class="nav-link {{ request()->is(['admin/user','admin/role','admin/permission','admin/setting']) ? 'active' : '' }}">
                      <i class="fas fa-cog nav-icon"></i>
                         <p>Role Permission</p>
@@ -57,7 +57,7 @@
                  </li>
              @endcan
                     </ul>
-                </li>
+                </li> --}}
             @endcan
                 <li class="nav-header ml-2">Master Data</li>
                 @can('pengajuan verifikasi index')

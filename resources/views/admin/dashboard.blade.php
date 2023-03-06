@@ -43,7 +43,7 @@
                         <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ count($role) }}</h3>
-                            <p>Role</p>
+                            <p>Pesanan Masuk</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-cog"></i>
@@ -58,7 +58,7 @@
                         <div class="inner">
                             <h3>{{ count($permission) }}</h3>
 
-                            <p>Permission</p>
+                            <p>Pesanan Selesai</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-unlock"></i>

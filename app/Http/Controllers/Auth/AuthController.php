@@ -22,7 +22,7 @@ class AuthController extends Controller
          $user->save();
          return redirect()->back()->with('success', 'Berhasil Merubah Password');
       } catch (\Throwable $th) {
-         dd($th);
+       
          return redirect()->back()->with('error', 'Gagal Merubah Password User');
       }
    }

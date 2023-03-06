@@ -213,6 +213,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($data->rating_created_at)
                         <div class="card">
                            <div class="card-header">
                                <h3 class="card-title">
@@ -225,6 +226,8 @@
                                {!! $rating !!}
                            </div>
                        </div>
+                        @endif
+                       
                     </div>
                 </div>
             </div>
