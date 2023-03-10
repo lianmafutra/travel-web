@@ -76,6 +76,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('jenis-mobil.index') }}"
+                                    class="nav-link {{ request()->routeIs('jenis-mobil*') ? 'active' : '' }}">
+                                    <i class="fas fa-car nav-icon"></i>
+                                    <p>Jenis</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                               <a href="{{ route('supir.index') }}" class="nav-link {{ request()->routeIs('supir*') ? 'active' : '' }}">
                                   <i class="fas fa-users nav-icon"></i>
                                   <p>Supir</p>

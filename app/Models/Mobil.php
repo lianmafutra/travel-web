@@ -26,6 +26,10 @@ class Mobil extends Model
    public function supir(){
       return $this->hasOne(Supir::class, 'id', 'supir_id');
    }
+
+   public function jenis(){
+      return $this->hasOne(MobilJenis::class, 'id', 'mobil_jenis_id');
+   }
  
   
    public function kursi_mobil(){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Kendaraan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mobil;
+use App\Models\MobilJenis;
 use App\Models\Supir;
 use App\Utils\ApiResponse;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class MobilController extends Controller
    {
       $x['title']    = 'Kelola Mobil';
       $x['supir']    = Supir::get();
+      $x['mobil_jenis']    = MobilJenis::get();
 
-      $data = Mobil::with('supir','kursi_mobil');
+      $data = Mobil::with('supir','kursi_mobil', 'jenis');
      
       if (request()->ajax()) {
          return  datatables()->of($data)
@@ -49,6 +51,7 @@ class MobilController extends Controller
             ['id'               => $request->id],
             [
                'nama'     => $request->nama,
+               'mobil_jenis_id'     => $request->mobil_jenis_id,
                'plat'     => $request->plat,
                'supir_id' => $request->supir_id,
                'foto'     =>  $image_path,

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Harga\HargaController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\Kendaraan\JenisMobilController;
 use App\Http\Controllers\Kendaraan\MobilController;
 use App\Http\Controllers\Kendaraan\PemilikController;
 use App\Http\Controllers\Kendaraan\SupirController;
@@ -23,6 +24,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
       Route::resource('mobil', MobilController::class);
       Route::resource('pemilik', PemilikController::class);
       Route::resource('supir', SupirController::class);
+      Route::resource('jenis-mobil', JenisMobilController::class);
    });
 
    Route::resource('harga', HargaController::class);

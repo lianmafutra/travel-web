@@ -28,11 +28,17 @@
                     <input hidden id="id" name="id" value="" />
                     <x-input id='nama' label='Nama Mobil' required=true />
                     <x-input id='plat' label='Plat/Nopol Mobil' required=true />
+                    <x-select2 id="mobil_jenis_id" label="Jenis Mobil" required="true" placeholder="Pilih Jenis Mobil">
+                     @foreach ($mobil_jenis as $item)
+                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                     @endforeach
+                 </x-select2>
                     <x-select2 id="supir_id" label="Supir" required="true" placeholder="Pilih Supir">
                         @foreach ($supir as $item)
                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                         @endforeach
                     </x-select2>
+
                     <x-filepond label='Foto Mobil' required='true' 
                         info='( Format File jpg/png , Maks 5 MB)'>
                         <input id="foto" type="file" data-max-file-size="5 MB" required
