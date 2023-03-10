@@ -103,6 +103,7 @@
                     {
                         data: 'supir.nama',
                         orderable: true,
+                        defaultContent : ''
                     },
                     {
                         data: 'user.nama_lengkap',
