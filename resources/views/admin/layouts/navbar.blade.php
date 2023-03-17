@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('dashboard') }}" class="nav-link"> Selamat Datang,  {{ auth()->user()->nama_lengkap }}   ( {{ \Carbon\Carbon::now()->translatedFormat('l, d-F-Y')  }} )</a> 
+            <a href="{{ route('dashboard') }}" class="nav-link"> Selamat Datang,  {{ auth()->user()->nama_lengkap }} ( Hak Akses : {{ auth()->user()->hak_akses }} )   ( {{ \Carbon\Carbon::now()->translatedFormat('l, d-F-Y')  }} )</a> 
            
         </li>
     </ul>

@@ -62,8 +62,6 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#tab_profile"
                                             data-toggle="tab">Profile</a></li>
-                               
-
                                 </ul>
                             </div>
                             <div class="card-body">
