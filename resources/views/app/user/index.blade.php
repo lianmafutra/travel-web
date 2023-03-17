@@ -221,6 +221,25 @@
                     }
                 })
             });
+
+
+            $('#datatable').on('click', '.btn_reset_password', function(e) {
+                let data = $(this).attr('data-username');
+                Swal.fire({
+                    title: 'Apakah anda yakin ingin Mereset Password User (password default : travel123)?',
+                    text: data,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Reset',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(this).find('#form-reset-password').submit();
+                    }
+                })
+            });
         })
     </script>
 @endpush

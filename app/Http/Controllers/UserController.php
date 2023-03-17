@@ -35,7 +35,7 @@ class UserController extends Controller
       return view('app.user.index', $x);
    }
 
- 
+
 
    public function edit(User $user)
    {
@@ -45,8 +45,8 @@ class UserController extends Controller
 
    public function store(Request $request)
    {
-    
-     
+
+
       try {
          $old = User::find($request->id)?->foto;
          if ('images/' . $request->file('foto')->getClientOriginalName() != $old) {
@@ -65,17 +65,32 @@ class UserController extends Controller
                'password'     => bcrypt($request->password),
             ]
          );
-         if ($request->id) 
-          return $this->success('Berhasil Mengubah Data');
+         if ($request->id)
+            return $this->success('Berhasil Mengubah Data');
          else return $this->success('Berhasil Menginput Data');
       } catch (\Throwable $th) {
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
       }
    }
 
-  
+   public function resetpassword($user_id)
+   {
 
-  
+      try {
+         User::where('id', $user_id)->update(
+            [
+               'password'     => bcrypt('travel123'),
+            ]
+         );
+         return redirect()->back()->with('success', 'Berhasil Reset Password', 200);
+      } catch (\Throwable $th) {
+         return redirect()->back()->with('error', 'Gagal Reset Password', 400);
+      }
+   }
+
+
+
+
 
    public function destroy($id)
    {

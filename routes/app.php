@@ -34,6 +34,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('kustomer', KustomerController::class);
    Route::resource('rekening', RekeningController::class);
    Route::resource('user', UserController::class);
+   Route::post('user/reset-password/{user_id}', [UserController::class, 'resetPassword'])->name('user.reset-password');
 
    Route::get('review/index', [ReviewController::class, 'index'])->name('review.index');
    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
