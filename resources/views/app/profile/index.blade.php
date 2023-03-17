@@ -4,20 +4,20 @@
     <link href="{{ URL::asset('plugins/filepond/filepond-plugin-image-preview.css') }} " rel="stylesheet" />
 @endpush
 @section('content')
-<style>
-   .profile-user-img {
-    object-fit: cover;
-    border: 3px solid #adb5bd;
-    margin: 0 auto;
-    padding: 3px;
-    width: 130px;
-}
+    <style>
+        .profile-user-img {
+            object-fit: cover;
+            border: 3px solid #adb5bd;
+            margin: 0 auto;
+            padding: 3px;
+            width: 130px;
+        }
 
-.img-fluid {
-    max-width: 100%;
-    height: 130px;
-}
-</style>
+        .img-fluid {
+            max-width: 100%;
+            height: 130px;
+        }
+    </style>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -41,8 +41,8 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="{{ url('storage/'.$user->foto) }}"
-                                        alt="User profile picture">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="{{ url('storage/' . $user->foto) }}" alt="User profile picture">
                                 </div>
                                 <h3 class="profile-username text-center">{{ $user->username }}</h3>
                                 <p class="text-muted text-center">{{ $user->nama_lengkap }}</p>
@@ -62,19 +62,19 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#tab_profile"
                                             data-toggle="tab">Profile</a></li>
-                                    <li class="nav-item"><a class="nav-link " href="#tab_password"
-                                            data-toggle="tab">Password</a></li>
-                                    
+                               
+
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="tab_profile">
-                                        <form method="POST" action="{{ route('profile.update.data') }}" class="form-horizontal">
-                                          @csrf
-                                          
+                                        <form method="POST" action="{{ route('profile.update.data') }}"
+                                            class="form-horizontal">
+                                            @csrf
+
                                             <div class="form-group row">
-                                                <label  for="inputName" class="col-sm-2 col-form-label">Nama Lengkap</label>
+                                                <label for="inputName" class="col-sm-2 col-form-label">Nama Lengkap</label>
                                                 <div class="col-sm-10">
                                                     <input disabled type="text" class="form-control" id="nama"
                                                         value="{{ $user->nama_lengkap }}" placeholder="Nama Lengkap">
@@ -91,17 +91,16 @@
                                                 <label for="" class="col-sm-2 col-form-label">Role</label>
                                                 <div class="col-sm-10">
                                                     <input disabled type="text" class="form-control" id="role"
-                                                        placeholder="Username"
-                                                        value="{{ $user->hak_akses }}">
+                                                        placeholder="Username" value="{{ $user->hak_akses }}">
                                                 </div>
                                             </div>
-                                           
+
                                             <div class="form-group row">
                                                 <label for="inputEmail" class="col-sm-2 col-form-label">Kontak</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="kontak" class="form-control" id="kontak"
                                                         placeholder="Nomor Handphone" value="{{ $user->kontak }}">
-                                                   
+
                                                 </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
@@ -111,36 +110,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class=" tab-pane" id="tab_password">
-                                        <div class="modal-body">
-                                            <form name="ubah-password" action="{{ route('password.ubah') }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="form-group">
-                                                    <label>Password Lama <span style="color: red"> *</span> </label>
-                                                    <input required name="password" type="password" class="form-control"
-                                                        id="" placeholder="Password Lama">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Password Baru <span style="color: red"> *</span> </label>
-                                                    <input id="password_baru" required name="password_baru"
-                                                        type="password" class="form-control" id=""
-                                                        placeholder="Password Baru">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Password Konfirmasi <span style="color: red"> *</span> </label>
-                                                    <input id="password_konfirmasi" required name="password_konfirmasi"
-                                                        type="password" class="form-control" id=""
-                                                        placeholder="Password Konfirmasi">
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button> --}}
-                                            <button type="submit" class="btn btn-primary">Ubah Password</button>
-                                        </div>
-                                        </form>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -159,19 +129,19 @@
                     </button>
                 </div>
                 <form method="POST" action="{{ route('profile.update.foto') }}" enctype="multipart/form-data">
-                  @csrf
-                
-                <div class="modal-body">
-                    <div class="form-group ">
-                        <input required type="file" data-max-file-size="5 MB" class="filepond" accept="image/*"
-                            name="foto">
+                    @csrf
+
+                    <div class="modal-body">
+                        <div class="form-group ">
+                            <input required type="file" data-max-file-size="5 MB" class="filepond" accept="image/*"
+                                name="foto">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Lanjutkan</button>
-                </div>
-               </form>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Lanjutkan</button>
+                    </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -205,5 +175,7 @@
                 imagePreviewWidth: 300,
             });
         });
+
+        
     </script>
 @endpush

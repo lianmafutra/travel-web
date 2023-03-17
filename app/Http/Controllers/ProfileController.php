@@ -46,4 +46,19 @@ class ProfileController extends Controller
          return redirect()->back()->with('error', 'Gagal Update Data', 400);
       }
    }
+
+
+   public function updatePassword(Request $request)
+   {
+      try {
+         User::where('id', auth()->user()->id)->update(
+            [
+               'password_baru'     => bcrypt($request->password),
+            ]
+         );
+         return redirect()->back()->with('success', 'Berhasil Update Password', 200);
+      } catch (\Throwable $th) {
+         return redirect()->back()->with('error', 'Gagal Update Password', 400);
+      }
+   }
 }
