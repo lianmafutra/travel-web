@@ -34,7 +34,7 @@
                         <div class="icon">
                             <i class="fas fa-user"></i>
                         </div>
-                        <a href="{{ route('user.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('kustomer.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-6">
@@ -47,7 +47,7 @@
                      <div class="icon">
                          <i class="fas fa-user"></i>
                      </div>
-                     <a href="{{ route('user.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('pesanan.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                      </div>
                  </div>
                     <!-- ./col -->
@@ -61,7 +61,7 @@
                         <div class="icon">
                             <i class="fas fa-user-cog"></i>
                         </div>
-                        <a href="{{ route('role.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('pesanan.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -76,7 +76,7 @@
                         <div class="icon">
                             <i class="fas fa-unlock"></i>
                         </div>
-                        <a href="{{ route('permission.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('mobil.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
