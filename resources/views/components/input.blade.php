@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="{{ $id }} form-group">
     <label>{{ $label }}
         @if ($required == 'true')
             <span style="color: red">*</span>

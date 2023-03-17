@@ -8,14 +8,13 @@
 @endpush
 @section('content')
     <style>
-
     </style>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Data Kustomer</h1>
+                        <h1 class="m-0">Data User</h1>
                     </div>
                 </div>
             </div>
@@ -25,12 +24,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            {{-- <div class="card-header">
-                                <h3 class="card-title">
-                                    <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
-                                            class="fas fa-plus"></i> Tambah Kustomer</a>
-                                </h3>
-                            </div> --}}
+                           <div class="card-header">
+                              <h3 class="card-title">
+                                  <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
+                                          class="fas fa-plus"></i> Tambah Data User</a>
+                              </h3>
+                          </div>
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="card-body table-responsive">
@@ -38,13 +37,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                  
                                                     <th>Nama</th>
-                                                    <th>Email</th>
+                                                    <th>Username</th>
+                                                    <th>Hak Akses</th>
                                                     <th>Kontak</th>
-                                                    <th>Alamat</th>
                                                     <th>Foto</th>
-                                                    <th>Tgl Daftar</th>
                                                     <th>#Aksi</th>
                                                 </tr>
                                             </thead>
@@ -60,8 +57,8 @@
             </div>
         </section>
     </div>
+    @include('app.user.modal-create')
 @endsection
-
 @push('js')
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -75,18 +72,15 @@
     <script src="{{ asset('plugins/filepond/filepond-plugin-image-preview.js') }}"></script>
     <script>
         $(document).ready(function() {
-
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
-
             // Filepond
             FilePond.registerPlugin(
                 FilePondPluginFileEncode,
                 FilePondPluginImagePreview,
                 FilePondPluginFileValidateType,
                 FilePondPluginFileValidateSize);
-
             let foto_user = FilePond.create(document.querySelector('#foto'));
             foto_user.setOptions({
                 storeAsFile: true,
@@ -102,21 +96,23 @@
                 order: [
                     [4, 'desc']
                 ],
-                ajax: @json(route('kustomer.index')),
-
+                ajax: @json(route('user.index')),
                 columns: [{
                         data: "DT_RowIndex",
                         orderable: false,
                         searchable: false,
                         width: '1%'
                     },
-                   
                     {
                         data: 'nama_lengkap',
                         orderable: false,
                     },
                     {
-                        data: 'email',
+                        data: 'username',
+                        orderable: false,
+                    },
+                    {
+                        data: 'hak_akses',
                         orderable: false,
                     },
                     {
@@ -124,15 +120,8 @@
                         orderable: false,
                     },
                     {
-                        data: 'alamat',
-                        orderable: false,
-                    },
-                    {
                         data: 'foto',
                         orderable: false,
-                    },
-                    {
-                        data: 'created_at',
                     },
                     {
                         data: "action",
@@ -141,27 +130,23 @@
                     },
                 ]
             });
-
             $("#btn_tambah").click(function() {
                 clearInput()
+                $('.password').show()
                 $('#modal_create').modal('show')
                 $('.modal-title').text('Tambah Data')
-                
                 if (foto_user.getFiles().length != 0) {
                     for (var i = 0; i <= foto_user.getFiles().length - 1; i++) {
                      foto_user.removeFile(foto_user.getFiles()[0].id)
                     }
                 }
             });
-
-
             $("#form_tambah").submit(function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);
-
                 $.ajax({
                     type: 'POST',
-                    url: @json(route('kustomer.store')),
+                    url: @json(route('user.store')),
                     data: formData,
                     cache: false,
                     contentType: false,
@@ -185,7 +170,7 @@
                                 swal.hideLoading()
                                 datatable.ajax.reload()
                             })
-                            swal.hideLoading()
+                          
                         }
                     },
                     error: function(response) {
@@ -193,8 +178,9 @@
                     }
                 });
             });
-
             $('#datatable').on('click', '.btn_edit', function(e) {
+               $('.password').hide()
+               $('#password').val("123")
                 $('#modal_create').modal('show')
                 $('.modal-title').text('Ubah Data')
                 $('.error').hide();
@@ -206,10 +192,10 @@
                 }
                 $.get(url, function(response) {
                     $('#id').val(response.data.id)
-                    $('#plat').val(response.data.plat)
-                    $('#nama').val(response.data.nama)
-                    $('#supir_id').val(response.data.supir_id).trigger('change')
-                    
+                    $('#nama_lengkap').val(response.data.nama_lengkap)
+                    $('#username').val(response.data.username)
+                    $('#kontak').val(response.data.kontak)
+                    $('#hak_akses').val(response.data.hak_akses).trigger('change')
                     foto_user.setOptions({
                         storeAsFile: true,
                         files: [{
@@ -218,11 +204,10 @@
                     });
                 })
             });
-
             $('#datatable').on('click', '.btn_hapus', function(e) {
                 let data = $(this).attr('data-hapus');
                 Swal.fire({
-                    title: 'Apakah anda yakin ingin menghapus data Kustomer?',
+                    title: 'Apakah anda yakin ingin menghapus data User?',
                     text: data,
                     icon: 'warning',
                     showCancelButton: true,
@@ -236,7 +221,6 @@
                     }
                 })
             });
-
         })
     </script>
 @endpush

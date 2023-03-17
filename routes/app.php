@@ -13,6 +13,7 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('jadwal', JadwalController::class);
    Route::resource('kustomer', KustomerController::class);
    Route::resource('rekening', RekeningController::class);
+   Route::resource('user', UserController::class);
 
    Route::get('review/index', [ReviewController::class, 'index'])->name('review.index');
    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');

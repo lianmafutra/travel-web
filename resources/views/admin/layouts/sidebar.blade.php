@@ -60,7 +60,7 @@
                 </li> --}}
             @endcan
                 <li class="nav-header ml-2">Master Data</li>
-                @can('pengajuan verifikasi index')
+               
                     <li class="nav-item menu-is-opening {{ request()->is('admin/kendaraan*') ? 'menu-open' : '' }} ">
                         <a href="" class="nav-link {{ request()->is('admin/kendaraan*') ? 'active' : '' }}">
                             <i class="fas fa-truck nav-icon"></i>
@@ -90,7 +90,12 @@
                           </li>
                         </ul>
                     </li>
-                @endcan
+                    <li class="nav-item">
+                     <a href="{{ route('user.index') }}" class="nav-link  {{ request()->routeIs('user*') ? 'active' : '' }}" >
+                        <i class="far fa-user-circle nav-icon"></i>
+                           <p>Master User</p>
+                       </a>
+                   </li>
                 <li class="nav-item">
                   <a href="{{ route('review.index') }}" class="nav-link  {{ request()->routeIs('review*') ? 'active' : '' }}" >
                      <i class="far fa-comment-alt nav-icon"></i>
