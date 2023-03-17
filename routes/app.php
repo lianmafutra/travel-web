@@ -35,6 +35,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
    Route::get('review/index', [ReviewController::class, 'index'])->name('review.index');
    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+   Route::get('laporan/cetak', [LaporanController::class, 'cetakLaporan'])->name('laporan.cetak');
 
    Route::controller(PesananController::class)->group(function () {
       Route::resource('pesanan', PesananController::class);

@@ -12,6 +12,10 @@ class Pesanan extends Model
    protected $table = 'pesanan';
    protected $guarded = [];
 
+   protected $appends = ['jumlah_kursi'];
+
+  
+
    protected $casts = [
       'created_at'        => 'date:d-m-Y H:m:s',
       'updated_at'        => 'date:d-m-Y H:m:s',
@@ -22,7 +26,10 @@ class Pesanan extends Model
    ];
 
 
-
+   public function getJumlahKursiAttribute()
+   {
+      return $this->kursi_pesanan->count();
+   }
 
    public function getBuktiPembayaranUrl()
    {
