@@ -22,7 +22,7 @@ class LaporanController extends Controller
       ->where('status_pesanan', 'SELESAI')
       ->where('created_at', '>=', $tgl_awal)
       ->where('created_at', '<=', $tgl_akhir)->get();
-
+      
       return view('app.laporan.preview', compact('pesanan','tgl_awal','tgl_akhir'));
    }
 }

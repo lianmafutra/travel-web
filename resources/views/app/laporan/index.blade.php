@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a type="" class="btn_cetak btn btn-success"><i class="fas fa-print"></i> Cetak
+                                <a class="btn_cetak btn btn-success"><i class="fas fa-print"></i> Cetak
                                     Laporan</a>
                             </div>
                         </div>
@@ -56,9 +56,21 @@
 
         $('.btn_cetak').click(function(e) {
             e.preventDefault();
+
+           
             tgl_awal = $('#tanggal_awal').val()
             tgl_akhir = $('#tanggal_akhir').val()
-            window.open('laporan/cetak?tgl_awal=' + tgl_awal+"&tgl_akhir="+tgl_akhir, '_blank');
+
+            if(tgl_awal == ""){
+               alert("Tanggal Awal Harus Diisi")
+            }
+            else if(tgl_akhir == ""){
+               alert("Tanggal Akhir Harus Diisi")
+               
+            }else {
+               window.open('laporan/cetak?tgl_awal=' + tgl_awal+"&tgl_akhir="+tgl_akhir, '_blank');
+
+            }
         })
     </script>
 @endpush
