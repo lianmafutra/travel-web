@@ -11,6 +11,7 @@ use App\Http\Controllers\KustomerController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('rekening', RekeningController::class);
    Route::resource('user', UserController::class);
    Route::post('user/reset-password/{user_id}', [UserController::class, 'resetPassword'])->name('user.reset-password');
+ 
+   Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+   Route::post('profile/update/data', [ProfileController::class, 'updateProfile'])->name('profile.update.data');
+   Route::post('profile/update/foto', [ProfileController::class, 'updateFoto'])->name('profile.update.foto');
+   Route::post('profile/update/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
+
+
 
    Route::get('review/index', [ReviewController::class, 'index'])->name('review.index');
    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');

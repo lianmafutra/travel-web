@@ -40,13 +40,13 @@
                 <div class="dropdown-divider"></div>
 
                 {{-- <span class="dropdown-item dropdown-header">15 Notifications</span> --}}
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i>Profile
+                <a href="{{ route('profile.index') }}" class="dropdown-item">
+                    <i class="fas fa-user-check mr-2"></i>Profile
 
                 </a>
 
                 <a  data-toggle="modal" data-target="#modal-password" data-backdrop="static" data-keyboard="false" href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i>Ubah Password
+                    <i class="fas fa-key mr-2"></i>Ubah Password
                 </a>
 
                 <div class="dropdown-divider"></div>

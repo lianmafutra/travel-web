@@ -28,7 +28,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Profile</li>
+                            <li class="breadcrumb-item active">Profil</li>
                         </ol>
                     </div>
                 </div>
@@ -41,30 +41,18 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="{{ $user->getUrlFoto() }}"
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ url('storage/'.$user->foto) }}"
                                         alt="User profile picture">
                                 </div>
                                 <h3 class="profile-username text-center">{{ $user->username }}</h3>
-                                <p class="text-muted text-center">{{ $user->roles->pluck('name')[0] }}</p>
+                                <p class="text-muted text-center">{{ $user->nama_lengkap }}</p>
                                 <div class="form-group row">
                                     <div class="text-center col-sm-12">
                                         <button class="btn_upload_foto btn btn-secondary btn-sm"> <i
                                                 class="fas fa-upload"></i> Ubah Foto</button>
                                     </div>
                                 </div>
-                                {{-- <p class="text-muted text-center">Last Login : </p> --}}
-                                {{-- <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>Followers</b> <a class="float-right">1,322</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Following</b> <a class="float-right">543</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Friends</b> <a class="float-right">13,287</a>
-                                    </li>
-                                </ul> --}}
-                                {{-- <a href="#" class="btn btn-primary btn-block"><b></b></a> --}}
+
                             </div>
                         </div>
                     </div>
@@ -76,21 +64,20 @@
                                             data-toggle="tab">Profile</a></li>
                                     <li class="nav-item"><a class="nav-link " href="#tab_password"
                                             data-toggle="tab">Password</a></li>
-                                    <li class="nav-item"><a class="nav-link " href="#settings"
-                                            data-toggle="tab">Activity</a></li>
+                                    
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="tab_profile">
-                                        <form method="POST" action="{{ route('profile.update') }}" class="form-horizontal">
+                                        <form method="POST" action="{{ route('profile.update.data') }}" class="form-horizontal">
                                           @csrf
-                                          @method('PUT')
+                                          
                                             <div class="form-group row">
-                                                <label  for="inputName" class="col-sm-2 col-form-label">Nama</label>
+                                                <label  for="inputName" class="col-sm-2 col-form-label">Nama Lengkap</label>
                                                 <div class="col-sm-10">
                                                     <input disabled type="text" class="form-control" id="nama"
-                                                        value="{{ $user->name }}" placeholder="Nama">
+                                                        value="{{ $user->nama_lengkap }}" placeholder="Nama Lengkap">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -101,27 +88,20 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">Role</label>
+                                                <label for="" class="col-sm-2 col-form-label">Role</label>
                                                 <div class="col-sm-10">
                                                     <input disabled type="text" class="form-control" id="role"
                                                         placeholder="Username"
-                                                        value="{{ $user->roles->pluck('name')[0] }}">
+                                                        value="{{ $user->hak_akses }}">
                                                 </div>
                                             </div>
+                                           
                                             <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">OPD</label>
-                                                <div class="col-sm-10">
-                                                    <input disabled type="text" class="form-control" id="role"
-                                                        placeholder="Username" value="{{ $user->getWithOpd()->nunker }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">Nomor HP</label>
+                                                <label for="inputEmail" class="col-sm-2 col-form-label">Kontak</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="kontak" class="form-control" id="kontak"
                                                         placeholder="Nomor Handphone" value="{{ $user->kontak }}">
-                                                    <small class="text-muted">Nomor Kontak WhatsApp harap diisi untuk
-                                                        pengiriman Notifikasi pengajuan Berkas</small>
+                                                   
                                                 </div>
                                             </div>
                                             <div class="modal-footer justify-content-between">
@@ -178,12 +158,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('profile.foto.ubah') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('profile.update.foto') }}" enctype="multipart/form-data">
                   @csrf
-                  @method('PUT')
+                
                 <div class="modal-body">
                     <div class="form-group ">
-                        <input required type="file" data-max-file-size="3 MB" class="filepond" accept="image/*"
+                        <input required type="file" data-max-file-size="5 MB" class="filepond" accept="image/*"
                             name="foto">
                     </div>
                 </div>
