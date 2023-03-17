@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">{{ $title }}</li>
+                <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,12 +24,12 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ count($user) }}</h3>
-                            <p>User</p>
+                            <p>User Pelanggan</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user"></i>
@@ -37,12 +37,25 @@
                         <a href="{{ route('user.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-primary">
+                     <div class="inner">
+                         <h3>{{ $pesanan_selesai->count() }}</h3>
+                         <p>Pesanan Selesai</p>
+                     </div>
+                     <div class="icon">
+                         <i class="fas fa-user"></i>
+                     </div>
+                     <a href="{{ route('user.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                 </div>
                     <!-- ./col -->
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ count($role) }}</h3>
+                            <h3>{{ $pesanan_masuk->count() }}</h3>
                             <p>Pesanan Masuk</p>
                         </div>
                         <div class="icon">
@@ -52,13 +65,13 @@
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{ count($permission) }}</h3>
+                            <h3>{{ $mobil->count() }}</h3>
 
-                            <p>Pesanan Selesai</p>
+                            <p>Mobil</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-unlock"></i>
