@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('template/admin/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/pace-theme-default.min.css') }}">
     @stack('style')
     @stack('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
