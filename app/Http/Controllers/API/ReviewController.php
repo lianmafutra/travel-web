@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use App\Utils\ApiResponse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -24,6 +25,7 @@ class ReviewController extends Controller
          $pesanan = Pesanan::where('kode_pesanan', $request->kode_pesanan)->update([
             'rating_nilai' => $request->rating_nilai,
             'rating_komen' => $request->rating_komen,
+            'rating_created_at' => Carbon::now(),
          ]);
          return $this->success("Update Data Review Pesanan Berhasil");
       } catch (Exception $e) {
