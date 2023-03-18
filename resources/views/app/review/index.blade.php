@@ -87,7 +87,7 @@
                 info: true,
                 ordering: true,
                 order: [
-                    [4, 'desc']
+                    [6, 'desc']
                 ],
                 ajax: @json(route('review.index')),
                 columns: [{
