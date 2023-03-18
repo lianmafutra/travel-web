@@ -66,8 +66,8 @@
                                 <h3 class="card-title">
                                     <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
                                             class="fas fa-plus"></i> Tambah Kursi</a>
-                                            <a href="#" class="btn btn-sm btn-secondary" id="btn_kolom"><i
-                                             class="fas fa-edit"></i> Jumlah Kolom Kursi</a>
+                                    <a href="#" class="btn btn-sm btn-secondary" id="btn_kolom"><i
+                                            class="fas fa-edit"></i> Jumlah Kolom Kursi</a>
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -112,9 +112,9 @@
                 theme: 'bootstrap4',
             })
 
-            let kolom='';
-            for (let i = 1; i <=@json($data->kolom_kursi); i++) {
-               kolom +=' auto';
+            let kolom = '';
+            for (let i = 1; i <= @json($data->kolom_kursi); i++) {
+                kolom += ' auto';
             }
 
             $('.grid-container').css('grid-template-columns', kolom)
@@ -143,6 +143,23 @@
 
             })
 
+
+            //trigger only select dropdown
+            $('#tipe').on('select2:select', function(e) {
+               let val = $(this).val()
+               if(val=="SUPIR"){
+                  $('#nama').val('SUPIR');
+               }else{
+                  $('#nama').val('');
+               }
+
+               if(val=="KOSONG"){
+                  $('#nama').val('');
+                  $('#nama').prop('disabled', true);
+               }else{
+                  $('#nama').prop('disabled', false);
+               }
+            })
 
 
 

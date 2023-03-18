@@ -14,6 +14,8 @@ class Mobil extends Model
    protected $table = 'mobil';
    protected $guarded = [];
 
+   protected $appends = ['jenis'];
+
    protected $casts = [
       'created_at'  => 'date:d-m-Y H:m:s',
       'updated_at'  => 'date:d-m-Y H:m:s',
@@ -36,4 +38,7 @@ class Mobil extends Model
       return $this->hasMany(KursiMobil::class);
    }
 
+   public function getJenisAttribute(){
+      return $this->jenis()->first()->nama;
+   }
 }
