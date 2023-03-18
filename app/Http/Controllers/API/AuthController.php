@@ -61,6 +61,7 @@ class AuthController extends Controller
        
          $input['password'] = bcrypt($request->password);
          $input['username'] = $request->email;
+         $input['hak_akses'] = 'pelanggan';
         
          $input['foto'] = $image_path;
        

@@ -116,7 +116,6 @@
                     {
                         data: 'rating_komen',
                         orderable: true,
-                      
                     },
                     {
                         data: 'rating_created_at',
