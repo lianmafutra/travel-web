@@ -178,7 +178,6 @@
                         data: 'lokasi_keberangkatan_r.nama',
                         defaultContent : '-'
                     },
-
                     {
                         data: 'lokasi_tujuan_r.nama',
                         defaultContent : '-'

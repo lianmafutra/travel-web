@@ -74,6 +74,28 @@
                                         <th>Kode Pesanan</th>
                                         <td>{{ $data->kode_pesanan }}</td>
                                     </tr>
+                                      {{-- jika jenis pesanan tour  --}}
+                                      @if ($data->jadwal->jenis_pesanan == 'TOUR')
+                                      <tr>
+                                          <th>Brosur Tour</th>
+                                          <td><img style="object-fit: cover" src="{{ $data->jadwal->getFotoBrosur() }}"
+                                            width="300px" height="300px"></td>
+                                      </tr>
+                                      <tr>
+                                          <th>Deskripsi Tour</th>
+                                          <td>{{ $data->jadwal->tour_deskripsi }}</td>
+                                      </tr>
+                                      <tr>
+                                          <th>Jumlah Minimal Keberangkatan</th>
+                                          <td>{{ $data->jadwal->tour_min_orang }} Orang</td>
+                                      </tr>
+                                      <tr>
+                                          <th>Harga DP </th>
+                                          <td> @rupiah($data->jadwal->tour_dp)</td>
+                                      </tr>
+                                  @endif
+                                 {{-- jika jenis pesanan tour --}}
+
                                     <tr>
                                         <th>Nama</th>
                                         <td>{{ $data->nama }}</td>

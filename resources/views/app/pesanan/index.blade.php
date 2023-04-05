@@ -50,6 +50,7 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>kode</th>
+                                                    <th>Jenis</th>
                                                     <th>Keberangkatan</th>
                                                     <th>Tujuan</th>
                                                     <th>Jumlah Kursi</th>
@@ -121,12 +122,20 @@
                         orderable: false,
                     },
                     {
+                        data: 'jadwal.jenis_pesanan',
+                        orderable: false,
+                    },
+                    {
                         data: 'jadwal.lokasi_keberangkatan_r.nama',
                         orderable: true,
+                        defaultContent : '-'
+
                     },
                     {
                         data: 'jadwal.lokasi_tujuan_r.nama',
                         orderable: true,
+                        defaultContent : '-'
+
                     },
                     {
                         data: 'jumlah_kursi',
