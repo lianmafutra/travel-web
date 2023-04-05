@@ -34,6 +34,7 @@
                </tr>
            </thead>
            <tbody>
+           
                @foreach ($pesanan as $index => $item)
                    <tr>
                        <td>{{ $index+1 }}</td>

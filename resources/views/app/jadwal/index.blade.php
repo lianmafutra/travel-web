@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }} ">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/flatpicker/flatpickr.min.css') }}">
+    <link href="{{ asset('plugins/filepond/filepond.css') }}" rel="stylesheet" />
+    <link href="{{ asset('plugins/filepond/filepond-plugin-image-preview.css') }} " rel="stylesheet" />
 @endpush
 @section('content')
     <style>
@@ -26,8 +28,10 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <a href="#" class="btn btn-sm btn-primary" id="btn_tambah"><i
+                                    <a href="#" class="btn btn-sm btn-secondary" id="btn_tambah"><i
                                             class="fas fa-plus"></i> Tambah Jadwal</a>
+                                            <a href="{{ route('create.tour') }}" class="btn btn-sm btn-secondary" id="btn_tambah_tour"><i
+                                             class="fas fa-plus"></i> Tambah Jadwal Tour</a>
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -37,6 +41,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
+                                                    <th>Jenis</th>
+                                                    <th>Brosur</th>
+                                                    <th>Minimal Keberangkatan</th>
+                                                    <th>Tour DP</th>
                                                     <th>Keberangkatan</th>
                                                     <th>Tujuan</th>
                                                     <th>Kursi Tersedia</th>
@@ -62,8 +70,10 @@
             </div>
         </section>
     </div>
-@endsection
-@include('app.jadwal.modal-create')
+    @include('app.jadwal.modal-create')
+
+    @endsection
+{{-- @include('app.jadwal.modal-create-tour') --}}
 @push('js')
     <script src="{{ asset('template/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('template/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -73,6 +83,12 @@
     <script src="{{ asset('plugins/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('plugins/flatpicker/flatpickr.min.js') }}"></script>
     <script src="{{ asset('plugins/flatpicker/id.min.js') }}"></script>
+    <script src="{{ asset('plugins/filepond/filepond.js') }}"></script>
+    <script src="{{ asset('plugins/filepond/filepond-plugin-file-metadata.js') }}"></script>
+    <script src="{{ asset('plugins/filepond/filepond-plugin-file-encode.js') }}"></script>
+    <script src="{{ asset('plugins/filepond/filepond-plugin-file-validate-type.js') }}"></script>
+    <script src="{{ asset('plugins/filepond/filepond-plugin-file-validate-size.js') }} "></script>
+    <script src="{{ asset('plugins/filepond/filepond-plugin-image-preview.js') }}"></script>
     <script>
         $(document).ready(function() {
 
@@ -84,6 +100,18 @@
                 allowInput: true,
                 dateFormat: "d-m-Y",
                 locale: "id",
+            });
+
+            
+            // Filepond
+            FilePond.registerPlugin(
+                FilePondPluginFileEncode,
+                FilePondPluginImagePreview,
+                FilePondPluginFileValidateType,
+                FilePondPluginFileValidateSize);
+            let tour_brosur = FilePond.create(document.querySelector('#tour_brosur'));
+            tour_brosur.setOptions({
+                storeAsFile: true,
             });
 
 
@@ -113,6 +141,7 @@
                 lengthChange: true,
                 paging: true,
                 info: true,
+                "deferRender": true,
                 ordering: true,
                //  order: [
                //      [2, 'desc']
@@ -126,11 +155,33 @@
                         width: '1%'
                     },
                     {
+                        data: 'jenis_pesanan',
+                    },
+                    {
+                        data: 'tour_brosur',
+                    },
+                    {
+                        data: 'tour_min_orang',
+                    },
+                    {
+                        data: 'tour_dp',
+                        render: function(data, type, row, meta) {
+                           if(row.jenis_pesanan == "TOUR"){
+                              return rupiah(data)
+                           }else{
+                              return "-"
+                           }
+                           
+                        }
+                    },
+                    {
                         data: 'lokasi_keberangkatan_r.nama',
+                        defaultContent : '-'
                     },
 
                     {
                         data: 'lokasi_tujuan_r.nama',
+                        defaultContent : '-'
                     },
                     {
                         data: 'kursi_tersedia',
@@ -168,9 +219,14 @@
                 clearInput()
                 $('#modal_create').modal('show')
                 $('.modal-title').text('Tambah Data')
-            });
+            })
 
-
+            $("#btn_tambah_tour").click(function() {
+                clearInput()
+                $('#modal_create_tour').modal('show')
+                $('.modal-title').text('Tambah Data Tour')
+            })
+            
             $("#form_tambah").submit(function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);

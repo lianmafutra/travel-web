@@ -58,54 +58,78 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-8">
-                     <div class="row">
-                        <div class="col-12">
-                           <div class="card">
-                              <div class="card-header">
-                                  <h3 class="card-title">
-                                      Data Jadwal Travel
-                                  </h3>
-                              </div>
-                              <div class="card-body">
-                                  <table style="width:100%">
-                                      <tr>
-                                          <th>Mobil</th>
-                                          <td>{{ $kursi_mobil->nama }} ( {{ $kursi_mobil->plat }} )</td>
-                                      </tr>
-                                      <tr>
-                                          <th>Foto Mobil</th>
-                                          <td><img style="object-fit: cover" src="{{ $kursi_mobil->getFotoUrl() }}"
-                                                  width="80px" height="80px"></td>
-                                      </tr>
-                                      <tr>
-                                          <th>Supir</th>
-                                          <td>{{ $kursi_mobil->supir->nama }} ( {{ $kursi_mobil->supir->kontak }})</td>
-                                      </tr>
-                                      <tr>
-                                          <th>Biaya Perjalanan</th>
-                                          <td>@rupiah($jadwal->harga)</td>
-                                      </tr>
-                                      <tr>
-                                          <th>Tanggal Keberangkatan</th>
-                                          <td>@tanggal($jadwal->tgl_keberangkatan) </td>
-                                      </tr>
-                                      <tr>
-                                          <th>Rute</th>
-                                          <td>{{ $jadwal->lokasi_keberangkatan_r->nama }} -
-                                              {{ $jadwal->lokasi_tujuan_r->nama }}</td>
-                                      </tr>
-                                      <tr>
-                                          <th>Kursi Tersedia</th>
-                                          <td>{{ $kursi_pesanan->count() }} / {{ $total_kursi->count() }}</td>
-                                      </tr>
-                                  </table>
-                              </div>
-                          </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            Data Jadwal Travel
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <th>Mobil</th>
+                                                <td>{{ $kursi_mobil->nama }} ( {{ $kursi_mobil->plat }} )</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Foto Mobil</th>
+                                                <td><img style="object-fit: cover" src="{{ $kursi_mobil->getFotoUrl() }}"
+                                                        width="80px" height="80px"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Supir</th>
+                                                <td>{{ $kursi_mobil->supir->nama }} ( {{ $kursi_mobil->supir->kontak }})
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Biaya Perjalanan</th>
+                                                <td>@rupiah($jadwal->harga)</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tanggal Keberangkatan</th>
+                                                <td>@tanggal($jadwal->tgl_keberangkatan) </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Rute</th>
+                                                <td>{{ $jadwal->lokasi_keberangkatan_r->nama }} -
+                                                    {{ $jadwal->lokasi_tujuan_r->nama }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kursi Tersedia</th>
+                                                <td>{{ $kursi_pesanan->count() }} / {{ $total_kursi->count() }}</td>
+                                            </tr>
+
+                                            {{-- jika jenis pesanan tour  --}}
+                                            @if ($jadwal->jenis_pesanan == 'TOUR')
+                                                <tr>
+                                                    <th>Brosur Tour</th>
+                                                    <td><img style="object-fit: cover" src="{{ $jadwal->getFotoBrosur() }}"
+                                                      width="300px" height="300px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Deskripsi Tour</th>
+                                                    <td>{{ $jadwal->tour_deskripsi }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Jumlah Minimal Keberangkatan</th>
+                                                    <td>{{ $jadwal->tour_min_orang }} Orang</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Harga DP </th>
+                                                    <td> @rupiah($jadwal->tour_dp)</td>
+                                                </tr>
+                                            @endif
+                                           {{-- jika jenis pesanan tour --}}
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
-                      
-                       
-                     </div>
-                       
+
 
                     </div>
                     <div class="col-4">
@@ -122,39 +146,39 @@
                         </div>
                     </div>
                     <div class="col-12">
-                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                Data Penumpang
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                           <table id="datatable" class="table table-bordered" style="width:100%">
-                              <thead>
-                                  <tr>
-                                      <th>No</th>
-                                      <th>kode</th>
-                                   
-                                  
-                                      <th>Jumlah Kursi</th>
-                                      <th>Kursi Pesanan</th>
-                                      <th>Status Pesanan</th>
-                                      <th>Status Pembayaran</th>
-                                      <th>Bukti Pembayaran</th>
-                                    
-                                      <th>Tgl Pesan</th>
-                                      <th>Nama</th>
-                                      <th>Kontak</th>
-                                     
-                                      <th>#Aksi</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                          </table>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    Data Penumpang
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <table id="datatable" class="table table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>kode</th>
+
+
+                                            <th>Jumlah Kursi</th>
+                                            <th>Kursi Pesanan</th>
+                                            <th>Status Pesanan</th>
+                                            <th>Status Pembayaran</th>
+                                            <th>Bukti Pembayaran</th>
+
+                                            <th>Tgl Pesan</th>
+                                            <th>Nama</th>
+                                            <th>Kontak</th>
+
+                                            <th>#Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                  </div>
                 </div>
             </div>
         </section>
@@ -226,7 +250,7 @@
                         data: 'kode_pesanan',
                         orderable: false,
                     },
-                    
+
                     {
 
                         data: 'jumlah_kursi',
@@ -237,7 +261,7 @@
                         data: 'kursi_pesanan',
                         orderable: false,
                         className: 'dt-center',
-                      
+
                     },
                     {
                         data: 'status_pesanan',
@@ -254,7 +278,7 @@
                         className: 'dt-center',
                         defaultContent: '<span style="color:#80808075">Belum ada</span>'
                     },
-                   
+
                     {
                         data: 'tgl_pesan',
                         orderable: false,
@@ -268,7 +292,7 @@
                         orderable: false,
                     },
 
-                   
+
                     {
                         data: "action",
                         orderable: false,

@@ -1,7 +1,7 @@
 
 MOBILE
-☐ status pesanan ditolak di pesanan
-☐ klik detail notif verifikasi pembayaran, tolak -> 
+✔ status pesanan ditolak di pesanan @done (4/2/2023, 6:04:50 PM)
+✔ klik detail notif verifikasi pembayaran, tolak -> @done (4/2/2023, 6:04:49 PM)
 ☐ Kirim Notif WhatsApp ke Admin jika ada pesanan
 ✔ tampil foto profil home @done (2/24/2023, 12:58:07 AM)
 ✔ update password @done (2/24/2023, 10:41:05 AM)
@@ -23,8 +23,11 @@ ADMIN
 ✔ jika tolak pesanan maka hapus semua kursi pesanan dan ubah status pesanan jadi tolak @done (2/25/2023, 5:40:37 PM)
 ✔ tambahkan alasan ketika pesana ditolak @done (2/25/2023, 5:40:35 PM)
 ✔ sortir order masuk terbaru @done (2/25/2023, 5:40:31 PM)
-☐ notif count order masuk
-☐ buat role owner dan admin
+✔ notif count order masuk @done (4/2/2023, 6:04:42 PM)
+✔ buat role owner dan admin @done (4/2/2023, 6:04:41 PM)
 ✔ list review pengguna @done (2/25/2023, 5:40:26 PM)
-☐ cetak laporan admin
+✔ cetak laporan admin @done (4/2/2023, 6:04:39 PM)
 ✔ tampilkan user foto di detail pesanan @done (2/25/2023, 11:42:53 AM)
+
+☐ tambah text editor deskripsi travel tour_brosur, optinal text area 
+☐ validasi dp sesuai kursi pesanan

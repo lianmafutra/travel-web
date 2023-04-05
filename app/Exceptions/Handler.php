@@ -7,7 +7,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Session\TokenMismatchException;
+use SebastianBergmann\Invoker\TimeoutException;
 use Spatie\FlareClient\Http\Exceptions\NotFound;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -54,6 +56,7 @@ class Handler extends ExceptionHandler
    }
    public function render($request, Throwable $exception)
    {
+     
       
       if ($request->ajax()) {
          if ($exception instanceof TokenMismatchException) {
@@ -62,6 +65,16 @@ class Handler extends ExceptionHandler
          if ($exception instanceof CustomException) {
             return response()->json(['error' => $exception->getMessage()], 400);
          }
+
+         if ($exception instanceof HttpResponseException && $exception->getResponse()->getStatusCode() === 500) {
+            if (strpos($exception->getMessage(), 'Maximum execution time') !== false) {
+                $exception->getResponse()->setStatusCode(Response::HTTP_REQUEST_TIMEOUT);
+            }
+        }
+        if ($exception instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
+         return response()->json(['message' => 'Too Many Attempts.'], 408);
+     }
+         
       }
 
       if ($request->is('api/*')) {
@@ -77,7 +90,7 @@ class Handler extends ExceptionHandler
 
      }
      
-
+     
       return parent::render($request, $exception);
    }
 }

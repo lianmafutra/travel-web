@@ -169,6 +169,9 @@
             if (response.status == 400) {
                 text = response.responseJSON.message
             }
+            if (response.status == 408) {
+                text = response.responseJSON.message
+            }
             Swal.fire({
                 icon: 'error',
                 title: 'Terjadi Kesalahan...',

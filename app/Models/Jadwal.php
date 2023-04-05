@@ -21,6 +21,16 @@ class Jadwal extends Model
       'jam'        => 'date:H:i',
    ];
 
+    // global setter format uang input kedatabase
+    public function setAttribute($key, $value)
+    {
+       if (in_array($key, ['tour_dp'])) {
+          $this->attributes[$key] = Rupiah::clean($value);
+          return $this;
+       }
+       return parent::setAttribute($key, $value);
+    }
+
 
    public function lokasi_tujuan_r()
    {
@@ -31,8 +41,6 @@ class Jadwal extends Model
    {
       $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
          ->where('jadwal_id',  $this->attributes['id']);
-
-   
 
       $kursi_pesanan =  KursiMobil::with('kursi_pesanan')->where('mobil_id', $this->attributes['mobil_id'])
       ->whereNotIn('tipe', ['SUPIR','KOSONG'])->has('kursi_pesanan')->whereHas('kursi_pesanan',
@@ -90,5 +98,9 @@ class Jadwal extends Model
    public function setHargaAttribute($value)
    {
       $this->attributes['harga'] = Rupiah::clean($value);
+   }
+
+   public function getFotoBrosur(){
+      return asset('storage/'.$this->tour_brosur);
    }
 }

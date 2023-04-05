@@ -5,10 +5,10 @@ use App\Models\KursiMobil;
 use App\Models\Lokasi;
 use App\Models\Mobil;
 use App\Models\Pesanan;
-use App\Models\Supir;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 class JadwalController extends Controller
 {
    public function index()
@@ -20,37 +20,74 @@ class JadwalController extends Controller
          $data = Jadwal::with('mobil', 'supir', 'lokasi_tujuan_r', 'lokasi_keberangkatan_r');
          return  datatables()->of($data)
             ->addIndexColumn()
+            
             ->addColumn('action', function ($data) {
                return view('app.jadwal.action', compact('data'));
             })
-            ->rawColumns(['action'])
+            ->editColumn('tour_brosur', function ($data) {
+              if($data->jenis_pesanan == 'TRAVEL'){
+                  return "-";
+              }if($data->jenis_pesanan == 'TOUR'){
+               return '<a target="_blank" href="'.$data->getFotoBrosur().'"><img class="foto_mobil" src="' . $data->getFotoBrosur() . 
+               '" height="100px" width="100px"; style="object-fit: cover;"></a>';
+              }
+            })
+            ->editColumn('tour_min_orang', function ($data) {
+               if($data->jenis_pesanan == 'TRAVEL'){
+                  return "-";
+              }if($data->jenis_pesanan == 'TOUR'){
+               return $data->tour_min_orang." Orang";
+              }
+              
+             })
+            
+            ->rawColumns(['action', 'tour_brosur'])
             ->make(true);
       }
       return view('app.jadwal.index', $x);
    }
+
    public function store(Request $request)
    {
+    
       try {
+
+         DB::beginTransaction();
+
+         $old = Jadwal::find($request->id)?->tour_brosur;
+         if ('images/' . $request->file('tour_brosur')->getClientOriginalName() != $old) {
+            $image_path = $request->file('tour_brosur')->store('images', 'public');
+         } else {
+            $image_path = $old;
+         }
          if ($request->id) {
             $jadwal = Jadwal::find($request->id);
             $input['supir_id'] =  Mobil::find($request->mobil_id)->supir_id;
+          
             $input = $request->all();
+            $input['tour_brosur'] = $image_path;
             $jadwal->fill($input)->save();
          } else {
             $input = $request->all();
+            $input['tour_brosur'] = $image_path;
             $input['supir_id'] =  Mobil::find($request->mobil_id)->supir_id;
             (new Jadwal())->fill($input)->save();
          }
+         DB::commit();
+       
          if ($request->id)  return $this->success('Berhasil Mengubah Data');
          else return $this->success('Berhasil Menginput Data');
       } catch (\Throwable $th) {
+         DB::rollBack();
          return $this->error('Gagal, Terjadi Kesalahan' . $th, 400);
       }
    }
+
    public function edit(Jadwal $jadwal)
    {
       return $this->success('Data Jadwal', $jadwal);
    }
+
    public function show(Jadwal $jadwal)
    {
       $x['title']    = 'Detail Jadwal';
@@ -106,6 +143,7 @@ class JadwalController extends Controller
       $kursi_mobil =  Mobil::with('supir')->where('id', $jadwal->mobil_id)->first();
       return view('app.jadwal.detail', $x, compact(['jadwal', 'kursi_mobil', 'total_kursi', 'kursi_pesanan', 'kursi_tersedia']));
    }
+
    public function showKursi(Jadwal $jadwal)
    {
       $x['title']    = 'Detail Jadwal';
@@ -123,6 +161,7 @@ class JadwalController extends Controller
       $kursi_mobil =  Mobil::with('supir')->where('id', $jadwal->mobil_id)->first();
       return view('app.jadwal.detail', $x, compact(['jadwal', 'kursi_mobil', 'total_kursi', 'kursi_pesanan', 'kursi_tersedia']));
    }
+
    public function destroy(Jadwal $jadwal)
    {
       try {
@@ -131,5 +170,11 @@ class JadwalController extends Controller
       } catch (\Throwable $th) {
          return redirect()->back()->with('error', 'Gagal Hapus Data', 400);
       }
+   }
+
+   public function createTour(){
+      $x['lokasi']    = Lokasi::get();
+      $x['mobil']    = Mobil::get();
+      return view('app.jadwal.create-tour', $x);
    }
 }
