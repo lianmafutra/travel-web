@@ -72,6 +72,8 @@ class PesananController extends Controller
 
    public function store(Request $request)
    {
+
+      
       try {
          if ($request->id) {
             $jadwal = Pesanan::find($request->id);

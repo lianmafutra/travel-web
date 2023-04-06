@@ -59,7 +59,7 @@
                         <h4 style="color:rgb(81, 81, 227)">#Data Pesanan</h4>
                         <div class="grid-container grid_kursi">
                             <table style="width:100%">
-                             
+
                                 <tr>
                                     <th>Nama</th>
                                     <td>{{ $user->nama_lengkap }}</td>
@@ -72,15 +72,24 @@
                                     <th>Tgl Keberangkatan</th>
                                     <td> @tanggal_only($jadwal->tanggal) @jam($jadwal->jam) </td>
                                 </tr>
-                                <tr>
-                                    <th>Lokasi</th>
-                                    <td>{{ $jadwal->lokasi_keberangkatan_r->nama }} -> {{ $jadwal->lokasi_tujuan_r->nama }}
-                                    </td>
-                                </tr>
+                                @if ($jadwal->jenis_pesanan == 'TRAVEL')
+                                    <tr>
+                                        <th>Lokasi</th>
+                                        <td>{{ $jadwal->lokasi_keberangkatan_r->nama }} ->
+                                            {{ $jadwal->lokasi_tujuan_r->nama }}
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <th>Tour : </th>
+                                        <td> {{ $jadwal->tour_judul }}</td>
+                                    </tr>
+                                @endif
+
                             </table>
                         </div>
 
-                       
+
 
                         <div style="margin-top:20px" class="rincian_biaya">
                             <h4 style="color:rgb(81, 81, 227)">#Rincian Biaya</h4>
@@ -98,7 +107,7 @@
 
                         </div>
 
-                       
+
 
                     </div>
 

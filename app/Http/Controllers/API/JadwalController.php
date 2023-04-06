@@ -30,6 +30,7 @@ class JadwalController extends Controller
       }
 
       $jadwal = Jadwal::with(['lokasi_tujuan_r', 'lokasi_keberangkatan_r', 'mobil'])
+         ->where('jenis_pesanan', 'TRAVEL')
          ->whereHas(
             'lokasi_tujuan_r',
             function (Builder $query) use ($request) {
@@ -46,6 +47,13 @@ class JadwalController extends Controller
       return $this->success("Data Jadwal Berdasarkan Lokasi", $jadwal);
    }
 
+   public function getJadwalTour()
+   {
+      $jadwal = Jadwal::with(['mobil'])
+         ->where('jenis_pesanan', 'TOUR')->get();
+      return $this->success("Data Jadwal Berdasarkan Lokasi", $jadwal);
+   }
+
    public function showKursi($id_jadwal)
    {
 
@@ -54,7 +62,7 @@ class JadwalController extends Controller
       $x['title']    = 'Detail Jadwal';
 
       $jadwal =  Jadwal::find($id_jadwal);
-     
+
 
 
       $data = Pesanan::with('jadwal', 'jadwal.lokasi_keberangkatan_r', 'jadwal.lokasi_tujuan_r', 'kursi_pesanan', 'kursi_pesanan.kursi_mobil')
@@ -96,7 +104,14 @@ class JadwalController extends Controller
       //   if ($validator->fails()) {
       //    return $this->error($validator->errors(), 400);
       //   }
-      $jadwal = Jadwal::findOrFail($request->id);
+      $jadwal = Jadwal::with(['lokasi_tujuan_r', 'lokasi_keberangkatan_r', 'mobil'])->where('id',$request->id)->get();
       return $this->success("Data Jadwal Detail", $jadwal);
+   }
+
+
+   
+   public function getTourGaleri(Request $request)
+   {
+      return view('app.api.tour-galeri',);
    }
 }

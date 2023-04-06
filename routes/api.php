@@ -28,6 +28,8 @@ Route::get('pesanan/detail/bayar', [PesananController::class, 'bayar']);
 Route::post('pesanan/detail/upload_bukti', [PesananController::class, 'uploadBukti']);
 Route::get('pesanan/detail/konfirmasi', [PesananController::class, 'konfirmasi']);
 Route::get('pesanan/detail/verifikasi', [PesananController::class, 'detailVerifikasi']);
+Route::get('tour/galeri', [JadwalController::class, 'getTourGaleri']);
+
 
 // Route::post('notif/send', [NotifController::class, 'send']);
 Route::middleware(['auth:api'])->group(function () {
@@ -39,6 +41,7 @@ Route::middleware(['auth:api'])->group(function () {
    Route::post('user/profil/foto/update', [UserController::class, 'updateFoto']);
    Route::post('user/token/fcm', [UserController::class, 'storeTokenFCM']);
 
+   Route::get('jadwal/tour', [JadwalController::class, 'getJadwalTour']);
    Route::post('jadwal/lokasi', [JadwalController::class, 'getJadwalByLokasi']);
    Route::get('jadwal/{id}', [JadwalController::class, 'getJadwalDetail']);
 

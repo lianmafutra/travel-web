@@ -32,8 +32,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::resource('harga', HargaController::class);
    Route::resource('lokasi', LokasiController::class);
    
+
+
+
    Route::resource('jadwal', JadwalController::class);
    Route::get('jadwal/create/tour', [JadwalController::class, 'createTour'])->name('create.tour');
+
 
    Route::resource('kustomer', KustomerController::class);
    Route::resource('rekening', RekeningController::class);

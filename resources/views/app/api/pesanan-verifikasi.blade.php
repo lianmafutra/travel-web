@@ -75,11 +75,18 @@
                                     <th>Tgl Keberangkatan</th>
                                     <td> @tanggal_only($jadwal->tanggal) @jam($jadwal->jam) </td>
                                 </tr>
+                                @if ($jadwal->jenis_pesanan == 'TRAVEL')
                                 <tr>
-                                    <th>Lokasi</th>
-                                    <td>{{ $jadwal->lokasi_keberangkatan_r->nama }} -> {{ $jadwal->lokasi_tujuan_r->nama }}
-                                    </td>
-                                </tr>
+                                 <th>Lokasi</th>
+                                 <td>{{ $jadwal->lokasi_keberangkatan_r->nama }} -> {{ $jadwal->lokasi_tujuan_r->nama }}
+                                 </td>
+                             </tr>
+                                @else
+                                <tr>
+                                 <th>Tour : </th>
+                                 <td> {{ $jadwal->tour_judul }}</td>
+                             </tr>
+                                @endif
                             </table>
                         </div>
 

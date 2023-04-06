@@ -170,6 +170,8 @@ class PesananController extends Controller
       $x['kursi'] = $request->input('id_kursi_pesanan');
       $x['user'] =  User::find($request->input('id_user'));
       $x['jadwal'] = Jadwal::with('mobil', 'supir', 'lokasi_tujuan_r', 'lokasi_keberangkatan_r')->where('id', $request->input('id_jadwal'))->first();
+    
+     
       $array = explode(',', $request->input('id_kursi_pesanan'));
       $x['kursi'] = KursiMobil::whereIn('id',   $array)->get()->pluck('nama')->toArray();
       return view('app.api.pesanan-konfirmasi', $x);
