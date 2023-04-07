@@ -26,6 +26,7 @@
                 @csrf
                 <div class="modal-body">
                     <input hidden id="id" name="id" value="" />
+                    <input hidden id="jenis_pesanan" name="jenis_pesanan" value="TRAVEL" />
                     <x-select2 id="lokasi_tujuan" label="Lokasi Tujuan" required="true"
                         placeholder="Pilih Lokasi Tujuan">
                         @foreach ($lokasi as $item)
