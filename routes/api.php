@@ -28,7 +28,7 @@ Route::get('pesanan/detail/bayar', [PesananController::class, 'bayar']);
 Route::post('pesanan/detail/upload_bukti', [PesananController::class, 'uploadBukti']);
 Route::get('pesanan/detail/konfirmasi', [PesananController::class, 'konfirmasi']);
 Route::get('pesanan/detail/verifikasi', [PesananController::class, 'detailVerifikasi']);
-Route::get('tour/galeri', [JadwalController::class, 'getTourGaleri']);
+Route::get('tour/galeri/{id_jadwal}', [JadwalController::class, 'getTourGaleri']);
 
 
 // Route::post('notif/send', [NotifController::class, 'send']);

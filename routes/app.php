@@ -37,6 +37,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
    Route::resource('jadwal', JadwalController::class);
    Route::get('jadwal/create/tour', [JadwalController::class, 'createTour'])->name('create.tour');
+   Route::get('jadwal/edit/tour/{id}', [JadwalController::class, 'editJadwalTour'])->name('jadwal.edit.tour');
 
 
    Route::resource('kustomer', KustomerController::class);

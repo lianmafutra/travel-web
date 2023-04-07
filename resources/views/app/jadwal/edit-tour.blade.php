@@ -5,20 +5,25 @@
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/flatpicker/flatpickr.min.css') }}">
     <link href="{{ asset('plugins/filepond/filepond.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css" rel="stylesheet">
     <link href="{{ asset('plugins/filepond/filepond-plugin-image-preview.css') }} " rel="stylesheet" />
 @endpush
 @section('content')
     <style>
- .filepond--item {
-        width: calc(32% - 0.5em);
-    }
+        .filepond--item {
+            width: calc(50% - 0.5em);
+        }
+
+        .filepond--file-info-main-container {
+            width: -webkit-fill-available !important;
+        }
     </style>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Tambah Jadwal Tour </h1>
+                        <h1 class="m-0">Edit Jadwal Tour </h1>
                     </div>
                 </div>
             </div>
@@ -44,8 +49,8 @@
                                         </x-select2>
                                         {{-- <x-input-number required=true id="tour_min_orang"
                                             label="Jumlah Minimal Keberangkatan" name="tour_min_orang" value="" /> --}}
-                                        {{-- <x-input-rupiah id='harga' label='Harga per 1 Orang' required=true /> --}}
-                                        <x-input-rupiah id='tour_dp' label='Harga DP Awal' required=true />
+                                        <x-input-rupiah id='harga' label='Harga per 1 Orang' required=true />
+                                        {{-- <x-input-rupiah id='tour_dp' label='Harga DP Awal' required=true /> --}}
                                         <x-datepicker id='tanggal' label='Tanggal Keberangkatan' required=true />
                                         <x-timepicker id='jam' label='Jam Keberangkatan' required=true />
 
@@ -58,8 +63,8 @@
                                         </x-filepond>
                                         <x-filepond label='Tour Galeri' required='true'
                                             info='( Format File jpg/png , Maks 5 MB)'>
-                                            <input multiple id="tour_galeri" type="file" data-max-file-size="5 MB" required
-                                                class="filepond" accept='image/*' name="tour_galeri[]">
+                                            <input multiple id="tour_galeri" type="file" data-max-file-size="5 MB"
+                                                required class="filepond" accept='image/*' name="tour_galeri[]">
                                         </x-filepond>
 
                                     </div>
@@ -87,12 +92,14 @@
     <script src="{{ asset('plugins/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('plugins/flatpicker/flatpickr.min.js') }}"></script>
     <script src="{{ asset('plugins/flatpicker/id.min.js') }}"></script>
-    <script src="{{ asset('plugins/filepond/filepond.js') }}"></script>
-    <script src="{{ asset('plugins/filepond/filepond-plugin-file-metadata.js') }}"></script>
-    <script src="{{ asset('plugins/filepond/filepond-plugin-file-encode.js') }}"></script>
-    <script src="{{ asset('plugins/filepond/filepond-plugin-file-validate-type.js') }}"></script>
-    <script src="{{ asset('plugins/filepond/filepond-plugin-file-validate-size.js') }} "></script>
-    <script src="{{ asset('plugins/filepond/filepond-plugin-image-preview.js') }}"></script>
+    <script src="{{ URL::asset('plugins/filepond/filepond-plugin-image-preview.js') }}"></script>
+    <script src="{{ URL::asset('plugins/filepond/filepond.js') }}"></script>
+    <script src="{{ URL::asset('plugins/filepond/filepond-plugin-file-metadata.js') }}"></script>
+    {{-- <script src="{{ URL::asset('plugins/filepond/filepond-plugin-file-encode.js') }}"></script> --}}
+    <script src="{{ URL::asset('plugins/filepond/filepond-plugin-file-validate-type.js') }}"></script>
+    <script src="{{ URL::asset('plugins/filepond/filepond-plugin-file-validate-size.js') }} "></script>
+    <script src="{{ URL::asset('plugins/filepond/filepond-plugin-get-file.js') }}"></script>
+    <script src="{{ URL::asset('plugins/filepond/filepond-plugin-file-poster.js') }}"></script>
     <script>
         $(document).ready(function() {
 
@@ -100,41 +107,14 @@
                 theme: 'bootstrap4',
             })
 
+
+
+
             const tanggal = flatpickr("#tanggal", {
                 allowInput: true,
                 dateFormat: "d-m-Y",
                 locale: "id",
             });
-
-
-            // Filepond
-            FilePond.registerPlugin(
-            FilePondPluginFileMetadata,
-            FilePondPluginFileEncode,
-            FilePondPluginImagePreview,
-            FilePondPluginFileValidateType,
-            FilePondPluginFileValidateSize);
-
-            let tour_brosur = FilePond.create(document.querySelector('#tour_brosur'));
-           
-            
-            tour_brosur.setOptions({
-                storeAsFile: true,
-            });
-            
-            const inputElements = document.querySelectorAll('#tour_galeri');
-        Array.from(inputElements).forEach(inputElement => {
-            FilePond.create(inputElement, {
-                styleItemPanelAspectRatio: 1,
-                imageCropAspectRatio: '1:1',
-                allowImagePreview: true,
-                allowMultiple: true,
-                imagePreviewHeight: 300,
-                imagePreviewWidth: 300,
-                storeAsFile: true
-            });
-            });
-
 
             const jam = flatpickr("#jam", {
                 enableTime: true,
@@ -142,6 +122,62 @@
                 dateFormat: "H:i",
                 time_24hr: true
             });
+
+
+
+
+
+            FilePond.registerPlugin(FilePondPluginImagePreview,
+                FilePondPluginFileValidateType, FilePondPluginGetFile,
+                FilePondPluginFileValidateSize, FilePondPluginFilePoster);
+
+
+            let tour_brosur = FilePond.create(document.querySelector('#tour_brosur'));
+
+
+            tour_brosur.setOptions({
+                storeAsFile: true,
+                styleItemPanelAspectRatio: 1,
+                imageCropAspectRatio: '1:1',
+                allowImagePreview: true,
+                instantUpload: false,
+                allowMultiple: true,
+                imagePreviewHeight: 300,
+                imagePreviewWidth: 300,
+                storeAsFile: true,
+                files: [{
+                    source: window.location.origin + "/storage/" + @json($jadwal->tour_brosur)
+                }]
+
+            });
+
+            var data = @json($jadwal->tour_galeri);
+            var cups = [];
+            for (let index = 0; index < data.length; index++) {
+                cups.push({
+                    source: window.location.origin + "/storage/" + data[index]["foto"]
+                });
+            }
+            const inputElements = document.querySelectorAll('#tour_galeri');
+
+
+            const pond = FilePond.create(
+                document.querySelector('#tour_galeri'), {
+                    styleItemPanelAspectRatio: 1,
+                    imageCropAspectRatio: '1:1',
+                    allowImagePreview: true,
+
+                    instantUpload: false,
+                    allowMultiple: true,
+                    imagePreviewHeight: 300,
+                    imagePreviewWidth: 300,
+                    storeAsFile: true,
+                    files: cups
+                }
+            );
+
+
+
 
             $('.tanggal').mask('00-00-0000');
             AutoNumeric.multiple('.rupiah', {
@@ -195,6 +231,13 @@
 
                 //  xhr.abort()
             });
+
+            $('#id').val(@json($jadwal->id))
+            $('#tour_deskripsi').val(@json($jadwal->tour_deskripsi))
+            $('#mobil_id').val(@json($jadwal->mobil_id)).trigger('change');
+            AutoNumeric.getAutoNumericElement('#harga').set(@json($jadwal->harga))
+            tanggal.setDate(@json($jadwal->tanggal))
+            jam.setDate(@json($jadwal->jam))
 
 
         })

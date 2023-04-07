@@ -103,4 +103,9 @@ class Jadwal extends Model
    public function getFotoBrosur(){
       return asset('storage/'.$this->tour_brosur);
    }
+
+   public function tour_galeri()
+   {
+      return $this->hasMany(TourGaleri::class)->orderBy('position');
+   }
 }
