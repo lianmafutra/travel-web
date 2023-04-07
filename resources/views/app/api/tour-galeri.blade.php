@@ -63,6 +63,7 @@
         /* Number text (1/3 etc) */
         .numbertext {
             color: #f2f2f2;
+            background-color: rgb(80, 80, 202);
             font-size: 12px;
             padding: 8px 12px;
             position: absolute;
@@ -106,35 +107,13 @@
 
                 <body>
                     <div class="container">
-                        <div class="mySlides">
-                            <div class="numbertext">1 / 6</div>
-                            <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                        </div>
 
-                        <div class="mySlides">
-                            <div class="numbertext">2 / 6</div>
-                            <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">3 / 6</div>
-                            <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">4 / 6</div>
-                            <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">5 / 6</div>
-                            <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                        </div>
-
-                        <div class="mySlides">
-                            <div class="numbertext">6 / 6</div>
-                            <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                        </div>
+                        @foreach ($galeri as $index => $item)
+                            <div class="mySlides">
+                                <div class="numbertext">{{ $index+1 }} / {{ $galeri->count() }}</div>
+                                <img src="{{ asset('storage/' . $item->foto) }}" style="width:100%">
+                            </div>
+                        @endforeach
 
                         <a class="prev" onclick="plusSlides(-1)">❮</a>
                         <a class="next" onclick="plusSlides(1)">❯</a>
@@ -143,32 +122,9 @@
                             <p id="caption"></p>
                         </div>
 
-                        <div class="row">
-                            <div class="column">
-                                <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(1)"
-                                    alt="The Woods">
-                            </div>
-                            <div class="column">
-                                <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(2)"
-                                    alt="Cinque Terre">
-                            </div>
-                            <div class="column">
-                                <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%"
-                                    onclick="currentSlide(3)" alt="Mountains and fjords">
-                            </div>
-                            <div class="column">
-                                <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(4)"
-                                    alt="Northern Lights">
-                            </div>
-                            <div class="column">
-                                <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(5)"
-                                    alt="Nature and sunrise">
-                            </div>
-                            <div class="column">
-                                <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(6)"
-                                    alt="Snowy Mountains">
-                            </div>
-                        </div>
+                      
+
+                      
                     </div>
 
                     <script>

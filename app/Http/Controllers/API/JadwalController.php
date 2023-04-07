@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use App\Models\KursiMobil;
 use App\Models\Mobil;
 use App\Models\Pesanan;
+use App\Models\TourGaleri;
 use App\Utils\ApiResponse;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -112,6 +113,8 @@ class JadwalController extends Controller
    
    public function getTourGaleri(Request $request)
    {
-      return view('app.api.tour-galeri',);
+     $galeri = TourGaleri::where('jadwal_id', request()->get('id_jadwal'))->get();
+     
+      return view('app.api.tour-galeri', compact('galeri'));
    }
 }
