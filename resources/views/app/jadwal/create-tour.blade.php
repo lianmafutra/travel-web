@@ -45,7 +45,7 @@
                                         </x-select2>
                                         {{-- <x-input-number required=true id="tour_min_orang"
                                             label="Jumlah Minimal Keberangkatan" name="tour_min_orang" value="" /> --}}
-                                        {{-- <x-input-rupiah id='harga' label='Harga per 1 Orang' required=true /> --}}
+                                        <x-input-rupiah id='harga' label='Harga per 1 Orang' required=true />
                                         {{-- <x-input-rupiah id='tour_dp' label='Harga DP Awal' required=true /> --}}
                                         <x-datepicker id='tanggal' label='Tanggal Keberangkatan' required=true />
                                         <x-timepicker id='jam' label='Jam Keberangkatan' required=true />
