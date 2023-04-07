@@ -42,9 +42,9 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Jenis</th>
+                                                    <th style="min-width: 200px;">Judul</th>
                                                     <th>Brosur</th>
-                                                    <th>Minimal Keberangkatan</th>
-                                                    <th>Tour DP</th>
+                                                  
                                                     <th>Keberangkatan</th>
                                                     <th>Tujuan</th>
                                                     <th>Kursi Tersedia</th>
@@ -147,33 +147,28 @@
                //      [2, 'desc']
                //  ],
                 ajax: @json(route('jadwal.index')),
-
+                
+    
                 columns: [{
                         data: "DT_RowIndex",
                         orderable: false,
                         searchable: false,
                         width: '1%'
                     },
+                    
                     {
                         data: 'jenis_pesanan',
                     },
                     {
+                        data: 'tour_judul',
+                        defaultContent : '-'
+                       
+                    },
+                    {
                         data: 'tour_brosur',
                     },
-                    {
-                        data: 'tour_min_orang',
-                    },
-                    {
-                        data: 'tour_dp',
-                        render: function(data, type, row, meta) {
-                           if(row.jenis_pesanan == "TOUR"){
-                              return rupiah(data)
-                           }else{
-                              return "-"
-                           }
-                           
-                        }
-                    },
+                    
+                    
                     {
                         data: 'lokasi_keberangkatan_r.nama',
                         defaultContent : '-'

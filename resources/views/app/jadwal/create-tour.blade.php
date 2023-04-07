@@ -35,7 +35,8 @@
                                     <div class="modal-body">
                                         <input hidden id="id" name="id" value="" />
                                         <input hidden id="jenis_pesanan" name="jenis_pesanan" value="TOUR" />
-
+                                        <x-input id="tour_judul" required="true" label="Nama Tour"
+                                        hint=""></x-input>
                                         <x-select2 id="mobil_id" label="Mobil" required="true" placeholder="Pilih Mobil">
                                             @foreach ($mobil as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }} |

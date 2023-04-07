@@ -40,7 +40,8 @@
                                     <div class="modal-body">
                                         <input hidden id="id" name="id" value="" />
                                         <input hidden id="jenis_pesanan" name="jenis_pesanan" value="TOUR" />
-
+                                        <x-input id="tour_judul" required="true" label="Nama Tour"
+                                        hint=""></x-input>
                                         <x-select2 id="mobil_id" label="Mobil" required="true" placeholder="Pilih Mobil">
                                             @foreach ($mobil as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }} |
@@ -61,7 +62,7 @@
                                             <input id="tour_brosur" type="file" data-max-file-size="5 MB" required
                                                 class="filepond" accept='image/*' name="tour_brosur">
                                         </x-filepond>
-                                        <x-filepond label='Tour Galeri' required='true'
+                                        <x-filepond label='Tour Galeri' required='false'
                                             info='( Format File jpg/png , Maks 5 MB)'>
                                             <input multiple id="tour_galeri" type="file" data-max-file-size="5 MB"
                                                 required class="filepond" accept='image/*' name="tour_galeri[]">
@@ -233,6 +234,7 @@
             });
 
             $('#id').val(@json($jadwal->id))
+            $('#tour_judul').val(@json($jadwal->tour_judul))
             $('#tour_deskripsi').val(@json($jadwal->tour_deskripsi))
             $('#mobil_id').val(@json($jadwal->mobil_id)).trigger('change');
             AutoNumeric.getAutoNumericElement('#harga').set(@json($jadwal->harga))
