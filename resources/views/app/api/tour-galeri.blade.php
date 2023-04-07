@@ -105,64 +105,70 @@
         <section class="content">
             <div class="container-fluid">
 
-                <body>
-                    <div class="container">
+                @if ($galeri->count() > 0)
 
-                        @foreach ($galeri as $index => $item)
-                            <div class="mySlides">
-                                <div class="numbertext">{{ $index+1 }} / {{ $galeri->count() }}</div>
-                                <img src="{{ asset('storage/' . $item->foto) }}" style="width:100%">
+                    <body>
+                        <div class="container">
+
+                            @foreach ($galeri as $index => $item)
+                                <div class="mySlides">
+                                    <div class="numbertext">{{ $index + 1 }} / {{ $galeri->count() }}</div>
+                                    <img src="{{ asset('storage/' . $item->foto) }}" style="width:100%">
+                                </div>
+                            @endforeach
+
+                            <a class="prev" onclick="plusSlides(-1)">❮</a>
+                            <a class="next" onclick="plusSlides(1)">❯</a>
+
+                            <div class="caption-container">
+                                <p id="caption"></p>
                             </div>
-                        @endforeach
 
-                        <a class="prev" onclick="plusSlides(-1)">❮</a>
-                        <a class="next" onclick="plusSlides(1)">❯</a>
 
-                        <div class="caption-container">
-                            <p id="caption"></p>
+
+
                         </div>
 
-                      
+                        <script>
+                            let slideIndex = 1;
+                            showSlides(slideIndex);
 
-                      
-                    </div>
-
-                    <script>
-                        let slideIndex = 1;
-                        showSlides(slideIndex);
-
-                        function plusSlides(n) {
-                            showSlides(slideIndex += n);
-                        }
-
-                        function currentSlide(n) {
-                            showSlides(slideIndex = n);
-                        }
-
-                        function showSlides(n) {
-                            let i;
-                            let slides = document.getElementsByClassName("mySlides");
-                            let dots = document.getElementsByClassName("demo");
-                            let captionText = document.getElementById("caption");
-                            if (n > slides.length) {
-                                slideIndex = 1
+                            function plusSlides(n) {
+                                showSlides(slideIndex += n);
                             }
-                            if (n < 1) {
-                                slideIndex = slides.length
-                            }
-                            for (i = 0; i < slides.length; i++) {
-                                slides[i].style.display = "none";
-                            }
-                            for (i = 0; i < dots.length; i++) {
-                                dots[i].className = dots[i].className.replace(" active", "");
-                            }
-                            slides[slideIndex - 1].style.display = "block";
-                            dots[slideIndex - 1].className += " active";
-                            captionText.innerHTML = dots[slideIndex - 1].alt;
-                        }
-                    </script>
 
-                </body>
+                            function currentSlide(n) {
+                                showSlides(slideIndex = n);
+                            }
+
+                            function showSlides(n) {
+                                let i;
+                                let slides = document.getElementsByClassName("mySlides");
+                                let dots = document.getElementsByClassName("demo");
+                                let captionText = document.getElementById("caption");
+                                if (n > slides.length) {
+                                    slideIndex = 1
+                                }
+                                if (n < 1) {
+                                    slideIndex = slides.length
+                                }
+                                for (i = 0; i < slides.length; i++) {
+                                    slides[i].style.display = "none";
+                                }
+                                for (i = 0; i < dots.length; i++) {
+                                    dots[i].className = dots[i].className.replace(" active", "");
+                                }
+                                slides[slideIndex - 1].style.display = "block";
+                                dots[slideIndex - 1].className += " active";
+                                captionText.innerHTML = dots[slideIndex - 1].alt;
+                            }
+                        </script>
+
+                    </body>
+                @else
+                    <h4>Maaf Foto Tidak Tersedia</h4>
+                @endif
+
 
             </div>
     </div>
@@ -170,13 +176,10 @@
     </div>
 @endsection
 @push('js')
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2-min.js') }}"></script>
+  
     <script>
         getData()
-
         function getData(val) {
-
-
         }
     </script>
 @endpush
