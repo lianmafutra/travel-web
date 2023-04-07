@@ -168,8 +168,6 @@
                 @else
                     <h4>Maaf Foto Tidak Tersedia</h4>
                 @endif
-
-
             </div>
     </div>
     </section>
